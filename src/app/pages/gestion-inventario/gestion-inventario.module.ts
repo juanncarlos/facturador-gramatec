@@ -29,7 +29,9 @@ export const routes: Routes = [
     NgbModule,
     CKEditorModule,
     DirectivesModule,
+    NgbModule,
     RouterModule.forChild(routes)
+    
   ],
   declarations: [
     /* ControlsComponent,
