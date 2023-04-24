@@ -14,6 +14,10 @@ export const routes: Routes = [
       { path: 'membership', loadChildren: () => import('./pages/membership/membership.module').then(m => m.MembershipModule), data: { breadcrumb: 'Membership' } },
       { path: 'ui', loadChildren: () => import('./pages/ui/ui.module').then(m => m.UiModule), data: { breadcrumb: 'UI' } },
       { path: 'form-elements', loadChildren: () => import('./pages/form-elements/form-elements.module').then(m => m.FormElementsModule), data: { breadcrumb: 'Form Elements' } },
+
+        /* agregando ruta de gestion e inventario */
+      { path: 'gestion-inventario', loadChildren: () => import('./pages/gestion-inventario/gestion-inventario.module').then(m => m.GestionInventarioModule), data: { breadcrumb: 'Gestion inventario' } },
+
       { path: 'tables', loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule), data: { breadcrumb: 'Tables' } },
       { path: 'tools', loadChildren: () => import('./pages/tools/tools.module').then(m => m.ToolsModule), data: { breadcrumb: 'Tools' } },
       { path: 'calendar', loadChildren: () => import('./pages/calendar/app-calendar.module').then(m => m.AppCalendarModule), data: { breadcrumb: 'Calendar' } },

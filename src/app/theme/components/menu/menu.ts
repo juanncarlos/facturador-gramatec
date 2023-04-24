@@ -14,11 +14,22 @@ export const verticalMenuItems = [
     new Menu (11, 'Typography', '/ui/typography', null, 'font', null, false, 3),
     new Menu (15, 'ADMIN_NAV.DYNAMIC_MENU', '/dynamic-menu', null, 'list-ul', null, false, 0),    
     new Menu (16, 'ADMIN_NAV.MAILBOX', '/mailbox', null, 'envelope-o', null, false, 0),
+
     new Menu (20, 'ADMIN_NAV.FORM_ELEMENTS', null, null, 'pencil-square-o', null, true, 0), 
     new Menu (21, 'Form Controls', '/form-elements/controls', null, 'check-square-o', null, false, 20),
     new Menu (22, 'Form Layouts', '/form-elements/layouts', null, 'th-large', null, false, 20),
     new Menu (24, 'Form Wizard', '/form-elements/wizard', null, 'magic', null, false, 20),
     new Menu (25, 'Editor', '/form-elements/editor', null, 'pencil', null, false, 20),
+
+    /* menu para gestion e inventario */
+    new Menu (200, 'ADMIN_NAV.GESTION-INVENTARIO', null, null, 'pencil-square-o', null, true, 0), 
+    new Menu (201, 'Cliente', '/gestion-inventario/cliente', null, 'check-square-o', null, false, 200),
+    new Menu (202, 'Producto', '/gestion-inventario/producto', null, 'th-large', null, false, 200),
+    new Menu (203, 'Vehiculo', '/gestion-inventario/vehiculo', null, 'magic', null, false, 200),
+    
+
+
+
     new Menu (26, 'ADMIN_NAV.TABLES', null, null, 'table', null, true, 0),
     new Menu (27, 'Basic Tables', '/tables/basic-tables', null, 'th', null, false, 26), 
     new Menu (28, 'Dynamic Tables', null, null, 'th-large', null, true, 26), 

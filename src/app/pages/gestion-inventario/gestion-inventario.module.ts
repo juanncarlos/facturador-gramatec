@@ -6,16 +6,18 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DirectivesModule } from '../../theme/directives/directives.module';
+
+/* componentes creados */
 import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'controls', pathMatch: 'full'},
-  /* { path: 'controls', component: ControlsComponent, data: { breadcrumb: 'Form Controls' } },
-  { path: 'layouts', component: LayoutsComponent, data: { breadcrumb: 'Layouts' } },
-  { path: 'wizard', component: WizardComponent, data: { breadcrumb: 'Wizard' } },
-  { path: 'editor', component: EditorComponent, data: { breadcrumb: 'Editor' } } */
+  { path: '', redirectTo: 'cliente', pathMatch: 'full'},
+  { path: 'cliente', component: ClienteComponent, data: { breadcrumb: 'Cliente' } },
+  { path: 'producto', component: ProductoComponent, data: { breadcrumb: 'Producto' } },
+  { path: 'vehiculo', component: VehiculoComponent, data: { breadcrumb: 'Vehiculo' } }
+  /* { path: 'editor', component: EditorComponent, data: { breadcrumb: 'Editor' } } */
 ];
 
 @NgModule({
@@ -43,4 +45,4 @@ export const routes: Routes = [
     ProductoComponent
   ]
 })
-export class GestionInventario { }
+export class GestionInventarioModule { }
