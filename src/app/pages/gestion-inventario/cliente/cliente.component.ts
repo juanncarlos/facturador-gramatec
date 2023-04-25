@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClienteService } from './cliente.service';
 
 @Component({
   selector: 'app-cliente',
@@ -9,15 +10,23 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ClienteComponent implements OnInit {
 
-  public searchText: string;
 
+ 
+  
+  public searchText: string;
   public modalRef: NgbModalRef;
 
-  constructor(public modalService: NgbModal) { }
+  ubigeo: any [] = [];
+  
+
+  constructor(public modalService: NgbModal,
+              public clienteService: ClienteService) { 
+              }
 
   ngOnInit(): void {
+    this.ubigeo = this.clienteService.getUbigeo();
+    
   }
-
 
   public openModal(modalContent, user) {
     /* if(user){

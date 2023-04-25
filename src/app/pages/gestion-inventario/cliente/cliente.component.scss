@@ -1,3 +1,24 @@
 .agregar {
     cursor: pointer;
 }
+
+.modal {
+    padding: 0% !important;
+    margin: 0% !important;
+}
+
+.tab-content {
+    padding: 0px 0px;
+}
+
+
+/* estilos para el boton buscar cliente */
+
+.contendor-buscar {
+    position: relative;
+}
+
+.btn-buscar {
+    position: absolute;
+    bottom: 0;
+}
