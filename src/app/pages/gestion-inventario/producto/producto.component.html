@@ -105,15 +105,15 @@
                                 </li>
 
                                 <li class="nav-item btn-producto" role="presentation">
-                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#categoriaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Tributo</button>
+                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#tributoProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Tributo</button>
                                 </li>
 
                                 <li class="nav-item btn-producto" role="presentation">
-                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#categoriaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Caracteristicas</button>
+                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#caracteristicaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Caracteristica</button>
                                 </li>
 
                                 <li class="nav-item btn-producto" role="presentation">
-                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#categoriaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Homologar</button>
+                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#homologarProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Homologar</button>
                                 </li>
 
                             </ul>
@@ -173,18 +173,52 @@
                                                 <option>Other</option>
                                             </select>
                                         </div>
+
                                         <div class="form-group col-md-4">
-                                            <label class="text-gray">Stock:</label>
+                                            <label class="text-gray">Stock</label>
                                             <input formControlName="stock" name="stock" class="form-control validation-field" type="number">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label class="form-control-label text-gray">Categoria:</label>
-                                            <select formControlName="categpria" name="categoria" class="form-control">
+                                            <label class="text-gray">Stock Minimo</label>
+                                            <input formControlName="stockMinimo" name="stockMinimo" class="form-control validation-field" type="number">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label class="form-control-label text-gray">Categoria</label>
+                                            <select formControlName="categoria" name="categoria" class="form-control">
                                                 <option>Texas</option>
                                                 <option>California</option>
                                                 <option>Florida</option>
                                                 <option>Other</option>
                                             </select>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="form-control-label text-gray">Subcategoria</label>
+                                            <select formControlName="subCategoria" name="subCategoria" class="form-control">
+                                                <option>Texas</option>
+                                                <option>California</option>
+                                                <option>Florida</option>
+                                                <option>Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4 ">
+
+                                            <div>
+                                                <div class="input-group-text bg-white border-0">
+                                                    <input formControlName="activoProducto" type="checkbox" id="activoProducto" aria-label="Checkbox for following text input">
+                                                    <label class="text-gray ml-1 " for="activoProducto">Activo</label>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="input-group-text bg-white border-0">
+                                                    <input formControlName="inactivoProducto" type="checkbox" id="inactivoProducto" aria-label="Checkbox for following text input">
+                                                    <label class="text-gray ml-1 " for="inactivoProducto">Inactivo</label>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -255,6 +289,95 @@
 
                                 </div>
 
+
+                                <!-- =============================== vista de tipo tributo ========================================== -->
+                                <div class="tab-pane fade" id="tributoProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="text-gray">Tipo Tributo</label>
+                                            <select formControlName="tipoTributo" name="tipoTributo" class="form-control">
+                                                    <option>DNI</option>
+                                                    <option>RUC</option>
+                                                    <option>Pasaporte</option>
+                                                    <option>Otro</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="text-gray">Afecto</label>
+                                            <select formControlName="afecto" name="afecto" class="form-control">
+                                                    <option>DNI</option>
+                                                    <option>RUC</option>
+                                                    <option>Pasaporte</option>
+                                                    <option>Otro</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-8">
+                                            <label class="text-gray">ISC-IMP. SELEC</label>
+                                            <select formControlName="ISC-IMP" name="ISC-IMP" class="form-control">
+                                                <option>DNI</option>
+                                                <option>RUC</option>
+                                                <option>Pasaporte</option>
+                                                <option>Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="text-gray"></label>
+                                            <input formControlName="codtributo" name="codtributo" class="form-control validation-field" type="text">
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <!-- =============================== vista de Caracteristica Producto ========================================== -->
+                                <div class="tab-pane fade" id="caracteristicaProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                                    <div class="row mb-2">
+                                        <div class="col text-right ">
+                                            <button type="button" class="btn btn-info">Agregar Pack</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="text-gray">Caracteristica</label>
+                                            <input formControlName="caracteristica" name="caracteristica" class="form-control validation-field" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="text-gray">Valor</label>
+                                            <input formControlName="valor" name="valor" class="form-control validation-field" type="text">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- =============================== vista de Homologar Producto ========================================== -->
+                                <div class="tab-pane fade" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label class="text-gray">Homologar Producto</label>
+                                            <select formControlName="homologarProducto" name="homologarProducto" class="form-control">
+                                                <option>DNI</option>
+                                                <option>RUC</option>
+                                                <option>Pasaporte</option>
+                                                <option>Otro</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
