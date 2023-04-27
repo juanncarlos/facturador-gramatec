@@ -7,8 +7,9 @@
             <input type="text" placeholder="Buscar producto..." class="form-control border-0">
             <div class="input-group-append">
                 <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span>
-                <span class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-th"></i></span>
-                <span class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-list"></i></span>
+                <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer"><i class="fa fa-arrow-down"></i></span>
+                <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer"><i class="fa fa-arrow-up"></i></span>
+                <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer">CONFIGURACION<i class="fa fa-cog ml-1"></i></span>
             </div>
         </div>
     </div>
@@ -90,139 +91,154 @@
           </button>
             </div> -->
 
-            <div class="modal-body border-0">
+            <div class="modal-body">
 
-                <!-- <div class="col-12 vertical-tabs"> -->
-                <form class="row">
-                    <div class="tab-content col-12 border-0">
-                        <ul class="nav nav-pills mb-3 border-0 rounded-0 mr-0 enlace-producto " id="pills-tab" role="tablist">
-                            <li class="nav-item btn-producto" role="presentation">
-                                <button class="nav-link active border-0" id="pills-home-tab" data-toggle="pill" data-target="#detalleProducto" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Datos</button>
-                            </li>
-                            <li class="nav-item btn-producto" role="presentation">
-                                <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#packsProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pack</button>
-                            </li>
+                <div class="col-12">
+                    <form class="row">
+                        <div class="tab-content col-12 border-0">
+                            <ul class="nav nav-pills mb-3 border-0 rounded-0 mr-0 enlace-producto " id="pills-tab" role="tablist">
+                                <li class="nav-item btn-producto" role="presentation">
+                                    <button class="nav-link active border-0" id="pills-home-tab" data-toggle="pill" data-target="#detalleProducto" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Datos</button>
+                                </li>
+                                <li class="nav-item btn-producto" role="presentation">
+                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#packsProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pack</button>
+                                </li>
 
-                        </ul>
-                        <hr>
-                        <div class="tab-content border-0" id="pills-tabContent">
+                                <li class="nav-item btn-producto" role="presentation">
+                                    <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#categoriaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Categoría</button>
+                                </li>
 
-                            <!-- vista de detalle producto -->
-                            <div class="tab-pane fade show active" id="detalleProducto" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">Código:</label>
-                                        <input formControlName="codigoProducto" name="codigoProducto" class="form-control validation-field" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="form-control-label text-gray">Marca:</label>
-                                        <select formControlName="marca" name="marca" class="form-control">
+                            </ul>
+                            <hr>
+                            <div class="tab-content border-0" id="pills-tabContent">
+
+                                <!-- vista de detalle producto -->
+                                <div class="tab-pane fade show active" id="detalleProducto" role="tabpanel" aria-labelledby="pills-home-tab">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label class="text-gray">Código:</label>
+                                            <input formControlName="codigoProducto" name="codigoProducto" class="form-control validation-field" type="text">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="form-control-label text-gray">Marca:</label>
+                                            <select formControlName="marca" name="marca" class="form-control">
                                                 <option>DNI</option>
                                                 <option>RUC</option>
                                                 <option>Pasaporte</option>
                                                 <option>Otro</option>
                                             </select>
+                                        </div>
+
                                     </div>
 
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="text-gray">Descripcion:</label>
-                                    <input formControlName="descripcion" name="descripcion" class="form-control validation-field" type="text">
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label class="form-control-label text-gray">Unidad Medida</label>
-                                        <select formControlName="unidadMedida" name="unidadMedida" class="form-control">
+                                    <div class="form-group">
+                                        <label class="text-gray">Descripcion:</label>
+                                        <input formControlName="descripcion" name="descripcion" class="form-control validation-field" type="text">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label class="form-control-label text-gray">Unidad Medida</label>
+                                            <select formControlName="unidadMedida" name="unidadMedida" class="form-control">
                                                 <option>Texas</option>
                                                 <option>California</option>
                                                 <option>Florida</option>
                                                 <option>Other</option>
                                             </select>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="text-gray">Stock:</label>
-                                        <input formControlName="stock" name="stock" class="form-control validation-field" type="number">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="form-control-label text-gray">Categoria:</label>
-                                        <select formControlName="categpria" name="categoria" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="text-gray">Stock:</label>
+                                            <input formControlName="stock" name="stock" class="form-control validation-field" type="number">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="form-control-label text-gray">Categoria:</label>
+                                            <select formControlName="categpria" name="categoria" class="form-control">
                                                 <option>Texas</option>
                                                 <option>California</option>
                                                 <option>Florida</option>
                                                 <option>Other</option>
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label class="text-gray">Precio Compra:</label>
+                                            <input formControlName="precioCompra" name="precioCompra" class="form-control validation-field" type="number">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="text-gray">Precio Venta:</label>
+                                            <input formControlName="precioVenta" name="precioVenta" class="form-control validation-field" type="number">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label class="text-gray">Peso:</label>
+                                            <input formControlName="peso" name="peso" class="form-control validation-field" type="number">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="text-gray" for="imagen">Selecciona imagen:</label>
+                                        <input type="file" formControlName="imagen" id="imagen" name="imagen">
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <label class="text-gray">Precio Compra:</label>
-                                        <input formControlName="precioCompra" name="precioCompra" class="form-control validation-field" type="number">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="text-gray">Precio Venta:</label>
-                                        <input formControlName="precioVenta" name="precioVenta" class="form-control validation-field" type="number">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label class="text-gray">Peso:</label>
-                                        <input formControlName="peso" name="peso" class="form-control validation-field" type="number">
-                                    </div>
-                                </div>
+                                <!-- vista de packs de productos -->
+                                <div class="tab-pane fade" id="packsProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-                                <div class="form-group ">
-                                    <label class="text-gray" for="imagen">Selecciona imagen:</label>
-                                    <input type="file" formControlName="imagen" id="imagen" name="imagen">
-                                </div>
-                            </div>
-
-                            <!-- vista de packs de productos -->
-                            <div class="tab-pane fade" id="packsProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-                                <div class="row mb-2">
-                                    <div class="col text-right ">
-                                        <button type="button" class="btn btn-info">Agregar Pack</button>
+                                    <div class="row mb-2">
+                                        <div class="col text-right ">
+                                            <button type="button" class="btn btn-info">Agregar Pack</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-3">
-                                        <label class="text-gray">Medida</label>
-                                        <select formControlName="medidaPack" name="medidaPack" class="form-control">
+
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label class="text-gray">Codigo Barra:</label>
+                                            <input formControlName="codigoBarraPack" name="codigoBarraPack" class="form-control validation-field" type="text">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class="text-gray">Serie:</label>
+                                            <input formControlName="seriePack" name="seriePack" class="form-control validation-field" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label class="text-gray">Medida</label>
+                                            <select formControlName="medidaPack" name="medidaPack" class="form-control">
                                                 <option>DNI</option>
                                                 <option>RUC</option>
                                                 <option>Pasaporte</option>
                                                 <option>Otro</option>
                                             </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="text-gray">Cantidad:</label>
-                                        <input formControlName="cantidadPack" name="cantidadPack" class="form-control validation-field" type="number">
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="text-gray">Precio:</label>
-                                        <input formControlName="precioPack" name="precioPack" class="form-control validation-field" type="number">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="text-gray">Cantidad:</label>
+                                            <input formControlName="cantidadPack" name="cantidadPack" class="form-control validation-field" type="number">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label class="text-gray">Precio:</label>
+                                            <input formControlName="precioPack" name="precioPack" class="form-control validation-field" type="number">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button class="btn btn-danger btn-sm mt-2"><i class="fa fa-trash"></i></button>
+                                        </div>
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <button class="btn btn-danger btn-sm mt-2"><i class="fa fa-trash"></i></button>
-                                    </div>
+
                                 </div>
-
 
                             </div>
 
                         </div>
 
-                    </div>
+                        <div class="col-12 bg-white text-center py-1">
+                            <button class="btn btn-success mr-1" type="submit"><span>Agregar</span><span>Actualizar</span></button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
 
-                    <div class="col-12 bg-white text-center py-1">
-                        <button class="btn btn-success mr-1" type="submit"><span>Agregar</span><span>Actualizar</span></button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </form>
             </div>
-
-            <!--  </div> -->
 
         </div>
     </div>
