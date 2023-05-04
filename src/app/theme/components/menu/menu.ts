@@ -22,12 +22,16 @@ export const verticalMenuItems = [
     new Menu (25, 'Editor', '/form-elements/editor', null, 'pencil', null, false, 20),
 
     /* menu para gestion e inventario */
+    new Menu (300, 'ADMIN_NAV.GESTION-VENTA', null, null, 'pencil-square-o', null, true, 0), 
+    new Menu (301, 'Nota-venta', '/gestion-venta/nota-venta', null, 'check-square-o', null, false, 300),
+    new Menu (302, 'Cotizacion', '/gestion-venta/cotizacion', null, 'th-large', null, false, 300),
+    new Menu (303, 'Consulta-farvet', '/gestion-venta/consulta-farvet', null, 'magic', null, false, 300),
+
+    /* menu para gestion venta */
     new Menu (200, 'ADMIN_NAV.GESTION-INVENTARIO', null, null, 'pencil-square-o', null, true, 0), 
     new Menu (201, 'Cliente', '/gestion-inventario/cliente', null, 'check-square-o', null, false, 200),
     new Menu (202, 'Producto', '/gestion-inventario/producto', null, 'th-large', null, false, 200),
     new Menu (203, 'Vehiculo', '/gestion-inventario/vehiculo', null, 'magic', null, false, 200),
-    
-
 
 
     new Menu (26, 'ADMIN_NAV.TABLES', null, null, 'table', null, true, 0),

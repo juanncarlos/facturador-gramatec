@@ -5,6 +5,7 @@ import { BlankComponent } from './pages/blank/blank.component';
 import { SearchComponent } from './pages/search/search.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 
+
 export const routes: Routes = [
   {
     path: '', 
@@ -17,6 +18,9 @@ export const routes: Routes = [
 
         /* agregando ruta de gestion e inventario */
       { path: 'gestion-inventario', loadChildren: () => import('./pages/gestion-inventario/gestion-inventario.module').then(m => m.GestionInventarioModule), data: { breadcrumb: 'Gestion inventario' } },
+
+      /* agregando ruta de gestion venta */
+      { path: 'gestion-venta', loadChildren: () => import('./pages/gestion-venta/gestion-venta.module').then(m => m.GestionVentaModule), data: { breadcrumb: 'Gestion venta' } },
 
       { path: 'tables', loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule), data: { breadcrumb: 'Tables' } },
       { path: 'tools', loadChildren: () => import('./pages/tools/tools.module').then(m => m.ToolsModule), data: { breadcrumb: 'Tools' } },
