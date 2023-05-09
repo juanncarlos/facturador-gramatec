@@ -1,0 +1,106 @@
+<div class="row d-flex justify-content-between">
+    <div class="col col-md-3">
+        <div class="form-group">
+            <label class="text">Fecha Inicio:</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaInicio" type="date">
+                <!-- <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-3">
+        <div class="form-group">
+            <label class="text">Fecha Fin:</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaFin" type="date">
+                <!-- <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-3">
+        <div class="form-group">
+            <label class="text"></label>
+            <div class="input-group">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-3">
+        <div class="form-group">
+            <label class="text"></label>
+            <div class="input-group">
+                <button class="btn btn-success" [routerLink]="['nueva-cotizacion02']">Nueva Cotización <i class="fa fa-plus ml-1"></i> </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-1">
+    <div class="col">
+        <div class="input-group mb-3 box-shadow">
+            <div class="input-group-prepend">
+                <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
+            </div>
+            <input type="text" placeholder="Buscar..." class="form-control border-0">
+            <div class="input-group-append">
+                <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span>
+                <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer"><i class="fa fa-arrow-down"></i></span>
+                <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer"><i class="fa fa-arrow-up"></i></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- listado  -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive bg-white box-shadow">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>SERIE</th>
+                        <th>NUMERO</th>
+                        <th>RUC</th>
+                        <th>CLIENTE</th>
+                        <th>TOTAL</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle text-truncate">DNI</td>
+                        <td class="align-middle text-truncate">77499689</td>
+                        <td class="align-middle text-truncate">234567</td>
+                        <td class="align-middle text-truncate">234567</td>
+                        <td class="align-middle text-truncate">gfhfghfghdfgh</td>
+                        <td class="align-middle text-truncate">968</td>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-truncate">RUC</td>
+                        <td class="align-middle text-truncate">10774996899</td>
+                        <td class="align-middle text-truncate">2345678</td>
+                        <td class="align-middle text-truncate">12345678</td>
+                        <td class="align-middle text-truncate">dgfhdgfhdgfhdfgh</td>
+                        <td class="align-middle text-truncate">968</td>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+<div class="col-12">
+    <form class="row">
+        <div class="tab-content col-12 border-0">
+
+            <div class="tab-content border-0" id="pills-tabContent">
+
+                <!-- vista de detalle producto -->
+                <div class="tab-pane fade show active" id="detalleProducto" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="row">
+                        <div class="form-group col-md-2">
+                            <label class="text-gray">Cantidad</label>
+                            <input formControlName="codigoTributo" name="codigoTributo" class="form-control validation-field" type="number">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="text-gray">Código de barras</label>
+                            <input formControlName="codigoTributo" name="codigoTributo" class="form-control validation-field" type="text">
+                        </div>
+                        <div class="form-group col-md-7">
+                            <label class="text-gray">Producto</label>
+                            <input formControlName="codigoTributo" name="codigoTributo" class="form-control validation-field" type="text">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive bg-white">
+                                <table class="table table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>CANTIDAD</th>
+                                            <th>DESCRIPCION</th>
+                                            <th>PREC. UNIT</th>
+                                            <th>DESC %</th>
+                                            <th>DESC</th>
+                                            <th>TOTAL</th>
+                                            <th>ACCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td width="50px">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control">
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-truncate ">FDGHFDHDFGHDF</td>
+                                            <td width="100px">
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control">
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-truncate ">0</td>
+                                            <td class="align-middle text-truncate ">0</td>
+                                            <td class="align-middle text-truncate ">68</td>
+                                            <div class="btn-group " role="group ">
+                                                <button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-truncate ">FDGHFDHDFGHDF</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                            </td>
+                                            <td class="align-middle text-truncate ">0</td>
+                                            <td class="align-middle text-truncate ">0</td>
+                                            <td class="align-middle text-truncate ">10</td>
+                                            <div class="btn-group " role="group ">
+                                                <button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button>
+                                            </div>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-9">
+                            <div class="row">
+                                <div class="form-group col-md-8 ">
+                                    <label class="text-gray ">Nombre / Razón Social</label>
+                                    <input name="nombreRazonSocial" class="form-control validation-field " type="text ">
+                                </div>
+                                <div class="form-group col-md-4 ">
+                                    <label class="text-gray ">DNI/RUC</label>
+                                    <input name="dniRuc " class="form-control validation-field " type="number ">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 ">
+
+                                    <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 ">
+
+                                    <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col col-md-3">
+                            <div class="row">
+                                <div class="form-group col-md-12 ">
+                                    <label class="form-control-label text-gray ">Forma de pago</label>
+                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                        <option>Contado</option>
+                                        <option>Crédito</option>
+                                        <option>Yape</option>
+                                        <option>Plin</option>
+                                        <option>Tarjeta</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12 ">
+                                    <label class="form-control-label text-gray ">Tiempo de entrega</label>
+                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                        <option>1 Día</option>
+                                        <option>7 Días</option>
+                                        <option>15 Días</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 bg-white text-center py-1 ">
+            <button class="btn btn-success mr-1 " type="submit "><span>Agregar</span><span>Actualizar</span></button>
+            <button type="button" class="btn btn-danger" [routerLink]="['../']">Cancelar</button>
+        </div>
+    </form>
+</div>
