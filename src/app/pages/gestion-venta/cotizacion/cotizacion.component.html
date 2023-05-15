@@ -1,5 +1,5 @@
 <div class="row d-flex justify-content-between">
-    <div class="col col-md-3">
+    <div class="col col-md-2">
         <div class="form-group">
             <label class="text">Fecha Inicio:</label>
             <div class="input-group">
@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <div class="col col-md-3">
+    <div class="col col-md-2">
         <div class="form-group">
             <label class="text">Fecha Fin:</label>
             <div class="input-group">
@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="col col-md-3">
+    <div class="col col-md-2">
         <div class="form-group">
             <label class="text"></label>
             <div class="input-group">
@@ -31,18 +31,36 @@
         </div>
     </div>
 
-    <div class="col col-md-3">
-
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="imprimir" id="A4" value="A4">
-            <label class="form-check-label" for="A4"> A4 </label>
+    <div class="col col-md-2">
+        <div class="form-group col-md-12 ">
+            <label class="form-control-label text-gray ">Opciones</label>
+            <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                <option>A4</option>
+                <option>ticket</option>
+                <option>+IGV</option>
+                <option>Logo</option>
+            </select>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="imprimir" id="ticket" value="ticket">
-            <label class="form-check-label" for="ticket"> Ticket </label>
-        </div>
-
     </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text"></label>
+            <div class="input-group">
+                <a href="/descargas/" download> <button class="btn btn-success btn-sm" download><i class="fa fa-file-pdf-o"></i></button></a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text"></label>
+            <div class="input-group">
+                <button class="btn btn-primary">Vender</button>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 <div class="row mb-1">
@@ -88,7 +106,7 @@
                         <th class="text-center">RUC</th>
                         <th class="text-center">CLIENTE</th>
                         <th class="text-center">TOTAL</th>
-                        <th class="text-center">ACCIONES</th>
+                        <th class="text-center"></th>
 
                     </tr>
                 </thead>
@@ -105,9 +123,11 @@
                         <td class="align-middle">GRAN MANAGER TECHNOLOGY CONSULTING SOCIEDAD ANONIMA - GRAMATEC S.A. </td>
                         <td class="align-middle text-center ">1500.50</td>
                         <td class="align-middle text-center ">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-pencil "></i></button>
-                            <button class="btn btn-info btn-sm">Vender<i class="fa fa-dollar ml-1"></i></button>
-                            <a href="/descargas/" download> <button class="btn btn-success btn-sm" download><i class="fa fa-file-pdf-o"></i></button></a>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="imprimir" id="A4" value="A4">
+
+                            </div>
+                            <!-- <a href="/descargas/" download> <button class="btn btn-success btn-sm" download><i class="fa fa-file-pdf-o"></i></button></a> -->
                         </td>
                         <!-- <div class="btn-group " role="group ">
 
@@ -127,9 +147,12 @@
                         <td class="align-middle ">Lorem ipsum dolor sit amet consectetur adipis</td>
                         <td class="align-middle text-center ">11500.50</td>
                         <td class="align-middle text-center ">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-pencil "></i></button>
-                            <button class="btn btn-info btn-sm">Vender<i class="fa fa-dollar ml-1"></i></button>
-                            <a href="/descargas/" download> <button class="btn btn-success btn-sm" download><i class="fa fa-file-pdf-o"></i></button></a>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="imprimir" id="A4" value="A4">
+
+                            </div>
+
+                            <!-- <a href="/descargas/" download> <button class="btn btn-success btn-sm" download><i class="fa fa-file-pdf-o"></i></button></a> -->
                         </td>
                         <!-- <div class="btn-group" role="group ">
                             <button class="btn btn-warning btn-sm  "><i class="fa fa-pencil "></i></button>
@@ -176,9 +199,11 @@
                                             <input formControlName="codigoTributo " name="codigoTributo " class="form-control validation-field " type="number ">
                                         </div>
                                         <div class="form-group col-md-3 ">
-                                            <label class="text-gray ">Código de barras</label>
+                                            <label class="text-gray mr-1">Código de barras</label> <input type="checkbox" aria-label="Checkbox for following text input">
                                             <input formControlName="codigoTributo " name="codigoTributo " class="form-control validation-field " type="text ">
+
                                         </div>
+
                                         <div class="form-group col-md-7 ">
                                             <label class="text-gray ">Producto</label>
                                             <input formControlName="codigoTributo " name="codigoTributo " class="form-control validation-field " type="text ">
@@ -285,6 +310,16 @@
                                                         <option>Yape</option>
                                                         <option>Plin</option>
                                                         <option>Tarjeta</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row ">
+                                                <div class="form-group col-md-12 ">
+                                                    <label class="form-control-label text-gray ">Tipo moneda</label>
+                                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                                        <option>soles</option>
+                                                        <option>dolares</option>
+                                                        
                                                     </select>
                                                 </div>
                                             </div>
