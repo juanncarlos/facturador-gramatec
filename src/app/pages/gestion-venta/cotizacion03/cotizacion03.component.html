@@ -3,15 +3,6 @@
     <input type="text" class="form-control" id="searchInput">
 </div>
 
-<div>
-    <input type="text" class="form-control" [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" placeholder="Buscar producto">
-    <ul *ngIf="productosFiltrados.length > 0">
-        <li *ngFor="let producto of productosFiltrados.slice(0, cantidadMostrar) ">
-            {{ producto.nombre }} - Precio: ${{ producto.precio }}
-            <button (click)="agregarProducto(producto)">Agregar</button>
-        </li>
-    </ul>
-</div>
 
 
 <!-- <div class="form-group">
@@ -176,35 +167,32 @@
     </form>
 </div>
 
-<!-- <h2>Productos Disponibles</h2>
-<input type="text" [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" placeholder="Buscar producto">
-<ul *ngIf="productosFiltrados.length > 0">
-    <li *ngFor="let producto of productosFiltrados.slice(0, cantidadMostrar) ">
-        {{ producto.nombre }} - Precio: ${{ producto.precio }}
-        <button (click)="agregarProducto(producto)">Agregar</button>
-    </li>
-</ul> -->
 
-<h2>Productos Seleccionados</h2>
+
+<h1>Venta de productos</h1>
+
+<label for="product-name">Nombre del producto:</label>
+<input type="text" id="product-name" [(ngModel)]="productName" (input)="filterProducts()" (blur)="clearFilter()">
+<div *ngIf="filteredProducts.length > 0">
+    <ul>
+        <li *ngFor="let product of filteredProducts">
+            {{ product }}
+            <button (click)="addProduct(product)">Agregar</button>
+        </li>
+    </ul>
+</div>
+
 <table>
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
+            <th>Producto</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let producto of productosSeleccionados">
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.precio }}</td>
+        <tr *ngFor="let product of selectedProducts">
+            <td>{{ product }}</td>
+            <td><button (click)="removeProduct(product)">Quitar</button></td>
         </tr>
     </tbody>
 </table>
-
-
-<!-- <h2>Lista de Nombres</h2>
-<ul>
-    <li *ngFor="let nombre of nombres.slice(0, cantidadMostrar)">
-        {{ nombre }}
-    </li>
-</ul> -->
