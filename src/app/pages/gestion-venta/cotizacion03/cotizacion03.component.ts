@@ -5,43 +5,36 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './cotizacion03.component.html',
   styleUrls: ['./cotizacion03.component.scss']
 })
-export class Cotizacion03Component implements OnInit {
-  originalData: any = ['opción 1', 'opción 2', 'opción 3', 'opción 4'];
-  searchTerm: any;
-  filteredData: any = [
-    {
-    name: 'juan',
-    email: 'juan@gmail.com'
-  },
-  {
-    name: 'carlos',
-    email: 'carlos@gmail.com'
-  }
-];
-  searchResults: any;
-  
+export class Cotizacion03Component  {
+    
+  productos: any[] = [
+    { id: 1, nombre: 'Producto 1', precio: 10 },
+    { id: 2, nombre: 'Producto 2', precio: 20 },
+    { id: 3, nombre: 'Producto 3', precio: 30 },
+    { id: 4, nombre: 'Producto 4', precio: 40 },
+    { id: 5, nombre: 'Producto 5', precio: 50 },
+    { id: 1, nombre: 'Producto 6', precio: 10 },
+    { id: 2, nombre: 'Producto 7', precio: 20 },
+    { id: 3, nombre: 'Producto 8', precio: 30 },
+    { id: 4, nombre: 'Producto 9', precio: 40 },
+    { id: 5, nombre: 'Producto 10', precio: 50 }
+  ];
 
-  options = ['opción 1', 'opción 2', 'opción 3', 'opción 4'];
-  
-  constructor() { }
-  ngOnInit(): void {
-  }
-  filterData() {
-    this.filteredData = this.originalData.filter(element =>
-      element.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1 ||
-      element.email.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1);
+  /* nombres: string[] = ['Juan', 'María', 'Pedro', 'Luis', 'Ana']; */
+  cantidadMostrar: number = 3;
+
+  productosFiltrados: any[] = [];
+  terminoBusqueda: string = '';
+  productosSeleccionados: any[] = [];
+
+  filtrarProductos() {
+    this.productosFiltrados = this.productos.filter(producto =>
+      producto.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+    );
   }
 
-  search() {
-    this.searchResults = this.options.filter(option =>
-      option.toLowerCase().indexOf(this.searchTerm.toLowerCase()) !== -1);
+  agregarProducto(producto: any) {
+    this.productosSeleccionados.push(producto);
   }
-  select(option: string) {
-    this.searchTerm = option;
-    this.searchResults = [];
-  }
-  
-  
-  
 
 }
