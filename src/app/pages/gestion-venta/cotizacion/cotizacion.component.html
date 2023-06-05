@@ -173,25 +173,194 @@
 
 
 <!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1 " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="form-group col-md-2 ">
+                        <label class="text-gray ">Cantidad</label>
+                        <input name="codigoTributo " class="form-control validation-field " type="number " [(ngModel)]="cantidadProductoModal">
+                    </div>
+                    <div class="form-group col-md-3 ">
+                        <label class="text-gray mr-1">Código de barras</label> <input type="checkbox" aria-label="Checkbox for following text input">
+                        <input name="codigoTributo " class="form-control validation-field " type="text ">
+
+                    </div>
+
+                    <div class="form-group col-md-7 ">
+                        <label for=""></label>
+                        <input type="text" class="form-control" #nombreProductoInput [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" (focus)="mostrarListaProductos = true" (blur)="clearFilter()" placeholder=" Buscar producto ">
+                        <div class="lista" *ngIf="productosFiltrados.length> 0">
+                            <ul>
+                                <li *ngFor="let producto of productosFiltrados">
+                                    {{ producto.nombre }} - Precio: ${{ producto.precio }}
+                                    <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!--  ========================================== -->
+                        <h1>Venta de productos</h1>
+
+                        <ul>
+                            <li *ngFor="let producto of productos">
+                                {{ producto.nombre }} - Precio: {{ producto.precio }}
+                                <input type="number" [(ngModel)]="producto.cantidad">
+                            </li>
+                        </ul>
+
+                        <label for="cantidadTotal">Cantidad Total:</label>
+                        <input type="number" id="cantidadTotal" [(ngModel)]="cantidadTotal">
+
+                        <p>Total de la venta: {{ getTotalVenta() + cantidadTotal }}</p>
+
+                    </div>
+                </div>
+
+                <div class="row contenedor-tabla">
+                    <div class="col-12 ">
+                        <div class="table-responsive bg-white ">
+                            <table class="table table-hover ">
+                                <colgroup>
+                                    <col class="col11">
+                                    <col class="col12">
+                                    <col class="col13">
+                                    <col class="col14">
+                                    <col class="col15">
+
+                                </colgroup>
+                                <thead class="thead-dark ">
+                                    <tr>
+                                        <th class="align-middle text-center">CANTIDAD</th>
+                                        <th class="align-middle text-center">DESCRIPCION</th>
+                                        <th class="align-middle text-center">PREC. UNIT</th>
+
+                                        <th class="align-middle text-center">TOTAL</th>
+                                        <th class="align-middle text-center">ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let producto of productosSeleccionados">
+                                        <td width="50px">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control">
+                                            </div>
+                                        </td>
+
+                                        <td>{{ producto.nombre }}</td>
+
+                                        <td width="50px">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" [value]="producto.precio">
+                                            </div>
+                                        </td>
+
+                                        <td>2</td>
+                                        <td><button class="btn btn-danger btn-sm " (click)="eliminarProducto(producto)"><i class="fa fa-trash "></i></button></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td class="align-middle text-center"> {{ getTotalVenta() }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col col-md-9 ">
+                        <div class="row ">
+                            <div class="form-group col-md-8 ">
+                                <label class="text-gray ">Nombre / Razón Social</label>
+                                <input name="nombreRazonSocial " class="form-control validation-field " type="text ">
+                            </div>
+                            <div class="form-group col-md-4 ">
+                                <label class="text-gray ">DNI/RUC</label>
+                                <input name="dniRuc " class="form-control validation-field " type="number ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+
+                                <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 ">
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <label class="form-control-label text-gray ">Forma de pago</label>
+                                <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                <option>Contado</option>
+                                <option>Crédito</option>
+                                <option>Yape</option>
+                                <option>Plin</option>
+                                <option>Tarjeta</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <label class="form-control-label text-gray ">Tipo moneda</label>
+                                <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                <option>soles</option>
+                                <option>dolares</option>
+                                
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <label class="form-control-label text-gray ">Tiempo de entrega</label>
+                                <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                <option>1 Día</option>
+                                <option>7 Días</option>
+                                <option>15 Días</option>
+                                
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 bg-white text-center py-1 ">
+                        <button class="btn btn-success mr-1 " type="submit "><span>Agregar</span><span>Actualizar</span></button>
+                        <button type="button " class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="modal fade " id="exampleModal" tabindex="-1 " aria-labelledby="exampleModalLabel " aria-hidden="true ">
     <div class="modal-dialog modal-lg ">
         <div class="modal-content border-0 ">
-            <!-- <div class="modal-header ">
-                <h5 class="modal-title " id="exampleModalLabel ">Modal title</h5>
-                <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
-            <span aria-hidden="true ">&times;</span>
-          </button>
-            </div> -->
 
             <div class="modal-body ">
-
                 <div class="col-12 ">
                     <form class="row ">
                         <div class="tab-content col-12 border-0 ">
 
                             <div class="tab-content border-0 " id="pills-tabContent ">
 
-                                <!-- vista de detalle producto -->
+                                
                                 <div class="tab-pane fade show active " id="detalleProducto " role="tabpanel " aria-labelledby="pills-home-tab ">
                                     <div class="row ">
                                         <div class="form-group col-md-2 ">
@@ -207,143 +376,110 @@
                                         <div class="form-group col-md-7 ">
                                             <label class="text-gray ">Producto</label>
                                             <input formControlName="codigoTributo " name="codigoTributo " class="form-control validation-field " type="text ">
+
                                         </div>
 
-                                    </div>
+                                        <div class="row ">
+                                            <div class="col-12 ">
+                                                <div class="table-responsive bg-white ">
+                                                    <table class="table table-hover ">
+                                                        <colgroup>
+                                                            <col class="col11">
+                                                            <col class="col12">
+                                                            <col class="col13">
+                                                            <col class="col14">
+                                                            <col class="col15">
 
-                                    <div class="row ">
-                                        <div class="col-12 ">
-                                            <div class="table-responsive bg-white ">
-                                                <table class="table table-hover ">
-                                                    <colgroup>
-                                                        <col class="col11">
-                                                        <col class="col12">
-                                                        <col class="col13">
-                                                        <col class="col14">
-                                                        <col class="col15">
+                                                        </colgroup>
+                                                        <thead class="thead-dark ">
+                                                            <tr>
+                                                                <th>CANTIDAD</th>
+                                                                <th>DESCRIPCION</th>
+                                                                <th>PREC. UNIT</th>
 
-                                                    </colgroup>
-                                                    <thead class="thead-dark ">
-                                                        <tr>
-                                                            <th>CANTIDAD</th>
-                                                            <th>DESCRIPCION</th>
-                                                            <th>PREC. UNIT</th>
+                                                                <th>TOTAL</th>
+                                                                <th>ACCIONES</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
 
-                                                            <th>TOTAL</th>
-                                                            <th>ACCIONES</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td width="50px ">
-                                                                <div class="input-group ">
-                                                                    <input type="number " class="form-control ">
-                                                                </div>
-                                                            </td>
-                                                            <td class="align-middle ">Lorem ipsum dolor sit amet conse sapiente facere similique delectus, cupiditate voluptas eveniet placeat quod!</td>
-                                                            <td width="100px ">
-                                                                <div class="input-group ">
-                                                                    <input type="number " class="form-control ">
-                                                                </div>
-                                                            </td>
+                                                        </tbody>
+                                                    </table>
 
-                                                            <td class="align-middle text-center">68</td>
-                                                            <td class=" align-middle text-center ">
-                                                                <button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="input-group ">
-                                                                    <input type="text " class="form-control ">
-                                                                </div>
-                                                            </td>
-                                                            <td class="align-middle ">FDGHFDHDFGHDF</td>
-                                                            <td>
-                                                                <div class="input-group ">
-                                                                    <input type="text " class="form-control ">
-                                                                </div>
-                                                            </td>
 
-                                                            <td class="align-middle text-center">10</td>
-                                                            <td class="align-middle text-center ">
-                                                                <button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col col-md-9 ">
-                                            <div class="row ">
-                                                <div class="form-group col-md-8 ">
-                                                    <label class="text-gray ">Nombre / Razón Social</label>
-                                                    <input name="nombreRazonSocial " class="form-control validation-field " type="text ">
-                                                </div>
-                                                <div class="form-group col-md-4 ">
-                                                    <label class="text-gray ">DNI/RUC</label>
-                                                    <input name="dniRuc " class="form-control validation-field " type="number ">
-                                                </div>
-                                            </div>
-                                            <div class="row ">
-                                                <div class="form-group col-md-12 ">
-                                                    <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
-                                                </div>
-                                            </div>
-                                            <div class="row ">
-                                                <div class="form-group col-md-12 ">
-
-                                                    <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row ">
+                                            <div class="col col-md-9 ">
+                                                <div class="row ">
+                                                    <div class="form-group col-md-8 ">
+                                                        <label class="text-gray ">Nombre / Razón Social</label>
+                                                        <input name="nombreRazonSocial " class="form-control validation-field " type="text ">
+                                                    </div>
+                                                    <div class="form-group col-md-4 ">
+                                                        <label class="text-gray ">DNI/RUC</label>
+                                                        <input name="dniRuc " class="form-control validation-field " type="number ">
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="form-group col-md-12 ">
+                                                        <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                                                    </div>
+                                                </div>
+                                                <div class="row ">
+                                                    <div class="form-group col-md-12 ">
 
-                                        <div class="col col-md-3 ">
-                                            <div class="row ">
-                                                <div class="form-group col-md-12 ">
-                                                    <label class="form-control-label text-gray ">Forma de pago</label>
-                                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                                        <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col col-md-3 ">
+                                                <div class="row ">
+                                                    <div class="form-group col-md-12 ">
+                                                        <label class="form-control-label text-gray ">Forma de pago</label>
+                                                        <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
                                                         <option>Contado</option>
                                                         <option>Crédito</option>
                                                         <option>Yape</option>
                                                         <option>Plin</option>
                                                         <option>Tarjeta</option>
                                                     </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row ">
-                                                <div class="form-group col-md-12 ">
-                                                    <label class="form-control-label text-gray ">Tipo moneda</label>
-                                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                                <div class="row ">
+                                                    <div class="form-group col-md-12 ">
+                                                        <label class="form-control-label text-gray ">Tipo moneda</label>
+                                                        <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
                                                         <option>soles</option>
                                                         <option>dolares</option>
                                                         
                                                     </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="row ">
-                                                <div class="form-group col-md-12 ">
-                                                    <label class="form-control-label text-gray ">Tiempo de entrega</label>
-                                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                                <div class="row ">
+                                                    <div class="form-group col-md-12 ">
+                                                        <label class="form-control-label text-gray ">Tiempo de entrega</label>
+                                                        <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
                                                         <option>1 Día</option>
                                                         <option>7 Días</option>
                                                         <option>15 Días</option>
                                                         
                                                     </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-12 bg-white text-center py-1 ">
-                            <button class="btn btn-success mr-1 " type="submit "><span>Agregar</span><span>Actualizar</span></button>
-                            <button type="button " class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                            <div class="col-12 bg-white text-center py-1 ">
+                                <button class="btn btn-success mr-1 " type="submit "><span>Agregar</span><span>Actualizar</span></button>
+                                <button type="button " class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -352,4 +488,4 @@
 
         </div>
     </div>
-</div>
+</div> -->

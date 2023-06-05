@@ -57,3 +57,25 @@ col.col14 {
 col.col15 {
     width: 15%;
 }
+
+ul {
+    list-style: none;
+    z-index: 100;
+    position: absolute;
+    background: rgba($color: #000, $alpha: .8);
+    width: 90%;
+    padding: 15px;
+    border-radius: 15px;
+    height: 200px;
+    overflow: auto;
+    li {
+        color: #fff;
+    }
+}
+
+
+/* estilos del contenedor de tabla */
+
+.contenedor-tabla {
+    position: relative;
+}
