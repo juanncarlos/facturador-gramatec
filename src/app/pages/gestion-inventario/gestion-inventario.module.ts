@@ -11,6 +11,9 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { VehiculoBuscarPipe } from 'src/app/theme/pipes/search/vehiculo-buscar.pipe';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'cliente', pathMatch: 'full'},
@@ -30,7 +33,8 @@ export const routes: Routes = [
     CKEditorModule,
     DirectivesModule,
     NgbModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgxPaginationModule
     
   ],
   declarations: [
@@ -44,7 +48,8 @@ export const routes: Routes = [
   
     ClienteComponent,
     VehiculoComponent,
-    ProductoComponent
+    ProductoComponent,
+    VehiculoBuscarPipe
   ]
 })
 export class GestionInventarioModule { }

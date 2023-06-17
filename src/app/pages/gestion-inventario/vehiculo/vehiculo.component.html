@@ -4,9 +4,10 @@
             <div class="input-group-prepend">
                 <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
             </div>
-            <input type="text" placeholder="Buscar vehículo..." class="form-control border-0">
+            <input type="text" [(ngModel)]="textoBusqueda" name="textoBusqueda" placeholder="Buscar por placa" class="form-control border-0">
             <div class="input-group-append">
-                <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span>
+                <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
+                <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" (click)="abrirModal(modalAgregar)"><i class="fa fa-user-plus"></i></span>
                 <span class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-th"></i></span>
                 <span class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-list"></i></span>
             </div>
@@ -23,7 +24,6 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-
                         <th>PLACA</th>
                         <th>MARCA</th>
                         <th>TIPO VEHICULO</th>
@@ -34,108 +34,198 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <!-- <td class="align-middle">
-                            <img *ngIf="user.profile.image" class="rounded-circle" [src]="user.profile.image" width="40">
-                            <img *ngIf="!user.profile.image" class="rounded-circle" src="assets/img/users/default-user.jpg" width="40">
-                        </td> -->
-                        <td class="align-middle text-truncate">DNI</td>
-                        <td class="align-middle text-truncate">77499689</td>
-                        <td class="align-middle text-truncate">dfgdfgdfgdfsg</td>
-                        <td class="align-middle text-truncate">dfsgdsgdsfgdfgdf</td>
-                        <td class="align-middle text-truncate">968965059</td>
-                        <td class="align-middle text-truncate">968965059</td>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                    <tr *ngFor="let dato of datos | vehiculoBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index " (dblclick)="abrirEditarModal(modalEditar, i) ">
+
+                        <td class="align-middle text-truncate "> {{dato.nombre}}</td>
+                        <td class="align-middle text-truncate ">{{dato.marca}}</td>
+                        <td class="align-middle text-truncate ">{{dato.tipoVehiculo }}</td>
+                        <td class="align-middle text-truncate ">{{dato.mtc}}</td>
+                        <td class="align-middle text-truncate ">{{dato.configuracion}}</td>
+                        <td class="align-middle text-truncate ">{{dato.capCarga}}</td>
+                        <div class="btn-group " role="group ">
+                            <button class="btn btn-warning btn-sm " (click)="abrirEditarModal(modalEditar, i) "><i class="fa fa-pencil "></i></button>
+                            <button class="btn btn-danger btn-sm " (click)="eliminarDato(i) "><i class="fa fa-trash "></i></button>
                         </div>
 
                     </tr>
-                    <tr>
 
-                        <td class="align-middle text-truncate">RUC</td>
-                        <td class="align-middle text-truncate">10774996899</td>
-                        <td class="align-middle text-truncate">Juan Carlos Martínez sdfdasfsd</td>
-                        <td class="align-middle text-truncate">Av. sdfsdfsdfsd</td>
-                        <td class="align-middle text-truncate">968965059</td>
-                        <td class="align-middle text-truncate">968965059</td>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                        </div>
-
-                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-</button> -->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Gestión Vehículo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-            </div> -->
-            <div class="modal-body">
-                <div class="col-12 vertical-tabs">
-                    <form class="row ">
-                        <div class="tab-content col-12 border-0">
-                            <div class="tab-pane active" id="basic">
+<div class="row ">
+    <div class="col-12 ">
+        <div class="bg-white text-center ">
 
 
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">Placa:</label>
-                                        <input formControlName="placa" class="form-control validation-field" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">Marca:</label>
-                                        <input formControlName="marca" class="form-control validation-field" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">Tipo vehículo:</label>
-                                        <input formControlName="tipoVehiculo" class="form-control validation-field" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">MTC:</label>
-                                        <input formControlName="mtc" class="form-control validation-field" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">Configuración:</label>
-                                        <input formControlName="configuracion" class="form-control validation-field" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="text-gray">Capacidad Carga:</label>
-                                        <input formControlName="capacidadCarga" class="form-control validation-field" type="number">
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        <div class="col-12 bg-white text-center py-1">
-                            <button class="btn btn-success mr-1" type="submit"><span>Agregar</span><span>Actualizar</span></button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-
+            <pagination-controls (pageChange)="cambiarPagina($event) " [maxSize]="5 " [directionLinks]="true " [autoHide]="true ">
+            </pagination-controls>
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal -->
+<!-- <div class="modal fade " id="exampleModal " tabindex="-1 " aria-labelledby="exampleModalLabel " aria-hidden="true ">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+            <div class="modal-body ">
+                <div class="col-12 vertical-tabs ">
+                    <form class="row ">
+                        <div class="tab-content col-12 border-0 ">
+                            <div class="tab-pane active " id="basic ">
+                                <div class="row ">
+                                    <div class="form-group col-md-6 ">
+                                        <label class="text-gray ">Placa:</label>
+                                        <input name="nombre " id="nombre " [(ngModel)]="nuevoDato.nombre " class="form-control validation-field " type="text ">
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <label class="text-gray ">Marca:</label>
+                                        <input name="marca " id="marca " [(ngModel)]="nuevoDato.marca " class="form-control validation-field " type="text ">
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="form-group col-md-6 ">
+                                        <label class="text-gray ">Tipo vehículo:</label>
+                                        <input name="tipoVehiculo " id="tipoVehiculo " [(ngModel)]="nuevoDato.tipoVehiculo " class="form-control validation-field " type="text ">
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <label class="text-gray ">MTC:</label>
+                                        <input name="mtc " id="mtc " [(ngModel)]="nuevoDato.mtc " class="form-control validation-field " type="text ">
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="form-group col-md-6 ">
+                                        <label class="text-gray ">Configuración:</label>
+                                        <input name="configuracion " id="configuracion " [(ngModel)]="nuevoDato.nconfiguracion " class="form-control validation-field " type="text ">
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <label class="text-gray ">Capacidad Carga:</label>
+                                        <input name="capCarga " id="capCarga " [(ngModel)]="nuevoDato.capCarga " class="form-control validation-field " type="number ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 bg-white text-center py-1 ">
+                            <button (click)="agregarDato() " class="btn btn-success mr-1 " type="submit "><span>Agregar</span><span>Actualizar</span></button>
+                            <button (click)="cerrarModal() " type="button " class="btn btn-danger " data-dismiss="modal ">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+<!-- arreglas los estilos y la opcion de modificar (editar al momento de presionar el boton del lapiz) -->
+
+
+<!-- Modal Agregar -->
+<ng-template #modalAgregar>
+    <div class="contenedor-modal-agregar">
+        <div class="modal-header text-center">
+            <h4 class=" modal-title text-center">AGREGAR</h4>
+        </div>
+
+        <div class=" modal-body ">
+            <form>
+                <div class="tab-content col-12 border-0 ">
+                    <div class="tab-pane active " id="basic ">
+                        <div class="row ">
+
+                            <div class="form-group col-md-6 ">
+                                <label class="text-gray "> Placa </label>
+                                <input name="nombre " id="nombre " [(ngModel)]="nuevoDato.nombre " class="form-control validation-field " type="text " autocomplete="off " required>
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                <label class="text-gray ">Marca</label>
+                                <input name="marca " id="marca " [(ngModel)]="nuevoDato.marca " class="form-control validation-field " type="text " autocomplete="off ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-6 ">
+                                <label class="text-gray ">Tipo vehículo</label>
+                                <input name="tipoVehiculo " id="tipoVehiculo " [(ngModel)]="nuevoDato.tipoVehiculo " class="form-control validation-field " type="text " autocomplete="off ">
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                <label class="text-gray ">MTC</label>
+                                <input name="mtc " id="mtc " [(ngModel)]="nuevoDato.mtc " class="form-control validation-field " type="text " autocomplete="off ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-6 ">
+                                <label class="text-gray ">Configuración</label>
+                                <input name="configuracion " id="configuracion " [(ngModel)]="nuevoDato.configuracion " class="form-control validation-field " type="text " autocomplete="off ">
+                            </div>
+                            <div class="form-group col-md-6 ">
+                                <label class="text-gray ">Capacidad Carga</label>
+                                <input name="capCarga " id="capCarga " [(ngModel)]="nuevoDato.capCarga " class="form-control validation-field " type="number " autocomplete="off ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer ">
+            <button type="button " class="btn btn-danger btn-cancelar-modal " (click)="cerrarModal() ">Cancelar</button>
+            <button type="button " class="btn btn-success btn-guardar-modal " (click)="agregarDato() ">Guardar</button>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal Editar -->
+<ng-template #modalEditar>
+    <div class="modal-header ">
+        <h4 class="modal-title ">EDITAR</h4>
+
+    </div>
+    <div class="modal-body ">
+        <form>
+            <div class="tab-content col-12 border-0 ">
+                <div class="tab-pane active " id="basic ">
+                    <div class="row ">
+
+                        <div class="form-group col-md-6 ">
+                            <label for="nombreEditar " class="text-gray ">Placa</label>
+                            <input name="nombreEditar " id="nombreEditar " [(ngModel)]="datoEditado.nombre " class="form-control validation-field " type="text ">
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label for="marcaEditar " class="text-gray ">Marca</label>
+                            <input name="marcaEditar " id="marcaEditar " [(ngModel)]="datoEditado.marca " class="form-control validation-field " type="text ">
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="form-group col-md-6 ">
+                            <label class="text-gray ">Tipo vehículo</label>
+                            <input name="tipoVehiculoEditar " id="tipoVehiculoEditar " [(ngModel)]="datoEditado.tipoVehiculo " class="form-control validation-field " type="text ">
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label class="text-gray ">MTC</label>
+                            <input name="mtcEditar " id="mtcEditar " [(ngModel)]="datoEditado.mtc " class="form-control validation-field " type="text ">
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="form-group col-md-6 ">
+                            <label class="text-gray ">Configuración</label>
+                            <input name="configuracionEditar " id="configuracionEditar " [(ngModel)]="datoEditado.configuracion " class="form-control validation-field " type="text ">
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label class="text-gray ">Capacidad Carga</label>
+                            <input name="capCargaEditar " id="capCargaEditar " [(ngModel)]="datoEditado.capCarga " class="form-control validation-field " type="number ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer ">
+        <button type="button " class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal() ">Cancelar</button>
+        <button type="button " class="btn btn-warning btn-guardar-modal" (click)="editarDato() ">Editar</button>
+    </div>
+</ng-template>

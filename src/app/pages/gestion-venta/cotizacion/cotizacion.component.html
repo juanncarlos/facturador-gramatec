@@ -206,19 +206,9 @@
                         </div>
 
                         <!--  ========================================== -->
-                        <h1>Venta de productos</h1>
 
-                        <ul>
-                            <li *ngFor="let producto of productos">
-                                {{ producto.nombre }} - Precio: {{ producto.precio }}
-                                <input type="number" [(ngModel)]="producto.cantidad">
-                            </li>
-                        </ul>
 
-                        <label for="cantidadTotal">Cantidad Total:</label>
-                        <input type="number" id="cantidadTotal" [(ngModel)]="cantidadTotal">
 
-                        <p>Total de la venta: {{ getTotalVenta() + cantidadTotal }}</p>
 
                     </div>
                 </div>
@@ -246,10 +236,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let producto of productosSeleccionados">
+                                    <tr class="fila-producto" *ngFor="let producto of productosSeleccionados; let i = index">
                                         <td width="50px">
                                             <div class="input-group">
-                                                <input type="number" class="form-control">
+                                                <input type="number" class="form-control" [(ngModel)]="cantidadProductoModal" (ngModelChange)="modelChanged($event, i)">
                                             </div>
                                         </td>
 
@@ -261,7 +251,7 @@
                                             </div>
                                         </td>
 
-                                        <td>2</td>
+                                        <td> </td>
                                         <td><button class="btn btn-danger btn-sm " (click)="eliminarProducto(producto)"><i class="fa fa-trash "></i></button></td>
                                     </tr>
 
@@ -269,7 +259,7 @@
                                         <td> </td>
                                         <td> </td>
                                         <td> </td>
-                                        <td class="align-middle text-center"> {{ getTotalVenta() }} </td>
+                                        <td class="align-middle text-center"> </td>
                                     </tr>
                                 </tbody>
                             </table>
