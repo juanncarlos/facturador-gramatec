@@ -8,17 +8,120 @@
             <div class="input-group-append">
                 <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
                 <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" (click)="abrirModal(modalAgregar)"><i class="fa fa-user-plus"></i></span>
-                <span class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-th"></i></span>
-                <span class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-list"></i></span>
+                <span (click)="toggle('grid')" class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-th"></i></span>
+                <span (click)="toggle('list')" class="input-group-text border-top-0 border-right-0 border-bottom-0"><i class="fa fa-list"></i></span>
             </div>
         </div>
     </div>
 </div>
 
 
+<!-- vista en cuadrillas -->
+<div *ngIf="type=='grid'" class="row">
+    <!-- <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: p }; let i = index;" class="col-xl-4 col-lg-6 mb-4"> -->
+    <div *ngFor="let vehiculo of datos; let i = index" (dblclick)="abrirEditarModal(modalEditar, i)" class="col-xl-4 col-lg-6 mb-4">
+        <div class="flip">
+            <div class="content">
+                <div class="front">
+                    <div class="card border-0 box-shadow rounded-0">
+                        <div class="card-header border-0 rounded-0 text-muted">
+                            <h5 class="mb-0">
+                                <!-- <i *ngIf="!user.settings.isDeleted" class="fa fa-user mr-2" [ngClass]="{ 'text-success': user.settings.isActive, 
+                                                                        'text-inverse': !user.settings.isActive}" placement="bottom" [ngbTooltip]="(user.settings.isActive) ? 'active' : 'passive'"></i>
+                            <i *ngIf="user.settings.isDeleted" class="fa fa-user mr-2 text-danger" placement="bottom" [ngbTooltip]="'deleted'"></i> {{user.profile.name}} {{user.profile.surname}} -->
+
+
+                            </h5>
+                            <!-- <div class="widget-controls">
+                            <a (click)="openMenuAssign($event)" href="javascript:void(0);" class="transition"><i class="fa fa-bars"></i></a>
+                            <a (click)="openModal(modalContent, user)" href="javascript:void(0);" class="transition"><i class="fa fa-pencil"></i></a>
+                            <a (click)="deleteUser(user)" href="javascript:void(0);" class="transition"><i class="fa fa-trash"></i></a>
+                        </div> -->
+                            <div class="widget-controls">
+                                <a href="javascript:void(0);" class="transition"><i class="fa fa-bars"></i></a>
+                                <a href="javascript:void(0);" class="transition"><i class="fa fa-pencil"></i></a>
+                                <a href="javascript:void(0);" class="transition"><i class="fa fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body pt-3">
+
+                            <div class="media">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <!-- <img *ngIf="user.profile.image" class="rounded-circle" [src]="user.profile.image" width="80">
+                                <img *ngIf="!user.profile.image" class="rounded-circle" src="assets/img/users/default-user.jpg" width="80"> -->
+                                    <ul class="list-inline mb-0 mt-1 mx-auto fs-12 text-gray">
+                                        <li class="list-inline-item mr-0">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square-o fa-stack-2x"></i>
+                                                <i class="fa fa-facebook fa-stack-1x"></i>
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item mr-0">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square-o fa-stack-2x"></i>
+                                                <i class="fa fa-twitter fa-stack-1x"></i>
+                                            </span>
+                                        </li>
+                                        <li class="list-inline-item mr-0">
+                                            <span class="fa-stack">
+                                                <i class="fa fa-square-o fa-stack-2x"></i>
+                                                <i class="fa fa-google fa-stack-1x"></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="media-body ml-3">
+                                    <div class="row">
+                                        <div class="col-4 text-gray text-right pr-0 font-italic text-truncate">Empresa:</div>
+                                        <div class="col-8 pl-2 text-truncate"> {{vehiculo.nombre}}</div>
+                                        <div class="col-4 text-gray text-right pr-0 font-italic text-truncate">Puesto:</div>
+                                        <div class="col-8 pl-2 text-truncate">{{vehiculo.placa}}</div>
+                                        <div class="col-4 text-gray text-right pr-0 font-italic text-truncate">Usuario:</div>
+                                        <div class="col-8 pl-2 text-truncate">{{vehiculo.configuracion}}</div>
+                                        <div class="col-4 text-gray text-right pr-0 font-italic text-truncate">Correo:</div>
+                                        <div class="col-8 pl-2 text-truncate">{{vehiculo.mtc}}</div>
+                                        <div class="col-4 text-gray text-right pr-0 font-italic text-truncate">joined:</div>
+                                        <div class="col-8 pl-2 text-truncate fs-12 pt-2p">dfsdfgdf</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="card border-0 box-shadow rounded-0">
+                        <div class="card-header border-0 rounded-0 text-muted">
+                            <h5 class="mb-0">
+                                <!-- <i *ngIf="!user.settings.isDeleted" class="fa fa-user mr-2" [ngClass]="{ 'text-success': user.settings.isActive, 
+                                                                        'text-inverse': !user.settings.isActive}" placement="bottom" [ngbTooltip]="(user.settings.isActive) ? 'active' : 'passive'"></i>
+                            <i *ngIf="user.settings.isDeleted" class="fa fa-user mr-2 text-danger" placement="bottom" [ngbTooltip]="'deleted'"></i> {{user.profile.name}} {{user.profile.surname}} -->
+                            </h5>
+                            <div class="widget-controls">
+                                <!-- <a (click)="closeMenuAssign($event)" href="javascript:void(0);" class="transition"><i class="fa fa-times"></i></a> -->
+                            </div>
+                        </div>
+                        <div class="card-body pt-3">
+                            <!-- <ss-multiselect-dropdown id="menuSelect{{user.id}}" class="custom-multiselect" [options]="menuSelectOptions" [texts]="menuSelectTexts" [settings]="menuSelectSettings" [(ngModel)]="user.menuIds">
+                        </ss-multiselect-dropdown>
+                        <div class="w-100 text-center pt-3">
+                            <button class="btn btn-success" (click)="assignMenuItemsToUser(user)"> Assign menu items to user </button>
+                            <p class="text-gray fs-13 mt-2">Logout and login to see result.</p>
+                        </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
 <!-- listado de clientes -->
 
-<div class="row">
+<div *ngIf="type=='list'" class="row">
     <div class="col-12">
         <div class="table-responsive bg-white box-shadow">
             <table class="table table-hover">
@@ -141,31 +244,31 @@
 
                             <div class="form-group col-md-6 ">
                                 <label class="text-gray "> Placa </label>
-                                <input name="nombre " id="nombre " [(ngModel)]="nuevoDato.nombre " class="form-control validation-field " type="text " autocomplete="off " required>
+                                <input name="nombre " id="nombre " [(ngModel)]="nuevoDato.nombre " class="form-control validation-field " type="text " autocomplete="off" required>
                             </div>
                             <div class="form-group col-md-6 ">
                                 <label class="text-gray ">Marca</label>
-                                <input name="marca " id="marca " [(ngModel)]="nuevoDato.marca " class="form-control validation-field " type="text " autocomplete="off ">
+                                <input name="marca " id="marca " [(ngModel)]="nuevoDato.marca " class="form-control validation-field " type="text " autocomplete="off">
                             </div>
                         </div>
                         <div class="row ">
                             <div class="form-group col-md-6 ">
                                 <label class="text-gray ">Tipo vehículo</label>
-                                <input name="tipoVehiculo " id="tipoVehiculo " [(ngModel)]="nuevoDato.tipoVehiculo " class="form-control validation-field " type="text " autocomplete="off ">
+                                <input name="tipoVehiculo " id="tipoVehiculo " [(ngModel)]="nuevoDato.tipoVehiculo " class="form-control validation-field" type="text" autocomplete="off">
                             </div>
                             <div class="form-group col-md-6 ">
                                 <label class="text-gray ">MTC</label>
-                                <input name="mtc " id="mtc " [(ngModel)]="nuevoDato.mtc " class="form-control validation-field " type="text " autocomplete="off ">
+                                <input name="mtc " id="mtc " [(ngModel)]="nuevoDato.mtc " class="form-control validation-field " type="text " autocomplete="off">
                             </div>
                         </div>
                         <div class="row ">
                             <div class="form-group col-md-6 ">
                                 <label class="text-gray ">Configuración</label>
-                                <input name="configuracion " id="configuracion " [(ngModel)]="nuevoDato.configuracion " class="form-control validation-field " type="text " autocomplete="off ">
+                                <input name="configuracion " id="configuracion " [(ngModel)]="nuevoDato.configuracion " class="form-control validation-field" type="text" autocomplete="off">
                             </div>
                             <div class="form-group col-md-6 ">
                                 <label class="text-gray ">Capacidad Carga</label>
-                                <input name="capCarga " id="capCarga " [(ngModel)]="nuevoDato.capCarga " class="form-control validation-field " type="number " autocomplete="off ">
+                                <input name="capCarga " id="capCarga " [(ngModel)]="nuevoDato.capCarga " class="form-control validation-field " type="number" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -193,31 +296,31 @@
 
                         <div class="form-group col-md-6 ">
                             <label for="nombreEditar " class="text-gray ">Placa</label>
-                            <input name="nombreEditar " id="nombreEditar " [(ngModel)]="datoEditado.nombre " class="form-control validation-field " type="text ">
+                            <input name="nombreEditar " id="nombreEditar " [(ngModel)]="datoEditado.nombre " class="form-control validation-field " type="text" autocomplete="off">
                         </div>
                         <div class="form-group col-md-6 ">
                             <label for="marcaEditar " class="text-gray ">Marca</label>
-                            <input name="marcaEditar " id="marcaEditar " [(ngModel)]="datoEditado.marca " class="form-control validation-field " type="text ">
+                            <input name="marcaEditar " id="marcaEditar " [(ngModel)]="datoEditado.marca " class="form-control validation-field " type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="row ">
                         <div class="form-group col-md-6 ">
                             <label class="text-gray ">Tipo vehículo</label>
-                            <input name="tipoVehiculoEditar " id="tipoVehiculoEditar " [(ngModel)]="datoEditado.tipoVehiculo " class="form-control validation-field " type="text ">
+                            <input name="tipoVehiculoEditar " id="tipoVehiculoEditar " [(ngModel)]="datoEditado.tipoVehiculo " class="form-control validation-field" type="text" autocomplete="off">
                         </div>
                         <div class="form-group col-md-6 ">
                             <label class="text-gray ">MTC</label>
-                            <input name="mtcEditar " id="mtcEditar " [(ngModel)]="datoEditado.mtc " class="form-control validation-field " type="text ">
+                            <input name="mtcEditar " id="mtcEditar " [(ngModel)]="datoEditado.mtc " class="form-control validation-field " type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="row ">
                         <div class="form-group col-md-6 ">
                             <label class="text-gray ">Configuración</label>
-                            <input name="configuracionEditar " id="configuracionEditar " [(ngModel)]="datoEditado.configuracion " class="form-control validation-field " type="text ">
+                            <input name="configuracionEditar " id="configuracionEditar " [(ngModel)]="datoEditado.configuracion " class="form-control validation-field" type="text" autocomplete="off">
                         </div>
                         <div class="form-group col-md-6 ">
                             <label class="text-gray ">Capacidad Carga</label>
-                            <input name="capCargaEditar " id="capCargaEditar " [(ngModel)]="datoEditado.capCarga " class="form-control validation-field " type="number ">
+                            <input name="capCargaEditar " id="capCargaEditar " [(ngModel)]="datoEditado.capCarga " class="form-control validation-field " type="number" autocomplete="off">
                         </div>
                     </div>
                 </div>

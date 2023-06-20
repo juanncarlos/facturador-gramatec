@@ -11,21 +11,24 @@ import { VehiculoService } from './vehiculo.service';
 })
 export class VehiculoComponent implements OnInit {
 
-  modalRef: NgbModalRef;
-  datos: any[];
-  nuevoDato: any = {};
-  datoEditado: any = {};
-  indiceEditar: number = -1;
+  public modalRef: NgbModalRef;
+  public datos: any[];
+  public nuevoDato: any = {};
+  public datoEditado: any = {};
+  public indiceEditar: number = -1;
 
   // Propiedades de paginación
-  paginaActual = 1;
-  elementosPorPagina = 5;
+  public paginaActual = 1;
+  public elementosPorPagina = 5;
 
   // variable del buscador
-  textoBusqueda: string = '';
+  public textoBusqueda: string = '';
 
   //ordenar de manera descendente
-  ordenDescendente: boolean = true;
+  public ordenDescendente: boolean = true;
+
+  // variable para ver en cuadrilla o listas
+  public type:string = 'grid';
     
 
   
@@ -94,6 +97,11 @@ export class VehiculoComponent implements OnInit {
   /* paginacion */
   cambiarPagina(evento: number): void {
     this.paginaActual = evento;
+  }
+
+  //codigo para ver en cuadrillas o listas
+  public toggle(type){
+    this.type = type;
   }
 
   
