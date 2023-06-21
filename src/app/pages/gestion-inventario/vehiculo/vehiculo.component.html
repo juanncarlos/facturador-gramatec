@@ -15,6 +15,13 @@
     </div>
 </div>
 
+<button (click)="exportToExcels()">Exportar a Excel</button>
+
+
+
+
+
+
 
 <!-- vista en cuadrillas -->
 <div *ngIf="type=='grid'" class="row">
@@ -149,6 +156,7 @@
                         <div class="btn-group " role="group ">
                             <button class="btn btn-warning btn-sm " (click)="abrirEditarModal(modalEditar, i)"><i class="fa fa-pencil "></i></button>
                             <button class="btn btn-danger btn-sm " (click)="eliminarDato(i) "><i class="fa fa-trash "></i></button>
+                            <button (click)="generarPDF(dato)">PDF</button>
                         </div>
 
                     </tr>
