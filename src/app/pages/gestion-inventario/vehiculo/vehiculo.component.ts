@@ -19,7 +19,7 @@ export class VehiculoComponent implements OnInit {
 
   // Propiedades de paginación
   public paginaActual = 1;
-  public elementosPorPagina = 5;
+  public elementosPorPagina = 6;
 
   // variable del buscador
   public textoBusqueda: string = '';
