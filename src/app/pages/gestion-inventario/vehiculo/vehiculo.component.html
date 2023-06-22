@@ -8,18 +8,14 @@
             <div class="input-group-append">
                 <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
                 <span (click)="abrirModal(modalAgregar)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer"><i class="fa fa-user-plus text-primary"></i></span>
+                <span (click)="exportToExcels()" class="input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer"><i class="fa fa fa-arrow-down"></i></span>
                 <span (click)="toggle('grid')" class="input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer"><i class="fa fa-th"></i></span>
                 <span (click)="toggle('list')" class="input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer"><i class="fa fa-list"></i></span>
+
             </div>
         </div>
     </div>
 </div>
-
-<button (click)="exportToExcels()">Exportar a Excel</button>
-
-
-
-
 
 
 
@@ -156,7 +152,9 @@
                         <div class="btn-group " role="group ">
                             <button class="btn btn-warning btn-sm " (click)="abrirEditarModal(modalEditar, i)"><i class="fa fa-pencil "></i></button>
                             <button class="btn btn-danger btn-sm " (click)="eliminarDato(i) "><i class="fa fa-trash "></i></button>
-                            <button (click)="generarPDF(dato)">PDF</button>
+                            <!-- <button (click)="generarPDF(dato)">PDF</button> -->
+                            <button (click)="imprimirA4(dato)">A4</button>
+                            <button (click)="imprimirTicket(dato)">Ticket</button>
                         </div>
 
                     </tr>
@@ -166,6 +164,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div class="row ">
     <div class="col-12 ">

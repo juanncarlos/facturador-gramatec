@@ -8,9 +8,13 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 // importar librerias para descargar en PDF
-import * as pdfMake from 'pdfmake/build/pdfmake';
+/* import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs; */
+
+// importamos la libreria para mandar a imprimir en a4 y ticket
+import * as printJS from 'print-js';
+
 
 import { VehiculoService } from './vehiculo.service';
 
@@ -46,7 +50,10 @@ export class VehiculoComponent implements OnInit {
   // variable para poder importar archivos
   public datosImportados: any[] = [];
   public importedIds: number[] = [];
-    
+
+
+  // variables para mostrar texto al pasar el mouse sobre el boton descargar excel
+ 
 
   
   constructor(private modalService: NgbModal, private dataService: VehiculoService) {}
@@ -145,9 +152,7 @@ export class VehiculoComponent implements OnInit {
   } */
 
 
-
   // ************** codigo para exportar según los filtros que se hagan **********************
-
   exportToExcels(): void {
     let exportData: any[];
   
@@ -189,7 +194,7 @@ export class VehiculoComponent implements OnInit {
 
 
   //* *********** código para descargar en pdf ***************************
-  generarPDF(fila: any): void {
+  /* generarPDF(fila: any): void {
     const documentDefinition = {
       content: [
         { text: 'Datos del Vehículo', style: 'header' },
@@ -214,8 +219,57 @@ export class VehiculoComponent implements OnInit {
     };
   
     pdfMake.createPdf(documentDefinition).download('datos_vehiculo.pdf');
+  } */
+
+
+  // ****************** código para tener opciones de imprimir en A4 y ticket ******************
+  imprimirA4(fila: any): void {
+    const contenido = `
+
+    <div>
+    <img src="../../../../assets/img/logo/logo.jpg" alt="logo" width="50%">
+    </div>
+      <h1>Datos del Vehículo</h1>
+      <table>
+        <tr>
+          <th>Placa</th>
+          <th>Marca</th>
+          <th>Tipo Vehículo</th>
+          <th>MTC</th>
+          <th>Configuración</th>
+          <th>Cap. Carga</th>
+        </tr>
+        <tr>
+          <td>${fila.nombre}</td>
+          <td>${fila.marca}</td>
+          <td>${fila.tipoVehiculo}</td>
+          <td>${fila.mtc}</td>
+          <td>${fila.configuracion}</td>
+          <td>${fila.capCarga}</td>
+        </tr>
+      </table>
+    `;
+
+    printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
   }
-  
+
+  imprimirTicket(fila: any): void {
+    const contenido = `
+      <h1>Ticket</h1>
+      <p>Placa: ${fila.nombre}</p>
+      <p>Marca: ${fila.marca}</p>
+      <p>Tipo Vehículo: ${fila.tipoVehiculo}</p>
+      <p>MTC: ${fila.mtc}</p>
+      <p>Configuración: ${fila.configuracion}</p>
+      <p>Cap. Carga: ${fila.capCarga}</p>
+    `;
+
+    printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: 80mm 200mm; margin: 0; }' });
+  }
+
+
+  //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
+ 
 
   
   
