@@ -45,7 +45,7 @@ export class VehiculoComponent implements OnInit {
   public ordenDescendente: boolean = true;
   
   // variable para ver en cuadrilla o listas
-  public type:string = 'list';
+  public type:string = 'grid';
   
   // variable para poder importar archivos
   public datosImportados: any[] = [];
