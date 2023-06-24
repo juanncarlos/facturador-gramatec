@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 // importar librerias para usar modales de bootstrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -52,7 +52,12 @@ export class VehiculoComponent implements OnInit {
   public importedIds: number[] = [];
 
 
-  // variables para mostrar texto al pasar el mouse sobre el boton descargar excel
+  // variables para mostrar texto al pasar el mouse sobre el botones
+  MensajeAgregar: boolean = false;
+  MensajeExportarExcel: boolean = false;
+  MensajeExportarPdf: boolean = false;
+  MensajeVistaCuadros: boolean = false;
+  MensajeVistaListas: boolean = false;
  
 
   
@@ -224,6 +229,7 @@ export class VehiculoComponent implements OnInit {
 
   // ****************** código para tener opciones de imprimir en A4 y ticket ******************
   imprimirA4(fila: any): void {
+
     const contenido = `
 
     <div>
@@ -268,10 +274,65 @@ export class VehiculoComponent implements OnInit {
   }
 
 
-  //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
+
+  //****código para descargar en pdf segun la busqueda que se haga globalmente */
+  
+  exportarPDF() {
+    let exportData: any[];
+  
+    if (this.textoBusqueda.trim() !== '') {
+      // Realizar la búsqueda y exportar los datos filtrados
+      exportData = this.datos.filter(item => {
+        // Aplica la lógica de filtrado según tus criterios de búsqueda
+        // Por ejemplo, si deseas exportar solo los elementos cuyo campo "nombre" contiene el texto buscado:
+        return item.nombre.includes(this.textoBusqueda);
+      });
+    } else {
+      // Exportar todos los datos
+      exportData = this.datos;
+    }
+    let contenido = `
+      <h1 class="text-center">Datos del Vehículo</h1>
+      <table>
+        <tr>
+          <th>Placa</th>
+          <th>Marca</th>
+          <th>Tipo Vehículo</th>
+          <th>MTC</th>
+          <th>Configuración</th>
+          <th>Cap. Carga</th>
+        </tr>
+    `;
+  
+    for (const fila of exportData) {
+      contenido += `
+        <tr>
+          <td>${fila.nombre}</td>
+          <td>${fila.marca}</td>
+          <td>${fila.tipoVehiculo}</td>
+          <td>${fila.mtc}</td>
+          <td>${fila.configuracion}</td>
+          <td>${fila.capCarga}</td>
+        </tr>
+      `;
+    }
+  
+    contenido += `</table>`;
+  
+    printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
+  }
+
+
+
+
+    //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
  
 
-  
+    
+
+
+
+  //******************* código para el boton de opciones de imprimir */
   
   
 }
