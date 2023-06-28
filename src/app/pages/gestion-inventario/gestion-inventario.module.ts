@@ -7,19 +7,23 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 
+//libreria para la paginacion
+import { NgxPaginationModule } from 'ngx-pagination';
+
 /* componentes creados */
 import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { VehiculoBuscarPipe } from 'src/app/theme/pipes/search/vehiculo-buscar.pipe';
+import { ConductorComponent } from './conductor/conductor.component';
 
 
 export const routes: Routes = [
   { path: '', redirectTo: 'cliente', pathMatch: 'full'},
   { path: 'cliente', component: ClienteComponent, data: { breadcrumb: 'Cliente' } },
   { path: 'producto', component: ProductoComponent, data: { breadcrumb: 'Producto' } },
-  { path: 'vehiculo', component: VehiculoComponent, data: { breadcrumb: 'Vehiculo' } }
+  { path: 'vehiculo', component: VehiculoComponent, data: { breadcrumb: 'Vehiculo' } },
+  { path: 'conductor', component: ConductorComponent, data: { breadcrumb: 'Conductor' } }
   /* { path: 'editor', component: EditorComponent, data: { breadcrumb: 'Editor' } } */
 ];
 
@@ -49,7 +53,8 @@ export const routes: Routes = [
     ClienteComponent,
     VehiculoComponent,
     ProductoComponent,
-    VehiculoBuscarPipe
+    VehiculoBuscarPipe,
+    ConductorComponent
   ]
 })
 export class GestionInventarioModule { }

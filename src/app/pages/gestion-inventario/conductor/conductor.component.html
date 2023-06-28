@@ -1,0 +1,317 @@
+
+<div class="row mb-1">
+    <div class="col">
+        <div class="input-group mb-3">
+            <input type="text" [(ngModel)]="textoBusqueda" name="textoBusqueda" placeholder="Buscar por placa" class="form-control border-0  buscador">
+            <div class="input-group-append contenedor-botones-superior">
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-user-plus text-primary"></i></span>
+                    <div class="mensaje" *ngIf="MensajeAgregar">
+                        Agregar Conductor
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeExportarExcel = true" (mouseleave)="MensajeExportarExcel = false" (click)="exportToExcels()" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-excel-o text-success"></i></span>
+                    <div class="mensaje" *ngIf="MensajeExportarExcel">
+                        Exportar Excel
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeExportarPdf = true" (mouseleave)="MensajeExportarPdf = false" (click)="exportarPDF()" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-danger"></i></span>               
+                    <div class="mensaje" *ngIf="MensajeExportarPdf">
+                        Exportar PDF
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeVistaCuadros = true" (mouseleave)="MensajeVistaCuadros = false" (click)="toggle('grid')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-th text-info"></i></span>                   
+                    <div class="mensaje" *ngIf="MensajeVistaCuadros">
+                        Vista en cuadros
+                    </div>
+                </div>         
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeVistaListas = true" (mouseleave)="MensajeVistaListas = false" (click)="toggle('list')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-list"></i></span>
+                    <div class="mensaje" *ngIf="MensajeVistaListas">
+                      Vista en filas
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- vista en cuadrillas -->
+<div *ngIf="type=='grid'" class="row">
+    <div *ngFor="let conductor of datos | vehiculoBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i = index" class="col-xl-4 col-lg-6 mb-4 general">
+        <div class="flip">
+            <div class="content">
+                <div class="front">
+                    <div class="card border-0  rounded-10 contenedor-general-card">
+                        <div class="card-header border-0 rounded-0 text-muted card-cabecera">
+                            <h5 class="mb-0">
+                                <i class="fa fa-user-secret mr-2 text-success" placement="bottom"></i> {{conductor.nombre}}
+                            </h5>
+                        </div>
+                        <div class="card-body pt-2 pb-2 card-cuerpo">
+                            <div class="media">
+                                <div class="media-body ml-3">
+                                    <div class="row">
+                                        <div class="col col-12">
+                                            <h6><strong>DNI :</strong>  {{conductor.dni }}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Nombre :</strong> {{conductor.nombre}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Dirección :</strong> {{conductor.direccion}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Licencia :</strong> {{conductor.licencia}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Categoria :</strong> {{conductor.categoria}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Fecha Nacimiento :</strong> {{conductor.fechaNacimiento }}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Vencimiento Licencia :</strong> {{conductor.fechaVencLicencia}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Correo :</strong> {{conductor.correo}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Celular :</strong> {{conductor.celular}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Nota :</strong> {{conductor.nota}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer card-pie">
+                            <div class="input-group-append contenedor-botones-card d-flex justify-content-center">                                 
+                                    <div class="input-group-prepend">
+                                        <span (click)="abrirEditarModal(modalEditar, i)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-pencil text-warning"></i></span>                           
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span (click)="imprimirA4(conductor)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-info"></i></span>                                
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span  (click)="imprimirTicket(conductor)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-primary"></i></span>                                                       
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span (click)="eliminarDato(i)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-trash text-danger"></i></span>                   
+                                    </div>                                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- listado de conductores -->
+<div *ngIf="type=='list'" class="row">
+    <div class="col-12">
+        <div class="table-responsive bg-white box-shadow contenedor-tabla-lista">
+            <table class="table table-hover">
+                <colgroup>
+                    <col class="col1">
+                    <col class="col2">
+                    <col class="col3">
+                    <col class="col4">
+                    <col class="col5">
+                    <col class="col6">
+                    <col class="col7">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle">DNI</th>
+                        <th class="text-center align-middle">NOMBRE</th>
+                        <th class="text-center align-middle">LICENCIA</th>
+                        <th class="text-center align-middle">VENCIMIENTO LICENCIA</th>
+                        <th class="text-center align-middle">CATEGORIA</th>
+                        <th class="text-center align-middle">CELULAR</th>
+                        <th class="text-center align-middle">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let conductor of datos | vehiculoBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" (dblclick)="abrirEditarModal(modalEditar, i)">
+
+                        <td class="align-middle text-truncate text-center"> {{conductor.dni}}</td>
+                        <td class="align-middle text-truncate text-center">{{conductor.nombre}}</td>
+                        <td class="align-middle text-truncate text-center">{{conductor.licencia }}</td>
+                        <td class="align-middle text-truncate text-center">{{conductor.fechaVencLicencia}}</td>
+                        <td class="align-middle text-truncate text-center">{{conductor.categoria}}</td>
+                        <td class=" align-middle text-truncate text-center">{{conductor.celular}}</td>
+                        <div class="btn-group text-center contenedor-general-btn-opciones" role="group">                           
+                            <div class="input-group-prepend contenedor-btn-opciones">
+                                <button class="btn btn-outline-success btn-opciones dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"></button>
+                                <div class="dropdown-menu contenedor-opciones">
+                                    <a class="dropdown-item" (click)="imprimirA4(conductor)">Imprimir A4</a>
+                                    <a class="dropdown-item" (click)="imprimirTicket(conductor)">Ticket</a>
+                                    <a class="dropdown-item" (click)="abrirEditarModal(modalEditar, i)">Editar</a>
+                                    <a class="dropdown-item" (click)="eliminarDato(i)">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 contenedor-general-paginacion">
+    <div class="col-12 contenedor-paginacion">
+        <div class="bg-white text-center paginacion">
+            <pagination-controls (pageChange)="cambiarPagina($event)" [maxSize]="5" [directionLinks]="true" [autoHide]="true">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Agregar -->
+<ng-template #modalAgregar>
+    <div class="contenedor-modal-agregar">
+        <div class="modal-header text-center">
+            <h4 class="modal-title text-center">AGREGAR</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="tab-content col-12 border-0">
+                    <div class="tab-pane active" id="basic">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="text-gray"> DNI </label>
+                                <input name="dni" id="dni" [(ngModel)]="nuevoDato.dni" class="form-control validation-field" type="number" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray"> Nombre </label>
+                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray"> Direccion </label>
+                                <input name="direccion" id="direccion" [(ngModel)]="nuevoDato.direccion" class="form-control validation-field" type="text" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="text-gray ">Licencia</label>
+                                <input name="licencia" id="licencia" [(ngModel)]="nuevoDato.licencia" class="form-control validation-field" type="text" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Categoria</label>
+                                <input name="categoria" id="categoria" [(ngModel)]="nuevoDato.categoria" class="form-control validation-field" type="text" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Fecha Nacimiento</label>
+                                <input name="fechaNacimiento" id="fechaNacimiento" [(ngModel)]="nuevoDato.fechaNacimiento" class="form-control validation-field" type="date" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Vencimiento Licencia</label>
+                                <input name="fechaVencLicencia" id="fechaVencLicencia" [(ngModel)]="nuevoDato.fechaVencLicencia" class="form-control validation-field" type="date" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="text-gray"> Correo </label>
+                                <input name="correo" id="correo" [(ngModel)]="nuevoDato.correo" class="form-control validation-field" type="email" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray"> Celular </label>
+                                <input name="celular" id="celular" [(ngModel)]="nuevoDato.celular" class="form-control validation-field" type="number" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray"> Nota </label>
+                                <input name="nota" id="nota" [(ngModel)]="nuevoDato.nota" class="form-control validation-field" type="text" autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
+            <button type="button" class="btn btn-success btn-guardar-modal" (click)="agregarDato()">Guardar</button>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Modal Editar -->
+<ng-template #modalEditar>
+    <div class="modal-header">
+        <h4 class="modal-title">EDITAR</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="tab-content col-12 border-0">
+                <div class="tab-pane active" id="basic">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-gray"> DNI </label>
+                            <input name="dni" id="dni" [(ngModel)]="datoEditado.dni" class="form-control validation-field" type="number" autocomplete="off" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray"> Nombre </label>
+                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray"> Direccion </label>
+                            <input name="direccion" id="direccion" [(ngModel)]="datoEditado.direccion" class="form-control validation-field" type="text" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-gray ">Licencia</label>
+                            <input name="licencia" id="licencia" [(ngModel)]="datoEditado.licencia" class="form-control validation-field" type="text" autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Categoria</label>
+                            <input name="categoria" id="categoria" [(ngModel)]="datoEditado.categoria" class="form-control validation-field" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Fecha Nacimiento</label>
+                            <input name="fechaNacimiento" id="fechaNacimiento" [(ngModel)]="datoEditado.fechaNacimiento" class="form-control validation-field" type="date" autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Vencimiento Licencia</label>
+                            <input name="fechaVencLicencia" id="fechaVencLicencia" [(ngModel)]="datoEditado.fechaVencLicencia" class="form-control validation-field" type="date" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-gray"> Correo </label>
+                            <input name="correo" id="correo" [(ngModel)]="datoEditado.correo" class="form-control validation-field" type="email" autocomplete="off" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray"> Celular </label>
+                            <input name="celular" id="celular" [(ngModel)]="datoEditado.celular" class="form-control validation-field" type="number" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray"> Nota </label>
+                            <input name="nota" id="nota" [(ngModel)]="datoEditado.nota" class="form-control validation-field" type="text" autocomplete="off" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-warning btn-guardar-modal" (click)="editarDato()">Editar</button>
+    </div>
+</ng-template>

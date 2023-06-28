@@ -33,7 +33,8 @@ export const verticalMenuItems = [
     new Menu (200, 'ADMIN_NAV.GESTION-INVENTARIO', null, null, 'pencil-square-o', null, true, 0), 
     new Menu (201, 'Cliente', '/gestion-inventario/cliente', null, 'check-square-o', null, false, 200),
     new Menu (202, 'Producto', '/gestion-inventario/producto', null, 'th-large', null, false, 200),
-    new Menu (203, 'Vehiculo', '/gestion-inventario/vehiculo', null, 'magic', null, false, 200),
+    new Menu (203, 'Vehiculo', '/gestion-inventario/vehiculo', null, 'truck', null, false, 200),
+    new Menu (204, 'Conductor', '/gestion-inventario/conductor', null, 'user-secret', null, false, 200),
 
 
     new Menu (26, 'ADMIN_NAV.TABLES', null, null, 'table', null, true, 0),
