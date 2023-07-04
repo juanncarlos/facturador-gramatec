@@ -10,12 +10,19 @@ import { DirectivesModule } from '../../theme/directives/directives.module';
 //libreria para la paginacion
 import { NgxPaginationModule } from 'ngx-pagination';
 
+//pipes creados para las busquedas
+import { VehiculoBuscarPipe } from 'src/app/theme/pipes/search/vehiculo-buscar.pipe';
+import { ConductorPipe } from 'src/app/theme/pipes/search/conductor.pipe';
+import { ClienteBuscarPipe } from 'src/app/theme/pipes/search/cliente-buscar.pipe';
+
+
 /* componentes creados */
 import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
-import { VehiculoBuscarPipe } from 'src/app/theme/pipes/search/vehiculo-buscar.pipe';
 import { ConductorComponent } from './conductor/conductor.component';
+
+
 
 
 export const routes: Routes = [
@@ -54,6 +61,8 @@ export const routes: Routes = [
     VehiculoComponent,
     ProductoComponent,
     VehiculoBuscarPipe,
+    ConductorPipe,
+    ClienteBuscarPipe,
     ConductorComponent
   ]
 })

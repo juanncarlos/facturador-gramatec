@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 import * as printJS from 'print-js';
 
 import { ConductorService } from './conductor.service';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-conductor',
@@ -84,13 +85,13 @@ export class ConductorComponent implements OnInit {
   }
 
   editarDato(): void {
-    if (this.datoEditado.nombre) {
+    if (this.datoEditado.dni) {
     this.dataService.editarDato(this.datos[this.indiceEditar].id, this.datoEditado);
     this.datos = this.dataService.obtenerDatos();
     this.cerrarModal();
     }else {
       // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-      alert('El campo placa no puede ir vacio, por favor complete.');
+      alert('El campo dni no puede ir vacio, por favor complete.');
     }
 
    
@@ -225,34 +226,34 @@ export class ConductorComponent implements OnInit {
       exportData = this.datos;
     }
     let contenido = `
-      <h1 class="text-center">Datos del Vehículo</h1>
+      <h1 style="text-align: center">Datos de los conductores</h1>
       <table>
         <tr>
-          <th>Placa</th>
-          <th>Marca</th>
-          <th>Tipo Vehículo</th>
-          <th>MTC</th>
-          <th>Configuración</th>
-          <th>Cap. Carga</th>
+          <th>DNI</th>
+          <th>NOMBRE</th>
+          <th>LICENCIA</th>
+          <th>VENCIMIENTO LICENCIA</th>
+          <th>CATEGORIA</th>
+          <th>CELULAR</th>
         </tr>
     `;
   
     for (const fila of exportData) {
       contenido += `
         <tr>
+          <td>${fila.dni}</td>
           <td>${fila.nombre}</td>
-          <td>${fila.marca}</td>
-          <td>${fila.tipoVehiculo}</td>
-          <td>${fila.mtc}</td>
-          <td>${fila.configuracion}</td>
-          <td>${fila.capCarga}</td>
+          <td>${fila.licencia}</td>
+          <td>${fila.fechaVencLicencia}</td>
+          <td>${fila.categoria}</td>
+          <td>${fila.celular}</td>
         </tr>
       `;
     }
   
     contenido += `</table>`;
   
-    printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
+    printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }'});
   }
   
 }

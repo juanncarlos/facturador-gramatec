@@ -41,7 +41,7 @@
 
 <!-- vista en cuadrillas -->
 <div *ngIf="type=='grid'" class="row">
-    <div *ngFor="let conductor of datos | vehiculoBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i = index" class="col-xl-4 col-lg-6 mb-4 general">
+    <div *ngFor="let conductor of datos | conductorBuscarPipe: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i = index" class="col-xl-4 col-lg-6 mb-4 general">
         <div class="flip">
             <div class="content">
                 <div class="front">
@@ -94,12 +94,12 @@
                                     <div class="input-group-prepend">
                                         <span (click)="abrirEditarModal(modalEditar, i)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-pencil text-warning"></i></span>                           
                                     </div>
-                                    <div class="input-group-prepend">
+                                    <!-- <div class="input-group-prepend">
                                         <span (click)="imprimirA4(conductor)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-info"></i></span>                                
                                     </div>
                                     <div class="input-group-prepend">
                                         <span  (click)="imprimirTicket(conductor)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-primary"></i></span>                                                       
-                                    </div>
+                                    </div> -->
                                     <div class="input-group-prepend">
                                         <span (click)="eliminarDato(i)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-trash text-danger"></i></span>                   
                                     </div>                                                 
@@ -138,7 +138,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let conductor of datos | vehiculoBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" (dblclick)="abrirEditarModal(modalEditar, i)">
+                    <tr *ngFor="let conductor of datos | conductorBuscarPipe: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" (dblclick)="abrirEditarModal(modalEditar, i)">
 
                         <td class="align-middle text-truncate text-center"> {{conductor.dni}}</td>
                         <td class="align-middle text-truncate text-center">{{conductor.nombre}}</td>
@@ -150,8 +150,8 @@
                             <div class="input-group-prepend contenedor-btn-opciones">
                                 <button class="btn btn-outline-success btn-opciones dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"></button>
                                 <div class="dropdown-menu contenedor-opciones">
-                                    <a class="dropdown-item" (click)="imprimirA4(conductor)">Imprimir A4</a>
-                                    <a class="dropdown-item" (click)="imprimirTicket(conductor)">Ticket</a>
+                                    <!-- <a class="dropdown-item" (click)="imprimirA4(conductor)">Imprimir A4</a>
+                                    <a class="dropdown-item" (click)="imprimirTicket(conductor)">Ticket</a> -->
                                     <a class="dropdown-item" (click)="abrirEditarModal(modalEditar, i)">Editar</a>
                                     <a class="dropdown-item" (click)="eliminarDato(i)">Eliminar</a>
                                 </div>
