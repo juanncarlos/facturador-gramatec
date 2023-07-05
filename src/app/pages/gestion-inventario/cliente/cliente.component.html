@@ -293,10 +293,10 @@
                             <div class="form-group col-md-12">
                                 <label class="text-gray">Nota</label>
                                 <textarea name="nota" id="nota" [(ngModel)]="nuevoDato.nota" class="form-control validation-field" type="text" autocomplete="off"></textarea>
-                                
                             </div>
                             
                         </div>
+                        
                     </div>
                 </div>
             </form>
@@ -319,36 +319,93 @@
             <div class="tab-content col-12 border-0">
                 <div class="tab-pane active" id="basic">
                     <div class="row">
-
-                        <div class="form-group col-md-6">
-                            <label for="nombreEditar" class="text-gray">Placa</label>
-                            <input name="nombreEditar" id="nombreEditar" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off">
+                        <div class="form-group col-md-5">
+                            <label class="text-gray"> Tipo Documento </label>
+                            <select [(ngModel)]="datoEditado.tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control">
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                              </select>
+                            <!-- <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" required> -->
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="marcaEditar" class="text-gray">Marca</label>
-                            <input name="marcaEditar" id="marcaEditar" [(ngModel)]="datoEditado.marca" class="form-control validation-field" type="text" autocomplete="off">
+                        <div class="form-group col-md-5">
+                            <label class="text-gray">Número</label>
+                            <input name="numeroDocumento" id="numeroDocumento" [(ngModel)]="datoEditado.numeroDocumento" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-2 contenedor-ico-buscar">
+                            <label class="text-gray">Buscar</label>
+                            <span (mouseenter)="MensajeBuscarCliente = true" (mouseleave)="MensajeBuscarCliente = false"  class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-search text-primary"></i></span>
+                            <div class="mensaje" *ngIf="MensajeBuscarCliente">
+                                Buscar Cliente
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray">Nombre</label>
+                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text " autocomplete="off">
+                        </div>                          
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray">Dirección</label>
+                            <input name="direccion" id="direccion" [(ngModel)]="datoEditado.direccion" class="form-control validation-field" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label class="text-gray">Departamento</label>
+                            <select [(ngModel)]="datoEditado.departamento" name="departamento" id="departamento" class="form-control">
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                              </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="text-gray">Provincia</label>
+                            <select [(ngModel)]="datoEditado.provincia" name="provincia" id="provincia" class="form-control">
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                              </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="text-gray">Distrito</label>
+                            <select [(ngModel)]="datoEditado.distrito" name="distrito" id="distrito" class="form-control">
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                              </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Tipo vehículo</label>
-                            <input name="tipoVehiculoEditar" id="tipoVehiculoEditar" [(ngModel)]="datoEditado.tipoVehiculo" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray">Activo</label>
+                            <input name="activo" id="activo" [(ngModel)]="datoEditado.activo" class="form-control validation-field" type="text" autocomplete="off" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-gray">MTC</label>
-                            <input name="mtcEditar" id="mtcEditar" [(ngModel)]="datoEditado.mtc" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray">Habido</label>
+                            <input name="habido" id="habido" [(ngModel)]="datoEditado.habido" class="form-control validation-field" type="text" autocomplete="off" readonly>
                         </div>
                     </div>
-                    <div class="row ">
+                    <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Configuración</label>
-                            <input name="configuracionEditar" id="configuracionEditar" [(ngModel)]="datoEditado.configuracion" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray">Correo</label>
+                            <input name="correo" id="correo" [(ngModel)]="datoEditado.correo" class="form-control validation-field" type="email" autocomplete="off">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Capacidad Carga</label>
-                            <input name="capCargaEditar" id="capCargaEditar" [(ngModel)]="datoEditado.capCarga" class="form-control validation-field" type="number" autocomplete="off">
+                            <label class="text-gray">Celular</label>
+                            <input name="celular" id="celular" [(ngModel)]="datoEditado.celular" class="form-control validation-field" type="number" autocomplete="off">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray">Nota</label>
+                            <textarea name="nota" id="nota" [(ngModel)]="datoEditado.nota" class="form-control validation-field" type="text" autocomplete="off"></textarea>
+                        </div>
+                        
+                    </div>
+                    
                 </div>
             </div>
         </form>

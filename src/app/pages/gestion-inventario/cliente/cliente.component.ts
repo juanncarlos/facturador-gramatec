@@ -8,7 +8,6 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
 
-
 // importamos la libreria para mandar a imprimir en a4 y ticket
 import * as printJS from 'print-js';
 
@@ -62,6 +61,8 @@ export class ClienteComponent implements OnInit {
   ngOnInit(): void {
     /* this.datos = this.dataService.obtenerDatos(); */ // forma normal 
     this.datos = this.dataService.obtenerDatos().sort((a, b) => b.id - a.id); //forma descendente
+
+    
   }
 
   abrirModal(modal: any): void {
@@ -85,15 +86,17 @@ export class ClienteComponent implements OnInit {
   //esto es para ordenar de manera descendente y con validacion del primer campo 
   
   agregarDato(): void {
-    if (this.nuevoDato.nombre) {
-      this.dataService.agregarDato(this.nuevoDato);
-      this.datos.unshift(this.nuevoDato);
-      this.cerrarModal();
-      this.nuevoDato = {};
-    } else {
-      // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-      alert('Por favor ingrese la placa.');
-    }
+      
+      if (this.nuevoDato.nombre) {
+        this.dataService.agregarDato(this.nuevoDato);
+        this.datos.unshift(this.nuevoDato);
+        this.cerrarModal();
+        this.nuevoDato = {};
+      } else {
+        // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
+        alert('Por favor ingrese la placa.');
+      }
+    
   }
 
   editarDato(): void {
@@ -130,27 +133,6 @@ export class ClienteComponent implements OnInit {
   public toggle(type){
     this.type = type;
   }
-
-  //* codigo para exportar datos en un archivo excel 
- /*  exportToExcel(): void {
-    const data: any[] = this.datos; // Obtén los datos que deseas exportar
-  
-    // Crea una nueva instancia de workbook
-    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-  
-    // Convierte los datos a una hoja de cálculo
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-  
-    // Agrega la hoja de cálculo al workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
-  
-    // Genera un archivo Excel binario
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  
-    // Guarda el archivo Excel en el sistema de archivos del usuario
-    const excelFile: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(excelFile, 'datos.xlsx');
-  } */
 
 
   // ************** codigo para exportar según los filtros que se hagan **********************
@@ -195,32 +177,7 @@ export class ClienteComponent implements OnInit {
 
 
   //* *********** código para descargar en pdf ***************************
-  /* generarPDF(fila: any): void {
-    const documentDefinition = {
-      content: [
-        { text: 'Datos del Vehículo', style: 'header' },
-        { text: '\n' },
-        {
-          table: {
-            headerRows: 1,
-            widths: ['*', '*', '*','*', '*', '*'],
-            body: [
-              ['Placa', 'Marca', 'Tipo Vehículo', 'MTC', 'Configuración', 'Capacidad Carga'], // Encabezados de la tabla
-              [fila.nombre, fila.marca, fila.tipoVehiculo, fila.mtc, fila.configuracion, fila.capCarga] // Datos de la fila
-            ]
-          }
-        }
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true
-        }
-      }
-    };
-  
-    pdfMake.createPdf(documentDefinition).download('datos_vehiculo.pdf');
-  } */
+ 
 
 
   // ****************** código para tener opciones de imprimir en A4 y ticket ******************
@@ -321,14 +278,9 @@ export class ClienteComponent implements OnInit {
 
 
 
-    //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
- 
-
     
 
 
-
-  //******************* código para el boton de opciones de imprimir */  
   
 
 }
