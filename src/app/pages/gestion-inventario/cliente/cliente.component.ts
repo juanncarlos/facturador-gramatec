@@ -191,20 +191,18 @@ export class ClienteComponent implements OnInit {
       <h1>Datos del Vehículo</h1>
       <table>
         <tr>
-          <th>Placa</th>
-          <th>Marca</th>
-          <th>Tipo Vehículo</th>
-          <th>MTC</th>
-          <th>Configuración</th>
-          <th>Cap. Carga</th>
+          <th>Tipo Documento</th>
+          <th>Número</th>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Celular</th>
         </tr>
         <tr>
+          <td>${fila.tipoDocumento}</td>
+          <td>${fila.numeroDocumento}</td>
           <td>${fila.nombre}</td>
-          <td>${fila.marca}</td>
-          <td>${fila.tipoVehiculo}</td>
-          <td>${fila.mtc}</td>
-          <td>${fila.configuracion}</td>
-          <td>${fila.capCarga}</td>
+          <td>${fila.direccion}</td>
+          <td>${fila.celular}</td>
         </tr>
       </table>
     `;
@@ -245,27 +243,26 @@ export class ClienteComponent implements OnInit {
       exportData = this.datos;
     }
     let contenido = `
-      <h1 class="text-center">Datos del Vehículo</h1>
+      <h1 style="text-align: center">Datos del Cliente</h1>
       <table>
         <tr>
-          <th>Placa</th>
-          <th>Marca</th>
-          <th>Tipo Vehículo</th>
-          <th>MTC</th>
-          <th>Configuración</th>
-          <th>Cap. Carga</th>
+          <th>Tipo Documento</th>
+          <th>Número</th>
+          <th>Nombre</th>
+          <th>Dirección</th>
+          <th>Celular</th>
+      </tr>
         </tr>
     `;
   
     for (const fila of exportData) {
       contenido += `
         <tr>
+          <td>${fila.tipoDocumento}</td>
+          <td>${fila.numeroDocumento}</td>
           <td>${fila.nombre}</td>
-          <td>${fila.marca}</td>
-          <td>${fila.tipoVehiculo}</td>
-          <td>${fila.mtc}</td>
-          <td>${fila.configuracion}</td>
-          <td>${fila.capCarga}</td>
+          <td>${fila.direccion}</td>
+          <td>${fila.celular}</td>
         </tr>
       `;
     }

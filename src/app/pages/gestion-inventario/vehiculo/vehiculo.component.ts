@@ -292,7 +292,7 @@ export class VehiculoComponent implements OnInit {
       exportData = this.datos;
     }
     let contenido = `
-      <h1 class="text-center">Datos del Vehículo</h1>
+      <h1 style="text-align: center">Datos del Vehículo</h1>
       <table>
         <tr>
           <th>Placa</th>
