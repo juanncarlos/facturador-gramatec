@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { VehiculoBuscarPipe } from 'src/app/theme/pipes/search/vehiculo-buscar.pipe';
 import { ConductorPipe } from 'src/app/theme/pipes/search/conductor.pipe';
 import { ClienteBuscarPipe } from 'src/app/theme/pipes/search/cliente-buscar.pipe';
+import { Producto02SearchPipe } from 'src/app/theme/pipes/search/producto02-search.pipe';
 
 
 /* componentes creados */
@@ -21,6 +22,7 @@ import { ClienteComponent } from './cliente/cliente.component';
 import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
 import { ConductorComponent } from './conductor/conductor.component';
+import { Producto02Component } from './producto02/producto02.component';
 
 
 
@@ -30,7 +32,8 @@ export const routes: Routes = [
   { path: 'cliente', component: ClienteComponent, data: { breadcrumb: 'Cliente' } },
   { path: 'producto', component: ProductoComponent, data: { breadcrumb: 'Producto' } },
   { path: 'vehiculo', component: VehiculoComponent, data: { breadcrumb: 'Vehiculo' } },
-  { path: 'conductor', component: ConductorComponent, data: { breadcrumb: 'Conductor' } }
+  { path: 'conductor', component: ConductorComponent, data: { breadcrumb: 'Conductor' } },
+  { path: 'producto02', component: Producto02Component, data: { breadcrumb: 'Producto02' } }
   /* { path: 'editor', component: EditorComponent, data: { breadcrumb: 'Editor' } } */
 ];
 
@@ -63,7 +66,9 @@ export const routes: Routes = [
     VehiculoBuscarPipe,
     ConductorPipe,
     ClienteBuscarPipe,
-    ConductorComponent
+    Producto02SearchPipe,
+    ConductorComponent,
+    Producto02Component
   ]
 })
 export class GestionInventarioModule { }
