@@ -218,7 +218,10 @@
                                 <label class="text-gray"> Codigo </label>
                                 <input name="codigoBarra" id="codigoBarra" [(ngModel)]="nuevoDato.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
                             </div>
-                            <div class="form-group col-md-6">
+                            
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
                                 <label class="text-gray ">Nombre</label>
                                 <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off">
                             </div>
@@ -247,9 +250,14 @@
                                     <option value="RUC">RUC</option>
                                     <option value="Otro">Otro documento</option>
                                   </select>
+                                  
                                 
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-2">
+                                <label class="text-gray"> </label>
+                                <input name="unidadMedidaSigla" id="unidadMedidaSigla" [(ngModel)]="nuevoDato.unidadMedidaSigla" class="form-control validation-field" type="text" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-4">
                                 <label class="text-gray">Stock</label>
                                 <input name="stock" id="stock" [(ngModel)]="nuevoDato.stock" class="form-control validation-field" type="number" autocomplete="off">
                             </div>
@@ -320,6 +328,8 @@
                                 <input name="peso" id="peso" [(ngModel)]="nuevoDato.peso" class="form-control validation-field" type="number" autocomplete="off">
                             </div>
                         </div>
+
+                        
                     </div>
                 </div>
             </form>
