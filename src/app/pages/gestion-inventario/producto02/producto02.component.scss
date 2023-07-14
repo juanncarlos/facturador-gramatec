@@ -30,6 +30,15 @@ input:focus {
     /* background: rgb(163, 161, 161); */
     border: 2px solid #0E8525;
 }
+select {
+    border-radius: 20px;
+}
+
+select option {
+    background: #343a40;
+    color: #fff;
+    border-radius: 20px !important;
+}
 
 
 

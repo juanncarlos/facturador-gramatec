@@ -211,7 +211,31 @@
         <div class="modal-body">
             <form>
                 <div class="tab-content col-12 border-0">
-                    <div class="tab-pane active" id="basic">
+                    <ul class="nav nav-pills mb-3 border-0 rounded-0 mr-0 enlace-producto " id="pills-tab" role="tablist">
+                        <li class="nav-item btn-producto" role="presentation">
+                            <button class="nav-link active border-0" id="pills-home-tab" data-toggle="pill" data-target="#detalleProducto" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Datos</button>
+                        </li>
+                        <li class="nav-item btn-producto" role="presentation">
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#packsProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pack</button>
+                        </li>
+
+                        <li class="nav-item btn-producto" role="presentation">
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#tributoProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Tributo</button>
+                        </li>
+
+                        <!-- <li class="nav-item btn-producto" role="presentation">
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#caracteristicaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Caracteristica</button>
+                        </li> -->
+
+                        <li class="nav-item btn-producto" role="presentation">
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#homologarProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Homologar</button>
+                        </li>
+                        <li class="nav-item btn-producto" role="presentation">
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#imagenProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Imagen</button>
+                        </li>
+
+                    </ul>
+                    <div class="tab-pane active" id="detalleProducto">
                         <div class="row">
 
                             <div class="form-group col-md-6">
@@ -299,7 +323,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Categoria</label>
-                                <select [(ngModel)]="nuevoDato.marca" name="marca" id="marca" class="form-control">
+                                <select [(ngModel)]="nuevoDato.categoria" name="categoria" id="categoria" class="form-control">
                                     <option value="DNI">DNI</option>
                                     <option value="RUC">RUC</option>
                                     <option value="Otro">Otro documento</option>
@@ -331,6 +355,140 @@
 
                         
                     </div>
+
+                    <!-- vista de packs de productos -->
+                    <div class="tab-pane fade" id="packsProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                        <div class="row mb-2">
+                            <div class="col text-right ">
+                                <button type="button" class="btn btn-info">Agregar Pack</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Codigo Barra:</label>
+                                <input formControlName="codigoBarraPack" name="codigoBarraPack" class="form-control validation-field" type="text">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Serie:</label>
+                                <input formControlName="seriePack" name="seriePack" class="form-control validation-field" type="text">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="text-gray">Medida</label>
+                                <select formControlName="medidaPack" name="medidaPack" class="form-control">
+                                    <option>DNI</option>
+                                    <option>RUC</option>
+                                    <option>Pasaporte</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="text-gray">Cantidad:</label>
+                                <input formControlName="cantidadPack" name="cantidadPack" class="form-control validation-field" type="number">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="text-gray">Precio:</label>
+                                <input formControlName="precioPack" name="precioPack" class="form-control validation-field" type="number">
+                            </div>
+
+                            <div class="col-md-2">
+                                <button class="btn btn-danger btn-sm mt-2"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =============================== vista de tipo tributo ========================================== -->
+                    <div class="tab-pane fade" id="tributoProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray">Tipo Tributo</label>
+                                <select formControlName="tipoTributo" name="tipoTributo" class="form-control">
+                                        <option>DNI</option>
+                                        <option>RUC</option>
+                                        <option>Pasaporte</option>
+                                        <option>Otro</option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray">Afecto</label>
+                                <select formControlName="afecto" name="afecto" class="form-control">
+                                        <option>DNI</option>
+                                        <option>RUC</option>
+                                        <option>Pasaporte</option>
+                                        <option>Otro</option>
+                                    </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label class="text-gray">ISC-IMP. SELEC</label>
+                                <select formControlName="ISC-IMP" name="ISC-IMP" class="form-control">
+                                    <option>DNI</option>
+                                    <option>RUC</option>
+                                    <option>Pasaporte</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="text-gray"></label>
+                                <input formControlName="codtributo" name="codtributo" class="form-control validation-field" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- =============================== vista de Homologar Producto ========================================== -->
+                    <div class="tab-pane fade" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row">
+                            <div class="input-group mb-3 box-shadow">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" placeholder="Buscar..." class="form-control border-0">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive bg-white box-shadow">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>DESCRIPCION</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="radio" aria-label="Radio button for following text input">
+                                                </div>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="radio" aria-label="Radio button for following text input">
+                                                </div>
+                                            </div>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -350,6 +508,7 @@
     <div class="modal-body">
         <form>
             <div class="tab-content col-12 border-0">
+                
                 <div class="tab-pane active" id="basic">
                     <div class="row">
 
