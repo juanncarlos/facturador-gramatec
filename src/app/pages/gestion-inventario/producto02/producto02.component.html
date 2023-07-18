@@ -231,16 +231,44 @@
                             <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#homologarProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Homologar</button>
                         </li>
                         <li class="nav-item btn-producto" role="presentation">
-                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#imagenProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Imagen</button>
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#registroMarca" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Marca</button>
+                        </li>
+                        <li class="nav-item btn-producto mt-2" role="presentation">
+                            <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#registroCategoria" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Categoría</button>
                         </li>
 
                     </ul>
                     <div class="tab-pane active" id="detalleProducto">
+
                         <div class="row">
 
                             <div class="form-group col-md-6">
                                 <label class="text-gray"> Codigo </label>
                                 <input name="codigoBarra" id="codigoBarra" [(ngModel)]="nuevoDato.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Marca</label>
+                                <select [(ngModel)]="nuevoDato.marca" name="marca" id="marca" class="form-control">
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                  </select>
                             </div>
                             
                         </div>
@@ -287,40 +315,18 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="text-gray">Marca</label>
-                                <select [(ngModel)]="nuevoDato.marca" name="marca" id="marca" class="form-control">
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                  </select>
-                            </div>
+                            
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Precio Compra</label>
                                 <input name="precioCompra" id="precioCompra" [(ngModel)]="nuevoDato.precioCompra" class="form-control validation-field" type="number" autocomplete="off">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Precio Venta</label>
                                 <input name="precioVenta" id="precioVenta" [(ngModel)]="nuevoDato.precioVenta" class="form-control validation-field" type="number" autocomplete="off">
                             </div>
+                        </div>
+                        <div class="row">
+                            
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Categoria</label>
                                 <select [(ngModel)]="nuevoDato.categoria" name="categoria" id="categoria" class="form-control">
@@ -345,15 +351,11 @@
                                     <option value="Otro">Otro documento</option>
                                   </select>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Peso</label>
                                 <input name="peso" id="peso" [(ngModel)]="nuevoDato.peso" class="form-control validation-field" type="number" autocomplete="off">
                             </div>
-                        </div>
-
-                        
+                        </div>                                   
                     </div>
 
                     <!-- vista de packs de productos -->
@@ -449,6 +451,31 @@
                     <!-- =============================== vista de Homologar Producto ========================================== -->
                     <div class="tab-pane fade" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray"> Codigo Homologar </label>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <input name="numeroHomologar" id="numeroHomologar" [(ngModel)]="nuevoDato.numeroHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input name="codigoHomologar" id="codigoHomologar" [(ngModel)]="nuevoDato.codigoHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    
+                                    <div class="form-group col-md-10">
+                                        <label class="text-gray"> </label>
+                                        <input name="nombreHomologar" id="nombreHomologar" [(ngModel)]="nuevoDato.nombreHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label class="text-gray">Fijar </label> <br>
+                                        <input name="fijarHomologar" id="fijarHomologar" [(ngModel)]="nuevoDato.fijarHomologar" class="" type="checkbox" autocomplete="off" required>
+                                    </div>
+                                </div>                                            
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="input-group mb-3 box-shadow">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
@@ -489,6 +516,75 @@
 
                         </div>
                     </div>
+                    <!-- =============================== vista de registro marca Producto ========================================== -->
+                    <div class="tab-pane fade" id="registroMarca" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray"> Codigo marca </label>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <input name="numeroHomologar" id="numeroHomologar" [(ngModel)]="nuevoDato.numeroHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                        <input name="codigoHomologar" id="codigoHomologar" [(ngModel)]="nuevoDato.codigoHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    
+                                    <div class="form-group col-md-10">
+                                        <label class="text-gray"> </label>
+                                        <input name="nombreHomologar" id="nombreHomologar" [(ngModel)]="nuevoDato.nombreHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label class="text-gray">Fijar </label> <br>
+                                        <input name="fijarHomologar" id="fijarHomologar" [(ngModel)]="nuevoDato.fijarHomologar" class="" type="checkbox" autocomplete="off" required>
+                                    </div>
+                                </div>                                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3 box-shadow">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" placeholder="Buscar..." class="form-control border-0">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive bg-white box-shadow">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>DESCRIPCION</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="radio" aria-label="Radio button for following text input">
+                                                </div>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="radio" aria-label="Radio button for following text input">
+                                                </div>
+                                            </div>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    
                 </div>
             </form>
         </div>
