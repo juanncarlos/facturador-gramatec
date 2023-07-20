@@ -10,9 +10,9 @@
                 <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
                 
                 <div class="input-group-prepend">
-                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-user-plus text-primary"></i></span>
+                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
                     <div class="mensaje" *ngIf="MensajeAgregar">
-                        Agregar Cliente
+                        Agregar Producto
                     </div>
                 </div>
                 <div class="input-group-prepend">
@@ -58,7 +58,7 @@
                         <div class="card-header border-0 rounded-0 text-muted card-cabecera">
                             <h5 class="mb-0">
                                 <!-- <i class="fa fa-user mr-2" placement="bottom"></i> -->
-                                <i class="fa fa-truck mr-2 text-success" placement="bottom"></i> {{producto.nombre}}
+                                <i class="fa fa-cubes mr-2 text-success" placement="bottom"></i> {{producto.nombre}}
 
                             </h5>
                            
@@ -204,14 +204,14 @@
 <!-- Modal Agregar -->
 <ng-template #modalAgregar>
     <div class="contenedor-modal-agregar">
-        <div class="modal-header text-center">
+        <!-- <div class="modal-header text-center">
             <h4 class="modal-title text-center">AGREGAR</h4>
-        </div>
+        </div> -->
 
         <div class="modal-body">
             <form>
-                <div class="tab-content col-12 border-0">
-                    <ul class="nav nav-pills mb-3 border-0 rounded-0 mr-0 enlace-producto " id="pills-tab" role="tablist">
+                <div class="tab-content col-12 border-0 contenedor-menu-modal">
+                    <ul class="nav nav-pills mb-3 border-0 rounded-0 mr-0 enlace-producto d-flex justify-content-between" id="pills-tab" role="tablist">
                         <li class="nav-item btn-producto" role="presentation">
                             <button class="nav-link active border-0" id="pills-home-tab" data-toggle="pill" data-target="#detalleProducto" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Datos</button>
                         </li>
@@ -238,7 +238,15 @@
                         </li>
 
                     </ul>
+
+                    <!-- vista de los datos del producto -->
                     <div class="tab-pane active" id="detalleProducto">
+
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Agregar Producto</h4>
+                            </div>
+                        </div>
 
                         <div class="row">
 
@@ -274,18 +282,8 @@
                                     <option value="DNI">DNI</option>
                                     <option value="RUC">RUC</option>
                                     <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                  </select>
-                                  
+                                    
+                                  </select>                   
                                 
                             </div>
                             <div class="form-group col-md-2">
@@ -326,6 +324,12 @@
 
                     <!-- vista de packs de productos -->
                     <div class="tab-pane fade" id="packsProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Agregar Pack del Producto</h4>
+                            </div>
+                        </div>
 
                         <div class="row mb-2">
                             <div class="col text-right ">
@@ -374,6 +378,12 @@
                     <!-- =============================== vista de tipo tributo ========================================== -->
                     <div class="tab-pane fade" id="tributoProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
 
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Seleccionar Tributo</h4>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="text-gray">Tipo Tributo</label>
@@ -416,9 +426,14 @@
                     </div>
 
                     <!-- =============================== vista de Homologar Producto ========================================== -->
-                    <div class="tab-pane fade" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="tab-pane fade contenedor-registro-marca" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Seleccionar Homologación</h4>
+                            </div>
+                        </div>
                         <div class="row">
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-12 contenedor-registro-marca">
                                 <label class="text-gray"> Codigo Homologar </label>
                                 <div class="row">
                                     <div class="form-group col-md-4">
@@ -443,40 +458,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="input-group mb-3 box-shadow">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
-                                </div>
-                                <input type="text" placeholder="Buscar..." class="form-control border-0">
+                            <div class="input-group col-md-12 mb-3 box-shadow contendor-buscar-marca">
+                                <input type="text" [(ngModel)]="marcaBusqueda" name="marcaBusqueda" placeholder="Buscar marca..." class="form-control buscar-marca">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="table-responsive bg-white box-shadow">
+                            <div class="table-responsive col-md-12 bg-white box-shadow contenedor-tabla-registro-marca">
                                 <table class="table table-hover">
-                                    <thead>
+                                    <!-- <thead class="sticky-top">
                                         <tr>
-                                            <th>DESCRIPCION</th>
-                                            <th>Acciones</th>
+                                            <th>MARCAS</th>
                                         </tr>
-                                    </thead>
+                                    </thead> -->
                                     <tbody>
-                                        <tr>
-                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <input type="radio" aria-label="Radio button for following text input">
-                                                </div>
-                                            </div>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <input type="radio" aria-label="Radio button for following text input">
-                                                </div>
-                                            </div>
-
-                                        </tr>
+                                        <tr *ngFor="let marca of marcas | marcaBuscar: marcaBusqueda">
+                                            <td class="align-middle text-truncate"> {{ marca.agregarMarca }}</td>
+                                            <td> <input type="radio" name="opcion" value="opcion1" style="cursor: pointer;"> </td>
+                                        </tr>                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -486,6 +484,11 @@
 
                     <!-- =============================== vista de registro marca Producto ========================================== -->
                     <div class="tab-pane fade contenedor-registro-marca" id="registroMarca" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Agregar Marca</h4>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-group col-md-12 contenedor-registro-marca">
                                 <label class="text-gray"> Marca </label>
@@ -531,6 +534,11 @@
 
                     <!-- =============================== vista de registro categoria Producto ========================================== -->
                     <div class="tab-pane fade contenedor-registro-marca" id="registroCategoria" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Agregar Categoria</h4>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-group col-md-12 contenedor-registro-marca">
                                 <label class="text-gray"> Categoria </label>
@@ -584,49 +592,387 @@
     </div>
 </ng-template>
 
+
 <!-- Modal Editar -->
 <ng-template #modalEditar>
-    <div class="modal-header">
+    <!-- <div class="modal-header">
         <h4 class="modal-title">EDITAR</h4>
 
-    </div>
+    </div> -->
     <div class="modal-body">
         <form>
-            <div class="tab-content col-12 border-0">
-                
-                <div class="tab-pane active" id="basic">
+            <div class="tab-content col-12 border-0 contenedor-menu-modal">
+                <ul class="nav nav-pills mb-3 border-0 rounded-0 mr-0 enlace-producto d-flex justify-content-between" id="pills-tab" role="tablist">
+                    <li class="nav-item btn-producto" role="presentation">
+                        <button class="nav-link active border-0" id="pills-home-tab" data-toggle="pill" data-target="#detalleProducto" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Datos</button>
+                    </li>
+                    <li class="nav-item btn-producto" role="presentation">
+                        <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#packsProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Pack</button>
+                    </li>
+
+                    <li class="nav-item btn-producto" role="presentation">
+                        <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#tributoProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Tributo</button>
+                    </li>
+
+                    <!-- <li class="nav-item btn-producto" role="presentation">
+                        <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#caracteristicaProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Caracteristica</button>
+                    </li> -->
+
+                    <li class="nav-item btn-producto" role="presentation">
+                        <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#homologarProducto" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Homologar</button>
+                    </li>
+                    <li class="nav-item btn-producto" role="presentation">
+                        <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#registroMarca" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Marca</button>
+                    </li>
+                    <li class="nav-item btn-producto mt-2" role="presentation">
+                        <button class="nav-link border-0" id="pills-profile-tab" data-toggle="pill" data-target="#registroCategoria" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Categoría</button>
+                    </li>
+
+                </ul>
+
+                <!-- vista de los datos del producto -->
+                <div class="tab-pane active" id="detalleProducto">
+
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Editar Producto</h4>
+                        </div>
+                    </div>
+
                     <div class="row">
 
                         <div class="form-group col-md-6">
-                            <label for="nombreEditar" class="text-gray">Placa</label>
-                            <input name="nombreEditar" id="nombreEditar" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray"> Codigo </label>
+                            <input name="codigoBarra" id="codigoBarra" [(ngModel)]="datoEditado.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="marcaEditar" class="text-gray">Marca</label>
-                            <input name="marcaEditar" id="marcaEditar" [(ngModel)]="datoEditado.marca" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray">Marca</label>
+                            <select [(ngModel)]="datoEditado.marca" name="marca" id="marca" class="form-control">
+                                <option *ngFor="let marca of marcas" [value]="marca.agregarMarca"> {{ marca.agregarMarca }} </option>
+                                
+                              </select>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray ">Nombre</label>
+                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Tipo vehículo</label>
-                            <input name="tipoVehiculoEditar" id="tipoVehiculoEditar" [(ngModel)]="datoEditado.tipoVehiculo" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray">Unidad Medida</label>
+                            <select [(ngModel)]="datoEditado.unidadMedida" name="unidadMedida" id="unidadMedida" class="form-control">
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                                
+                              </select>                   
+                            
                         </div>
-                        <div class="form-group col-md-6">
-                            <label class="text-gray">MTC</label>
-                            <input name="mtcEditar" id="mtcEditar" [(ngModel)]="datoEditado.mtc" class="form-control validation-field" type="text" autocomplete="off">
+                        <div class="form-group col-md-2">
+                            <label class="text-gray"> </label>
+                            <input name="unidadMedidaSigla" id="unidadMedidaSigla" [(ngModel)]="nuevoDato.unidadMedidaSigla" class="form-control validation-field" type="text" autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="text-gray">Stock</label>
+                            <input name="stock" id="stock" [(ngModel)]="datoEditado.stock" class="form-control validation-field" type="number" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row ">
+                    <div class="row">
+                        
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Configuración</label>
-                            <input name="configuracionEditar" id="configuracionEditar" [(ngModel)]="datoEditado.configuracion" class="form-control validation-field" type="text" autocomplete="off">
+                            <label class="text-gray">Precio Compra</label>
+                            <input name="precioCompra" id="precioCompra" [(ngModel)]="datoEditado.precioCompra" class="form-control validation-field" type="number" autocomplete="off">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Capacidad Carga</label>
-                            <input name="capCargaEditar" id="capCargaEditar" [(ngModel)]="datoEditado.capCarga" class="form-control validation-field" type="number" autocomplete="off">
+                            <label class="text-gray">Precio Venta</label>
+                            <input name="precioVenta" id="precioVenta" [(ngModel)]="datoEditado.precioVenta" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Categoria</label>
+                            <select [(ngModel)]="datoEditado.categoria" name="categoria" id="categoria" class="form-control">
+                                <option *ngFor="let categoria of categorias" [value]="categoria.agregarCategoria">{{categoria.agregarCategoria}}</option>
+                               
+                              </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Peso</label>
+                            <input name="peso" id="peso" [(ngModel)]="datoEditado.peso" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                    </div>                                   
+                </div>
+
+                <!-- vista de packs de productos -->
+                <div class="tab-pane fade" id="packsProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Agregar Pack del Producto</h4>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col text-right ">
+                            <button type="button" class="btn btn-info">Agregar Pack</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Codigo Barra:</label>
+                            <input formControlName="codigoBarraPack" name="codigoBarraPack" class="form-control validation-field" type="text">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Serie:</label>
+                            <input formControlName="seriePack" name="seriePack" class="form-control validation-field" type="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label class="text-gray">Medida</label>
+                            <select formControlName="medidaPack" name="medidaPack" class="form-control">
+                                <option>DNI</option>
+                                <option>RUC</option>
+                                <option>Pasaporte</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="text-gray">Cantidad:</label>
+                            <input formControlName="cantidadPack" name="cantidadPack" class="form-control validation-field" type="number">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label class="text-gray">Precio:</label>
+                            <input formControlName="precioPack" name="precioPack" class="form-control validation-field" type="number">
+                        </div>
+
+                        <div class="col-md-2">
+                            <button class="btn btn-danger btn-sm mt-2"><i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <!-- =============================== vista de tipo tributo ========================================== -->
+                <div class="tab-pane fade" id="tributoProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Seleccionar Tributo</h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray">Tipo Tributo</label>
+                            <select formControlName="tipoTributo" name="tipoTributo" class="form-control">
+                                    <option>DNI</option>
+                                    <option>RUC</option>
+                                    <option>Pasaporte</option>
+                                    <option>Otro</option>
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray">Afecto</label>
+                            <select formControlName="afecto" name="afecto" class="form-control">
+                                    <option>DNI</option>
+                                    <option>RUC</option>
+                                    <option>Pasaporte</option>
+                                    <option>Otro</option>
+                                </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label class="text-gray">ISC-IMP. SELEC</label>
+                            <select formControlName="ISC-IMP" name="ISC-IMP" class="form-control">
+                                <option>DNI</option>
+                                <option>RUC</option>
+                                <option>Pasaporte</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="text-gray"></label>
+                            <input formControlName="codtributo" name="codtributo" class="form-control validation-field" type="text">
                         </div>
                     </div>
                 </div>
+
+                <!-- =============================== vista de Homologar Producto ========================================== -->
+                <div class="tab-pane fade contenedor-registro-marca" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Seleccionar Homologación</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 contenedor-registro-marca">
+                            <label class="text-gray"> Codigo Homologar </label>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <input name="numeroHomologar" id="numeroHomologar" [(ngModel)]="nuevoDato.numeroHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <input name="codigoHomologar" id="codigoHomologar" [(ngModel)]="nuevoDato.codigoHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                
+                                <div class="form-group col-md-10">
+                                    <label class="text-gray"> </label>
+                                    <input name="nombreHomologar" id="nombreHomologar" [(ngModel)]="nuevoDato.nombreHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label class="text-gray">Fijar </label> <br>
+                                    <input name="fijarHomologar" id="fijarHomologar" [(ngModel)]="nuevoDato.fijarHomologar" class="" type="checkbox" autocomplete="off" required>
+                                </div>
+                            </div>                                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-12 mb-3 box-shadow contendor-buscar-marca">
+                            <input type="text" [(ngModel)]="marcaBusqueda" name="marcaBusqueda" placeholder="Buscar marca..." class="form-control buscar-marca">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive col-md-12 bg-white box-shadow contenedor-tabla-registro-marca">
+                            <table class="table table-hover">
+                                <!-- <thead class="sticky-top">
+                                    <tr>
+                                        <th>MARCAS</th>
+                                    </tr>
+                                </thead> -->
+                                <tbody>
+                                    <tr *ngFor="let marca of marcas | marcaBuscar: marcaBusqueda">
+                                        <td class="align-middle text-truncate"> {{ marca.agregarMarca }}</td>
+                                        <td> <input type="radio" name="opcion" value="opcion1" style="cursor: pointer;"> </td>
+                                    </tr>                                       
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- =============================== vista de registro marca Producto ========================================== -->
+                <div class="tab-pane fade contenedor-registro-marca" id="registroMarca" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Agregar Marca</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 contenedor-registro-marca">
+                            <label class="text-gray"> Marca </label>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <input name="agregarMarca" id="agregarMarca" [(ngModel)]="nuevoMarca.agregarMarca" class="form-control validation-field" type="text" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    
+                                        <button type="button" class="btn btn-info" (click)="agregarMarca()" >Agregar <i class="fa fa-plus"></i> </button>
+                                    
+                                </div>
+                                
+                            </div>
+                                                                 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-12 mb-3 box-shadow contendor-buscar-marca">
+                            <input type="text" [(ngModel)]="marcaBusqueda" name="marcaBusqueda" placeholder="Buscar marca..." class="form-control buscar-marca">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive col-md-12 bg-white box-shadow contenedor-tabla-registro-marca">
+                            <table class="table table-hover">
+                                <!-- <thead class="sticky-top">
+                                    <tr>
+                                        <th>MARCAS</th>
+                                    </tr>
+                                </thead> -->
+                                <tbody>
+                                    <tr *ngFor="let marca of marcas | marcaBuscar: marcaBusqueda">
+                                        <td class="align-middle text-truncate"> {{ marca.agregarMarca }}</td>
+                                    </tr>
+                                   
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- =============================== vista de registro categoria Producto ========================================== -->
+                <div class="tab-pane fade contenedor-registro-marca" id="registroCategoria" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Agregar Categoria</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12 contenedor-registro-marca">
+                            <label class="text-gray"> Categoria </label>
+                            <div class="row">
+                                <div class="form-group col-md-8">
+                                    <input name="agregarCategoria" id="agregarCategoria" [(ngModel)]="nuevoCategoria.agregarCategoria" class="form-control validation-field" type="text" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    
+                                        <button type="button" class="btn btn-info" (click)="agregarCategoria()" >Agregar <i class="fa fa-plus"></i> </button>
+                                    
+                                </div>
+                                
+                            </div>
+                                                                 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-group col-md-12 mb-3 box-shadow contendor-buscar-marca">
+                            <input type="text" [(ngModel)]="categoriaBusqueda" name="categoriaBusqueda" placeholder="Buscar categoria..." class="form-control buscar-marca">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive col-md-12 bg-white box-shadow contenedor-tabla-registro-marca">
+                            <table class="table table-hover">
+                                <!-- <thead class="sticky-top">
+                                    <tr>
+                                        <th>MARCAS</th>
+                                    </tr>
+                                </thead> -->
+                                <tbody>
+                                    <tr *ngFor="let categoria of categorias | categoriaBuscar: categoriaBusqueda">
+                                        <td class="align-middle text-truncate"> {{ categoria.agregarCategoria }}</td>
+                                    </tr>
+                                   
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                
             </div>
         </form>
     </div>

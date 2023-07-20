@@ -282,27 +282,27 @@ export class Producto02Component implements OnInit {
       exportData = this.datos;
     }
     let contenido = `
-      <h1 style="text-align: center">Datos del Vehículo</h1>
+      <h1 style="text-align: center">Datos del Producto</h1>
       <table>
         <tr>
-          <th>Placa</th>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Stock</th>
           <th>Marca</th>
-          <th>Tipo Vehículo</th>
-          <th>MTC</th>
-          <th>Configuración</th>
-          <th>Cap. Carga</th>
+          <th>Precio Compra</th>
+          <th>Precio Venta</th>
         </tr>
     `;
   
     for (const fila of exportData) {
       contenido += `
         <tr>
+          <td>${fila.codigoBarra}</td>
           <td>${fila.nombre}</td>
+          <td>${fila.stock}</td>
           <td>${fila.marca}</td>
-          <td>${fila.tipoVehiculo}</td>
-          <td>${fila.mtc}</td>
-          <td>${fila.configuracion}</td>
-          <td>${fila.capCarga}</td>
+          <td>${fila.precioCompra}</td>
+          <td>${fila.precioVenta}</td>
         </tr>
       `;
     }

@@ -227,8 +227,22 @@ select option {
                     color: #fff;
                     i{
                         color: #fff !important;
+                        
                     }
                 }
+            }
+        }
+    }
+}
+
+//** estilos para el menu de opciones del modal ************
+.contenedor-menu-modal {
+    ul {
+        li {
+            border-radius: 6px !important;
+            box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+            button {
+                /* background: #fff !important; */
             }
         }
     }
