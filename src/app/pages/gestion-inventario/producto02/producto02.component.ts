@@ -13,6 +13,8 @@ import * as printJS from 'print-js';
 
 
 import { Producto02Service } from './producto02.service';
+import { MarcaService } from './marca.service';
+import { CategoriaService } from './categoria.service';
 
 @Component({
   selector: 'app-producto02',
@@ -22,6 +24,7 @@ import { Producto02Service } from './producto02.service';
 export class Producto02Component implements OnInit {
 
   public modalRef: NgbModalRef;
+
   public datos: any[];
   public nuevoDato: any = {};
   public datoEditado: any = {};
@@ -31,8 +34,14 @@ export class Producto02Component implements OnInit {
   public paginaActual = 1;
   public elementosPorPagina = 6;
   
-  // variable del buscador
+  // variable del buscador de la lista de productos
   public textoBusqueda: string = '';
+
+  // variable para el buscador del modal marcas
+  public marcaBusqueda: string = '';
+
+  // variable para el buscador del modal categorias
+  public categoriaBusqueda: string = '';
   
   //ordenar de manera descendente
   public ordenDescendente: boolean = true;
@@ -51,14 +60,33 @@ export class Producto02Component implements OnInit {
   MensajeExportarPdf: boolean = false;
   MensajeVistaCuadros: boolean = false;
   MensajeVistaListas: boolean = false;
- 
+  
+  // variable para los servicios de marca
+  public marcas: any[];
+  public nuevoMarca: any = {};
+
+  // variable para los servicios de categoria
+  public categorias: any[];
+  public nuevoCategoria: any = {};
 
   
-  constructor(private modalService: NgbModal, private dataService: Producto02Service) {}
+  constructor(
+    private modalService: NgbModal, 
+    private dataService: Producto02Service, 
+    private marcaService: MarcaService,
+    private categoriaService: CategoriaService
+    ) {}
 
   ngOnInit(): void {
     /* this.datos = this.dataService.obtenerDatos(); */ // forma normal 
     this.datos = this.dataService.obtenerDatos().sort((a, b) => b.id - a.id); //forma descendente
+
+    //* codigo para traer datos del servicio de marca ************
+    /* this.marcas = this.marcaService.obtenerMarcas(); */ //forma normal 
+    this.marcas = this.marcaService.obtenerMarcas().sort((a, b) => b.id - a.id); //forma descendente
+
+    //* codigo para tarer datos del servicio categoria
+    this.categorias = this.categoriaService.obtenerCategorias().sort((a, b) => b.id - a.id); //forma descendente
   }
 
   abrirModal(modal: any): void {
@@ -84,12 +112,12 @@ export class Producto02Component implements OnInit {
   agregarDato(): void {
     if (this.nuevoDato.nombre) {
       this.dataService.agregarDato(this.nuevoDato);
-      this.datos.unshift(this.nuevoDato);
+      /* this.datos.unshift(this.nuevoDato); */
       this.cerrarModal();
       this.nuevoDato = {};
     } else {
       // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-      alert('Por favor ingrese la placa.');
+      alert('Por favor ingrese el nombre del producto.');
     }
   }
 
@@ -100,7 +128,7 @@ export class Producto02Component implements OnInit {
     this.cerrarModal();
     }else {
       // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-      alert('El campo placa no puede ir vacio, por favor complete.');
+      alert('El campo nombre del producto no puede ir vacio, por favor complete.');
     }
 
    
@@ -118,6 +146,32 @@ export class Producto02Component implements OnInit {
     this.modalRef = this.modalService.open(modal, { centered: true });
   }
 
+  //* **************** codigo para agregar una nueva marca ***************
+  agregarMarca(): void {
+    if (this.nuevoMarca.agregarMarca) {
+      this.marcaService.agregarMarca(this.nuevoMarca);
+      /* this.marcas.unshift(this.nuevoMarca); */
+      /* this.cerrarModal(); */
+      this.nuevoMarca = {};
+    } else {
+      // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
+      alert('Por favor ingrese la Marca.');
+    }
+  }
+
+  //* **************** codigo para agregar una nueva categoria ***************
+  agregarCategoria(): void {
+    if (this.nuevoCategoria.agregarCategoria) {
+      this.categoriaService.agregarCategoria(this.nuevoCategoria);
+      /* this.marcas.unshift(this.nuevoMarca); */
+      /* this.cerrarModal(); */
+      this.nuevoCategoria = {};
+    } else {
+      // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
+      alert('Por favor ingrese la Categoria.');
+    }
+  }
+
   /* paginacion */
   cambiarPagina(evento: number): void {
     this.paginaActual = evento;
@@ -127,27 +181,6 @@ export class Producto02Component implements OnInit {
   public toggle(type){
     this.type = type;
   }
-
-  //* codigo para exportar datos en un archivo excel 
- /*  exportToExcel(): void {
-    const data: any[] = this.datos; // Obtén los datos que deseas exportar
-  
-    // Crea una nueva instancia de workbook
-    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-  
-    // Convierte los datos a una hoja de cálculo
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-  
-    // Agrega la hoja de cálculo al workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
-  
-    // Genera un archivo Excel binario
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  
-    // Guarda el archivo Excel en el sistema de archivos del usuario
-    const excelFile: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(excelFile, 'datos.xlsx');
-  } */
 
 
   // ************** codigo para exportar según los filtros que se hagan **********************
@@ -182,42 +215,6 @@ export class Producto02Component implements OnInit {
     const excelFile: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     saveAs(excelFile, 'datos.xlsx');
   }
-
-
-  //* ********* código para importar archivos en excel ******************
-
-
-
-
-
-
-  //* *********** código para descargar en pdf ***************************
-  /* generarPDF(fila: any): void {
-    const documentDefinition = {
-      content: [
-        { text: 'Datos del Vehículo', style: 'header' },
-        { text: '\n' },
-        {
-          table: {
-            headerRows: 1,
-            widths: ['*', '*', '*','*', '*', '*'],
-            body: [
-              ['Placa', 'Marca', 'Tipo Vehículo', 'MTC', 'Configuración', 'Capacidad Carga'], // Encabezados de la tabla
-              [fila.nombre, fila.marca, fila.tipoVehiculo, fila.mtc, fila.configuracion, fila.capCarga] // Datos de la fila
-            ]
-          }
-        }
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true
-        }
-      }
-    };
-  
-    pdfMake.createPdf(documentDefinition).download('datos_vehiculo.pdf');
-  } */
 
 
   // ****************** código para tener opciones de imprimir en A4 y ticket ******************

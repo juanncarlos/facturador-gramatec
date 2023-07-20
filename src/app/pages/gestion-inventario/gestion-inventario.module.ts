@@ -23,6 +23,8 @@ import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
 import { ConductorComponent } from './conductor/conductor.component';
 import { Producto02Component } from './producto02/producto02.component';
+import { MarcaBuscarPipe } from 'src/app/theme/pipes/search/marca-buscar.pipe';
+import { CategoriaBuscarPipe } from 'src/app/theme/pipes/search/categoria-buscar.pipe';
 
 
 
@@ -67,6 +69,8 @@ export const routes: Routes = [
     ConductorPipe,
     ClienteBuscarPipe,
     Producto02SearchPipe,
+    MarcaBuscarPipe,
+    CategoriaBuscarPipe,
     ConductorComponent,
     Producto02Component
   ]

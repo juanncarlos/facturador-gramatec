@@ -29,7 +29,7 @@ export class Producto02Service {
     }
   
     agregarDato(dato: any): void {
-      this.datos.push(dato);
+      this.datos.unshift(dato);
     }
   
     editarDato(id: number, dato: any): void {

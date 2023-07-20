@@ -249,25 +249,8 @@
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Marca</label>
                                 <select [(ngModel)]="nuevoDato.marca" name="marca" id="marca" class="form-control">
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
+                                    <option *ngFor="let marca of marcas" [value]="marca.agregarMarca"> {{ marca.agregarMarca }} </option>
+                                    
                                   </select>
                             </div>
                             
@@ -330,25 +313,8 @@
                             <div class="form-group col-md-6">
                                 <label class="text-gray">Categoria</label>
                                 <select [(ngModel)]="nuevoDato.categoria" name="categoria" id="categoria" class="form-control">
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
+                                    <option *ngFor="let categoria of categorias" [value]="categoria.agregarCategoria">{{categoria.agregarCategoria}}</option>
+                                   
                                   </select>
                             </div>
                             <div class="form-group col-md-6">
@@ -448,6 +414,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- =============================== vista de Homologar Producto ========================================== -->
                     <div class="tab-pane fade" id="homologarProducto" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div class="row">
@@ -516,68 +483,90 @@
 
                         </div>
                     </div>
-                    <!-- =============================== vista de registro marca Producto ========================================== -->
-                    <div class="tab-pane fade" id="registroMarca" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="text-gray"> Codigo marca </label>
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <input name="numeroHomologar" id="numeroHomologar" [(ngModel)]="nuevoDato.numeroHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
-                                    </div>
-                                    <div class="form-group col-md-8">
-                                        <input name="codigoHomologar" id="codigoHomologar" [(ngModel)]="nuevoDato.codigoHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
-                                    </div>
-                                    
-                                </div>
-                                <div class="row">
-                                    
-                                    <div class="form-group col-md-10">
-                                        <label class="text-gray"> </label>
-                                        <input name="nombreHomologar" id="nombreHomologar" [(ngModel)]="nuevoDato.nombreHomologar" class="form-control validation-field" type="text" autocomplete="off" required>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label class="text-gray">Fijar </label> <br>
-                                        <input name="fijarHomologar" id="fijarHomologar" [(ngModel)]="nuevoDato.fijarHomologar" class="" type="checkbox" autocomplete="off" required>
-                                    </div>
-                                </div>                                            
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="input-group mb-3 box-shadow">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i></span>
-                                </div>
-                                <input type="text" placeholder="Buscar..." class="form-control border-0">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="table-responsive bg-white box-shadow">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>DESCRIPCION</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <input type="radio" aria-label="Radio button for following text input">
-                                                </div>
-                                            </div>
-                                        </tr>
-                                        <tr>
-                                            <td class="align-middle text-truncate">FIERRO CORRUGADO DE 8MM X 9 M - ACEROS AQP</td>
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <input type="radio" aria-label="Radio button for following text input">
-                                                </div>
-                                            </div>
 
+                    <!-- =============================== vista de registro marca Producto ========================================== -->
+                    <div class="tab-pane fade contenedor-registro-marca" id="registroMarca" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row">
+                            <div class="form-group col-md-12 contenedor-registro-marca">
+                                <label class="text-gray"> Marca </label>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <input name="agregarMarca" id="agregarMarca" [(ngModel)]="nuevoMarca.agregarMarca" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        
+                                            <button type="button" class="btn btn-info" (click)="agregarMarca()" >Agregar <i class="fa fa-plus"></i> </button>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                                                     
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-md-12 mb-3 box-shadow contendor-buscar-marca">
+                                <input type="text" [(ngModel)]="marcaBusqueda" name="marcaBusqueda" placeholder="Buscar marca..." class="form-control buscar-marca">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive col-md-12 bg-white box-shadow contenedor-tabla-registro-marca">
+                                <table class="table table-hover">
+                                    <!-- <thead class="sticky-top">
+                                        <tr>
+                                            <th>MARCAS</th>
                                         </tr>
+                                    </thead> -->
+                                    <tbody>
+                                        <tr *ngFor="let marca of marcas | marcaBuscar: marcaBusqueda">
+                                            <td class="align-middle text-truncate"> {{ marca.agregarMarca }}</td>
+                                        </tr>
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- =============================== vista de registro categoria Producto ========================================== -->
+                    <div class="tab-pane fade contenedor-registro-marca" id="registroCategoria" role="tabpanel" aria-labelledby="pills-profile-tab">
+                        <div class="row">
+                            <div class="form-group col-md-12 contenedor-registro-marca">
+                                <label class="text-gray"> Categoria </label>
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <input name="agregarCategoria" id="agregarCategoria" [(ngModel)]="nuevoCategoria.agregarCategoria" class="form-control validation-field" type="text" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        
+                                            <button type="button" class="btn btn-info" (click)="agregarCategoria()" >Agregar <i class="fa fa-plus"></i> </button>
+                                        
+                                    </div>
+                                    
+                                </div>
+                                                                     
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group col-md-12 mb-3 box-shadow contendor-buscar-marca">
+                                <input type="text" [(ngModel)]="categoriaBusqueda" name="categoriaBusqueda" placeholder="Buscar categoria..." class="form-control buscar-marca">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="table-responsive col-md-12 bg-white box-shadow contenedor-tabla-registro-marca">
+                                <table class="table table-hover">
+                                    <!-- <thead class="sticky-top">
+                                        <tr>
+                                            <th>MARCAS</th>
+                                        </tr>
+                                    </thead> -->
+                                    <tbody>
+                                        <tr *ngFor="let categoria of categorias | categoriaBuscar: categoriaBusqueda">
+                                            <td class="align-middle text-truncate"> {{ categoria.agregarCategoria }}</td>
+                                        </tr>
+                                       
+                                        
                                     </tbody>
                                 </table>
                             </div>
