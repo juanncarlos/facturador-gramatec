@@ -15,6 +15,8 @@ import { VehiculoBuscarPipe } from 'src/app/theme/pipes/search/vehiculo-buscar.p
 import { ConductorPipe } from 'src/app/theme/pipes/search/conductor.pipe';
 import { ClienteBuscarPipe } from 'src/app/theme/pipes/search/cliente-buscar.pipe';
 import { Producto02SearchPipe } from 'src/app/theme/pipes/search/producto02-search.pipe';
+import { MarcaBuscarPipe } from 'src/app/theme/pipes/search/marca-buscar.pipe';
+import { CategoriaBuscarPipe } from 'src/app/theme/pipes/search/categoria-buscar.pipe';
 
 
 /* componentes creados */
@@ -23,8 +25,6 @@ import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
 import { ConductorComponent } from './conductor/conductor.component';
 import { Producto02Component } from './producto02/producto02.component';
-import { MarcaBuscarPipe } from 'src/app/theme/pipes/search/marca-buscar.pipe';
-import { CategoriaBuscarPipe } from 'src/app/theme/pipes/search/categoria-buscar.pipe';
 
 
 

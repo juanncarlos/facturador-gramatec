@@ -7,6 +7,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { DirectivesModule } from '../../theme/directives/directives.module';
 
+//libreria para la paginacion
+import { NgxPaginationModule } from 'ngx-pagination';
+
+// pipe de busqueda
+import { Cotizacion03Pipe } from 'src/app/theme/pipes/search/cotizacion03-buscar.pipe';
+
+
 /* componentes creados */
 import { NotaVentaComponent } from './nota-venta/nota-venta.component';
 import { CotizacionComponent } from './cotizacion/cotizacion.component';
@@ -37,7 +44,8 @@ export const routes: Routes = [
     CKEditorModule,
     DirectivesModule,
     NgbModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgxPaginationModule
     
   ],
   declarations: [
@@ -56,6 +64,7 @@ export const routes: Routes = [
     ConsultaFarvetComponent,
     Cotizacion02Component,
     Cotizacion03Component,
+    Cotizacion03Pipe
     /* NuevaCotizacion02Component */
   ]
 })

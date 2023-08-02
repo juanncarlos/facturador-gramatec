@@ -1,196 +1,430 @@
-<div class="form-group">
-    <label for="searchInput">Buscar:</label>
-    <input type="text" class="form-control" id="searchInput">
+<div class="row ">
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text">Fecha Inicio:</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaInicio" type="date">
+                <!-- <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text">Fecha Fin:</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="fechaFin" type="date">
+                <!-- <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text"></label>
+            <div class="input-group">
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-1">
+    <div class="col">
+        <!-- <div class="input-group mb-3 box-shadow"> -->
+        <div class="input-group mb-3">
+            <!-- <div class="input-group-prepend contenedor-ico-buscar">
+                <span class="input-group-text border-top-0 border-left-0 border-bottom-0 box-shadow"><i class="fa fa-search"></i></span>
+            </div> -->
+            <input type="text" [(ngModel)]="textoBusqueda" name="textoBusqueda" placeholder="Buscar por nombre de producto..." class="form-control border-0  buscador">
+            <div class="input-group-append contenedor-botones-superior">
+                <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
+                
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
+                    <div class="mensaje" *ngIf="MensajeAgregar">
+                        Agregar Producto
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeExportarExcel = true" (mouseleave)="MensajeExportarExcel = false" (click)="exportToExcels()" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-excel-o text-success"></i></span>
+                    <div class="mensaje" *ngIf="MensajeExportarExcel">
+                        Exportar Excel
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeExportarPdf = true" (mouseleave)="MensajeExportarPdf = false" (click)="exportarPDF()" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-danger"></i></span>               
+                    <div class="mensaje" *ngIf="MensajeExportarPdf">
+                        Exportar PDF
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeVistaCuadros = true" (mouseleave)="MensajeVistaCuadros = false" (click)="toggle('grid')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-th text-info"></i></span>                   
+                    <div class="mensaje" *ngIf="MensajeVistaCuadros">
+                        Vista en cuadros
+                    </div>
+                </div>
+                              
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeVistaListas = true" (mouseleave)="MensajeVistaListas = false" (click)="toggle('list')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-list"></i></span>
+                    <div class="mensaje" *ngIf="MensajeVistaListas">
+                      Vista en filas
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 </div>
 
 
+<!-- vista en cuadrillas -->
+<div *ngIf="type=='grid'" class="row">
+    <!-- <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: p }; let i = index;" class="col-xl-4 col-lg-6 mb-4"> -->
+    <div *ngFor="let cotizacion of datos | cotizacion03Buscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i = index" class="col-xl-4 col-lg-6 mb-4 general">
+        <div class="flip">
+            <div class="content">
+                <div class="front">
+                    <div class="card border-0  rounded-10 contenedor-general-card">
+                        <div class="card-header border-0 rounded-0 text-muted card-cabecera">
+                            <h5 class="mb-0">
+                                <!-- <i class="fa fa-user mr-2" placement="bottom"></i> -->
+                                <i class="fa fa-cubes mr-2 text-success" placement="bottom"></i> {{cotizacion.serie}} - {{ cotizacion.numero }};
 
-<!-- <div class="form-group">
-    <label for="autocompleteInput">Buscar:</label>
-    <input type="text" class="form-control" id="autocompleteInput" [(ngModel)]="searchTerm" (keyup)="search()" />
-</div> -->
-<!-- <div class="dropdown" *ngIf="searchResults.length">
-    <ul class="list-group">
-        <li class="list-group-item" *ngFor="let result of searchResults" (click)="select(result)">{{ result}}
-        </li>
-    </ul>
-</div> -->
-
-
-
-<div class="col-12">
-    <form class="row">
-        <div class="tab-content col-12 border-0">
-
-            <div class="tab-content border-0" id="pills-tabContent">
-
-                <!-- vista de detalle producto -->
-                <div class="tab-pane fade show active" id="detalleProducto" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <div class="row">
-                        <div class="form-group col-md-2">
-                            <label class="text-gray">Cantidad</label>
-                            <input formControlName="codigoTributo" name="codigoTributo" class="form-control validation-field" type="number">
+                            </h5>
+                           
                         </div>
-                        <div class="form-group col-md-3">
-                            <label class="text-gray">Código de barras</label>
-                            <input formControlName="codigoTributo" name="codigoTributo" class="form-control validation-field" type="text">
-                        </div>
-                        <div class="form-group col-md-7">
-                            <label class="text-gray">Producto</label>
-                            <input formControlName="codigoTributo" name="codigoTributo" class="form-control validation-field" type="text">
+                        <div class="card-body pt-2 pb-2 card-cuerpo">
+                            <div class="media">
+                               
+                                <div class="media-body ml-3">
+                                    
 
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive bg-white">
-                                <table class="table table-hover">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>CANTIDAD</th>
-                                            <th>DESCRIPCION</th>
-                                            <th>PREC. UNIT</th>
-                                            <th>DESC %</th>
-                                            <th>DESC</th>
-                                            <th>TOTAL</th>
-                                            <th>ACCIONES</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td width="50px">
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control">
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-truncate ">FDGHFDHDFGHDF</td>
-                                            <td width="100px">
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control">
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-truncate ">0</td>
-                                            <td class="align-middle text-truncate ">0</td>
-                                            <td class="align-middle text-truncate ">68</td>
-                                            <div class="btn-group " role="group ">
-                                                <button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button>
-                                            </div>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-truncate ">FDGHFDHDFGHDF</td>
-                                            <td>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </td>
-                                            <td class="align-middle text-truncate ">0</td>
-                                            <td class="align-middle text-truncate ">0</td>
-                                            <td class="align-middle text-truncate ">10</td>
-                                            <div class="btn-group " role="group ">
-                                                <button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button>
-                                            </div>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col col-md-9">
-                            <div class="row">
-                                <div class="form-group col-md-8 ">
-                                    <label class="text-gray ">Nombre / Razón Social</label>
-                                    <input name="nombreRazonSocial" class="form-control validation-field " type="text ">
-                                </div>
-                                <div class="form-group col-md-4 ">
-                                    <label class="text-gray ">DNI/RUC</label>
-                                    <input name="dniRuc " class="form-control validation-field " type="number ">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12 ">
-
-                                    <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12 ">
-
-                                    <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                                    <div class="row">
+                                        <div class="col col-12">
+                                            <h6><strong>Serie :</strong>  {{cotizacion.serie}}  </h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Número :</strong> {{cotizacion.numero}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Fecha :</strong> {{cotizacion.fecha}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>DNI/RUC :</strong> {{cotizacion.clienteID}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Cliente :</strong> {{cotizacion.clienteNombre}}</h6>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Total :</strong> {{cotizacion.total}}</h6>
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col col-md-3">
-                            <div class="row">
-                                <div class="form-group col-md-12 ">
-                                    <label class="form-control-label text-gray ">Forma de pago</label>
-                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
-                                                        <option>Contado</option>
-                                                        <option>Crédito</option>
-                                                        <option>Yape</option>
-                                                        <option>Plin</option>
-                                                        <option>Tarjeta</option>
-                                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12 ">
-                                    <label class="form-control-label text-gray ">Tiempo de entrega</label>
-                                    <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
-                                                        <option>1 Día</option>
-                                                        <option>7 Días</option>
-                                                        <option>15 Días</option>
-                                                        
-                                                    </select>
-                                </div>
+                        <div class="card-footer card-pie">
+                            
+                            <div class="input-group-append contenedor-botones-card d-flex justify-content-center">
+                                    <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
+                                    
+                                    <div class="input-group-prepend">
+                                        <span (click)="abrirEditarModal(modalEditar, i)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-pencil text-warning"></i></span>                           
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span (click)="imprimirA4(cotizacion)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-info"></i></span>                                
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span  (click)="imprimirTicket(cotizacion)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-primary"></i></span>                                                       
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <span (click)="eliminarDato(i)" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-trash text-danger"></i></span>                   
+                                    </div>
+                                                    
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-12 bg-white text-center py-1 ">
-            <button class="btn btn-success mr-1 " type="submit "><span>Agregar</span><span>Actualizar</span></button>
-            <button type="button " class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+</div>
+
+
+
+<!-- listado de clientes -->
+
+<div *ngIf="type=='list'" class="row">
+    <div class="col-12">
+        <div class="table-responsive bg-white box-shadow contenedor-tabla-lista">
+            <table class="table table-hover">
+                <colgroup>
+                    <col class="col1">
+                    <col class="col2">
+                    <col class="col3">
+                    <col class="col4">
+                    <col class="col5">
+                    <col class="col6">
+                    <col class="col7">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle">SERIE</th>
+                        <th class="text-center align-middle">NUMERO</th>
+                        <th class="text-center align-middle">FECHA</th>
+                        <th class="text-center align-middle">DNI/RUC</th>
+                        <th class="text-center align-middle">CLIENTE</th>
+                        <th class="text-center align-middle">TOTAL</th>
+                        <th class="text-center align-middle">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dato of datos | cotizacion03Buscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" (dblclick)="abrirEditarModal(modalEditar, i)">
+
+                        <td class="align-middle text-truncate text-center"> {{dato.serie}}</td>
+                        <td class="align-middle text-truncate text-center">{{dato.numero}}</td>
+                        <td class="align-middle text-truncate text-center">{{dato.fecha }}</td>
+                        <td class="align-middle text-truncate text-center">{{dato.clienteID}}</td>
+                        <td class="align-middle text-truncate text-center">{{dato.clienteNombre}}</td>
+                        <td class=" align-middle text-truncate text-center">{{dato.total}}</td>
+                        <div class="btn-group text-center contenedor-general-btn-opciones" role="group">
+                            
+                            <div class="input-group-prepend contenedor-btn-opciones">
+                                <button class="btn btn-outline-success btn-opciones dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"></button>
+                                <div class="dropdown-menu contenedor-opciones">
+                                    <a class="dropdown-item" (click)="imprimirA4(dato)">Imprimir A4</a>
+                                    <a class="dropdown-item" (click)="imprimirTicket(dato)">Ticket</a>
+                                    <a class="dropdown-item" (click)="abrirEditarModal(modalEditar, i)">Editar</a>
+                                    <a class="dropdown-item" (click)="eliminarDato(i)">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
-    </form>
+    </div>
 </div>
 
-
-<h1>Venta de productos</h1>
-
-<label for="product-name">Nombre del producto:</label>
-<input type="text" id="product-name" [(ngModel)]="productName" (input)="filterProducts()" (blur)="clearFilter()">
-<div *ngIf="filteredProducts.length > 0">
-    <ul>
-        <li *ngFor="let product of filteredProducts">
-            {{ product }}
-            <button (click)="addProduct(product)">Agregar</button>
-        </li>
-    </ul>
+<div class="row mt-3 contenedor-general-paginacion">
+    <div class="col-12 contenedor-paginacion">
+        <div class="bg-white text-center paginacion">
+            <pagination-controls (pageChange)="cambiarPagina($event)" [maxSize]="5" [directionLinks]="true" [autoHide]="true">
+            </pagination-controls>
+        </div>
+    </div>
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let product of selectedProducts">
-            <td>{{ product }}</td>
-            <td><button (click)="removeProduct(product)">Quitar</button></td>
-        </tr>
-    </tbody>
-</table>
+<!-- arreglas los estilos y la opcion de modificar (editar al momento de presionar el boton del lapiz) -->
+
+
+<!-- Modal Agregar -->
+<ng-template  #modalAgregar>
+    <div class="contenedor-modal-agregar">
+        <!-- <div class="modal-header text-center">
+            <h4 class="modal-title text-center">AGREGAR</h4>
+        </div> -->
+
+        <div class="modal-body">
+            <form>
+                <div class="tab-content col-12 border-0 contenedor-menu-modal">
+                    
+
+                    <!-- vista de los datos de la cotización -->
+                    <div class="tab-pane active" id="detalleProducto">
+
+                        <div class="row mb-3">
+                            <div class="col-md-12 text-center">
+                                <h4>Agregar Cotización</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-6">
+                                <label class="text-gray"> Cantidad </label>
+                                <input name="codigoBarra" id="codigoBarra" [(ngModel)]="nuevoDato.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray mr-2">Codigo Barra</label><input type="checkbox" aria-label="Checkbox for following text input">
+                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off">
+                            
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray ">Producto</label>
+                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Unidad Medida</label>
+                                <select [(ngModel)]="nuevoDato.unidadMedida" name="unidadMedida" id="unidadMedida" class="form-control">
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                    
+                                  </select>                   
+                                
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="text-gray"> </label>
+                                <input name="unidadMedidaSigla" id="unidadMedidaSigla" [(ngModel)]="nuevoDato.unidadMedidaSigla" class="form-control validation-field" type="text" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="text-gray">Stock</label>
+                                <input name="stock" id="stock" [(ngModel)]="nuevoDato.stock" class="form-control validation-field" type="number" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Precio Compra</label>
+                                <input name="precioCompra" id="precioCompra" [(ngModel)]="nuevoDato.precioCompra" class="form-control validation-field" type="number" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Precio Venta</label>
+                                <input name="precioVenta" id="precioVenta" [(ngModel)]="nuevoDato.precioVenta" class="form-control validation-field" type="number" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Categoria</label>
+                                <select [(ngModel)]="nuevoDato.categoria" name="categoria" id="categoria" class="form-control">
+                                    <option *ngFor="let categoria of categorias" [value]="categoria.agregarCategoria">{{categoria.agregarCategoria}}</option>
+                                   
+                                  </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="text-gray">Peso</label>
+                                <input name="peso" id="peso" [(ngModel)]="nuevoDato.peso" class="form-control validation-field" type="number" autocomplete="off">
+                            </div>
+                        </div>                                   
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
+            <button type="button" class="btn btn-success btn-guardar-modal" (click)="agregarDato()">Guardar</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<!-- Modal Editar -->
+<ng-template #modalEditar>
+    <!-- <div class="modal-header">
+        <h4 class="modal-title">EDITAR</h4>
+
+    </div> -->
+    <div class="modal-body">
+        <form>
+            <div class="tab-content col-12 border-0 contenedor-menu-modal">
+                
+                <!-- vista de los datos del producto -->
+                <div class="tab-pane active" id="detalleProducto">
+
+                    <div class="row mb-3">
+                        <div class="col-md-12 text-center">
+                            <h4>Editar Producto</h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label class="text-gray"> Codigo </label>
+                            <input name="codigoBarra" id="codigoBarra" [(ngModel)]="datoEditado.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Marca</label>
+                            <select [(ngModel)]="datoEditado.marca" name="marca" id="marca" class="form-control">
+                                <option *ngFor="let marca of marcas" [value]="marca.agregarMarca"> {{ marca.agregarMarca }} </option>
+                                
+                              </select>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray ">Nombre</label>
+                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Unidad Medida</label>
+                            <select [(ngModel)]="datoEditado.unidadMedida" name="unidadMedida" id="unidadMedida" class="form-control">
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                                <option value="DNI">DNI</option>
+                                <option value="RUC">RUC</option>
+                                <option value="Otro">Otro documento</option>
+                                
+                              </select>                   
+                            
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label class="text-gray"> </label>
+                            <input name="unidadMedidaSigla" id="unidadMedidaSigla" [(ngModel)]="nuevoDato.unidadMedidaSigla" class="form-control validation-field" type="text" autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="text-gray">Stock</label>
+                            <input name="stock" id="stock" [(ngModel)]="datoEditado.stock" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Precio Compra</label>
+                            <input name="precioCompra" id="precioCompra" [(ngModel)]="datoEditado.precioCompra" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Precio Venta</label>
+                            <input name="precioVenta" id="precioVenta" [(ngModel)]="datoEditado.precioVenta" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Categoria</label>
+                            <select [(ngModel)]="datoEditado.categoria" name="categoria" id="categoria" class="form-control">
+                                <option *ngFor="let categoria of categorias" [value]="categoria.agregarCategoria">{{categoria.agregarCategoria}}</option>
+                               
+                              </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="text-gray">Peso</label>
+                            <input name="peso" id="peso" [(ngModel)]="datoEditado.peso" class="form-control validation-field" type="number" autocomplete="off">
+                        </div>
+                    </div>                                   
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
+        <button type="button" class="btn btn-warning btn-guardar-modal" (click)="editarDato()">Editar</button>
+    </div>
+</ng-template>
