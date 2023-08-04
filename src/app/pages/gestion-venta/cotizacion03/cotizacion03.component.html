@@ -43,7 +43,7 @@
                 <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
                 
                 <div class="input-group-prepend">
-                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar)" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
+                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar, 'lg')" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
                     <div class="mensaje" *ngIf="MensajeAgregar">
                         Agregar Producto
                     </div>
@@ -246,74 +246,138 @@
 
                         <div class="row">
 
-                            <div class="form-group col-md-6">
-                                <label class="text-gray"> Cantidad </label>
-                                <input name="codigoBarra" id="codigoBarra" [(ngModel)]="nuevoDato.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-gray mr-2">Codigo Barra</label><input type="checkbox" aria-label="Checkbox for following text input">
-                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off">
-                            
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label class="text-gray ">Producto</label>
-                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="text-gray">Unidad Medida</label>
-                                <select [(ngModel)]="nuevoDato.unidadMedida" name="unidadMedida" id="unidadMedida" class="form-control">
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    <option value="DNI">DNI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="Otro">Otro documento</option>
-                                    
-                                  </select>                   
-                                
-                            </div>
                             <div class="form-group col-md-2">
-                                <label class="text-gray"> </label>
-                                <input name="unidadMedidaSigla" id="unidadMedidaSigla" [(ngModel)]="nuevoDato.unidadMedidaSigla" class="form-control validation-field" type="text" autocomplete="off">
+                                <label class="text-gray"> Cantidad </label>
+                                <input name="cantidad" id="cantidad" [(ngModel)]="nuevoDato.cantidad" class="form-control validation-field" type="text" autocomplete="off" required>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label class="text-gray">Stock</label>
-                                <input name="stock" id="stock" [(ngModel)]="nuevoDato.stock" class="form-control validation-field" type="number" autocomplete="off">
+                            <div class="form-group col-md-3">
+                                <label class="text-gray mr-2">Codigo Barra</label><input type="checkbox" aria-label="Checkbox for following text input">
+                                <input name="codigoBarra" id="codigoBarra" [(ngModel)]="nuevoDato.codigoBarra" class="form-control validation-field" type="text" autocomplete="off">
+                            
+                            </div>
+                            <div class="form-group col-md-7">
+                                <label class="text-gray mr-2">Producto</label>
+                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" >
+                            
+                            </div>
+                            
+                        </div>
+
+                        <div class="row contenedor-tabla">
+                            <div class="col-12 ">
+                                <div class="table-responsive bg-white ">
+                                    <table class="table table-hover ">
+                                        <colgroup>
+                                            <col class="col11">
+                                            <col class="col12">
+                                            <col class="col13">
+                                            <col class="col14">
+                                            <col class="col15">
+        
+                                        </colgroup>
+                                        <thead class="thead-dark ">
+                                            <tr>
+                                                <th class="align-middle text-center">CANTIDAD</th>
+                                                <th class="align-middle text-center">DESCRIPCION</th>
+                                                <th class="align-middle text-center">PREC. UNIT</th>
+        
+                                                <th class="align-middle text-center">TOTAL</th>
+                                                <th class="align-middle text-center">ACCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="fila-producto">
+                                                <td width="50px">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" [(ngModel)]="nuevoDato.tabla" >
+                                                    </div>
+                                                </td>
+        
+                                                <td></td>
+        
+                                                <td width="50px">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control">
+                                                    </div>
+                                                </td>
+        
+                                                <td> </td>
+                                                <td class="align-middle text-center"><button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button></td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td class="align-middle text-center"> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            
-                            <div class="form-group col-md-6">
-                                <label class="text-gray">Precio Compra</label>
-                                <input name="precioCompra" id="precioCompra" [(ngModel)]="nuevoDato.precioCompra" class="form-control validation-field" type="number" autocomplete="off">
+                            <div class="form-group col-md-9">
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <label class="text-gray ">Nombre / Razón Social</label>
+                                        <input name="nombreRazonSocial " class="form-control validation-field" type="text">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="text-gray ">DNI/RUC</label>
+                                        <input name="dniRuc" class="form-control validation-field" type="number">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <input name="clienteNombre" id="clienteNombre" [(ngModel)]="nuevoDato.clienteNombre" class="form-control validation-field" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+        
+                                        <input formControlName="codigoProducto" name="codigoProducto" class="form-control validation-field" type="text">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-gray">Precio Venta</label>
-                                <input name="precioVenta" id="precioVenta" [(ngModel)]="nuevoDato.precioVenta" class="form-control validation-field" type="number" autocomplete="off">
+                            <div class="form-group col-md-3">
+                                <div class="row ">
+                                    <div class="form-group col-md-12 ">
+                                        <label class="form-control-label text-gray ">Forma de pago</label>
+                                        <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                        <option>Contado</option>
+                                        <option>Crédito</option>
+                                        <option>Yape</option>
+                                        <option>Plin</option>
+                                        <option>Tarjeta</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="form-group col-md-12 ">
+                                        <label class="form-control-label text-gray ">Tipo moneda</label>
+                                        <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                        <option>soles</option>
+                                        <option>dolares</option>
+                                        
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="form-group col-md-12 ">
+                                        <label class="form-control-label text-gray ">Tiempo de entrega</label>
+                                        <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                        <option>1 Día</option>
+                                        <option>7 Días</option>
+                                        <option>15 Días</option>
+                                        
+                                    </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            
-                            <div class="form-group col-md-6">
-                                <label class="text-gray">Categoria</label>
-                                <select [(ngModel)]="nuevoDato.categoria" name="categoria" id="categoria" class="form-control">
-                                    <option *ngFor="let categoria of categorias" [value]="categoria.agregarCategoria">{{categoria.agregarCategoria}}</option>
-                                   
-                                  </select>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-gray">Peso</label>
-                                <input name="peso" id="peso" [(ngModel)]="nuevoDato.peso" class="form-control validation-field" type="number" autocomplete="off">
-                            </div>
-                        </div>                                   
+                        
+                                                          
                     </div>
 
                 </div>

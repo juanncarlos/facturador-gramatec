@@ -13,6 +13,7 @@ import * as printJS from 'print-js';
 
 
 import { Contizacion03Service } from './contizacion03.service';
+import { Producto02Service } from '../../gestion-inventario/producto02/producto02.service';
 
 
 
@@ -72,7 +73,8 @@ export class Cotizacion03Component  {
   
   constructor(
     private modalService: NgbModal, 
-    private dataService: Contizacion03Service
+    private dataService: Contizacion03Service,
+    private producto02Service: Producto02Service
     ) {}
 
   ngOnInit(): void {
@@ -87,8 +89,8 @@ export class Cotizacion03Component  {
     /* this.categorias = this.categoriaService.obtenerCategorias().sort((a, b) => b.id - a.id); */ //forma descendente
   }
 
-  abrirModal(modal: any): void {
-    this.modalRef = this.modalService.open(modal, { centered: true });
+  abrirModal(modal: any, ancho: 'sm' | 'lg' | string): void {
+    this.modalRef = this.modalService.open(modal, { centered: true, size: ancho });
   }
 
   cerrarModal(): void {
@@ -308,6 +310,7 @@ export class Cotizacion03Component  {
     printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
   }
 
+  
 
 
 
