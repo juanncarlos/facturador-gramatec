@@ -112,6 +112,22 @@
                                         <div class="col col-12">
                                             <h6><strong>Fecha :</strong> {{cotizacion.fecha}}</h6>
                                         </div>
+                                        <div  class="col col-12">
+                                            <h6><strong>Productos :</strong> </h6>
+                                            <ul *ngFor="let product of cotizacion.productos">
+                                                <li>{{product.cantidad}} - {{product.nombre}} {{product.precioUnitario}}</li>
+                                            </ul>
+                                        </div>
+                                        <div  class="col col-12">
+                                            <h6><strong>Total Unitario :</strong> </h6>
+                                            <ul *ngFor="let product of cotizacion.productos">
+                                                <li>{{product.totalUnitario()}}</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col col-12">
+                                            <h6><strong>Total Venta : {{ calcularTotalVenta(cotizacion) | currency }}</strong> </h6>   
+                                              
+                                        </div>
                                         <div class="col col-12">
                                             <h6><strong>DNI/RUC :</strong> {{cotizacion.clienteID}}</h6>
                                         </div>
@@ -286,10 +302,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="fila-producto">
+                                            <tr *ngFor="let coti of datos" class="fila-producto">
                                                 <td width="50px">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" [(ngModel)]="nuevoDato.tabla" >
+                                                        <input type="number" class="form-control" name="cantidad">
                                                     </div>
                                                 </td>
         
@@ -301,16 +317,13 @@
                                                     </div>
                                                 </td>
         
-                                                <td> </td>
+                                                <td> {{coti.productos[0].cantidad}}</td>
                                                 <td class="align-middle text-center"><button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button></td>
                                             </tr>
+
+                                            
         
-                                            <tr>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td> </td>
-                                                <td class="align-middle text-center"> </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>

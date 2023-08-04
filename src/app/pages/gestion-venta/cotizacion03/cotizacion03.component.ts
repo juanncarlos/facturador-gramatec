@@ -310,7 +310,16 @@ export class Cotizacion03Component  {
     printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
   }
 
-  
+
+
+ //Código para saber el total de la venta
+ calcularTotalVenta(cotizacion: any): number {
+  let totalVenta = 0;
+  for (const producto of cotizacion.productos) {
+    totalVenta += producto.totalUnitario();
+  }
+  return totalVenta;
+}
 
 
 
