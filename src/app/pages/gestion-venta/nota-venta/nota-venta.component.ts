@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Producto02Service } from '../../gestion-inventario/producto02/producto02.service';
+import { ClienteService } from '../../gestion-inventario/cliente/cliente.service';
 
 @Component({
   selector: 'app-nota-venta',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotaVentaComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private productoService: Producto02Service,
+    private clienteService: ClienteService
+  ) { }
 
   ngOnInit(): void {
   }

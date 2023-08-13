@@ -14,6 +14,8 @@ import * as printJS from 'print-js';
 
 import { Contizacion03Service } from './contizacion03.service';
 import { Producto02Service } from '../../gestion-inventario/producto02/producto02.service';
+import { MarcaService } from '../../gestion-inventario/producto02/marca.service';
+
 
 
 
@@ -67,23 +69,37 @@ export class Cotizacion03Component  {
   public nuevoMarca: any = {};
 
   // variable para los servicios de categoria
-  public categorias: any[];
-  public nuevoCategoria: any = {};
+/*   public categorias: any[];
+  public nuevoCategoria: any = {}; */
+
+  // variable para los servicios de producto
+  public productos: any[];
+
+  productosFiltrados: any[] = [];
+  terminoBusqueda: string = '';
+  productosSeleccionados: any[] = [];
+  mostrarListaProductos: boolean = false;
+
+  cantidadProductoModal: any[] = []
 
   
   constructor(
     private modalService: NgbModal, 
     private dataService: Contizacion03Service,
-    private producto02Service: Producto02Service
+    private producto02Service: Producto02Service,
+    private marcaService: MarcaService
     ) {}
 
   ngOnInit(): void {
     /* this.datos = this.dataService.obtenerDatos(); */ // forma normal 
     this.datos = this.dataService.obtenerDatos().sort((a, b) => b.id - a.id); //forma descendente
 
+    //* obtener datos de los productos 
+    this.productos = this.producto02Service.obtenerDatos().sort((a, b) => b.id - a.id); //forma descendente
+
     //* codigo para traer datos del servicio de marca ************
     /* this.marcas = this.marcaService.obtenerMarcas(); */ //forma normal 
-    /* this.marcas = this.marcaService.obtenerMarcas().sort((a, b) => b.id - a.id); */ //forma descendente
+     this.marcas = this.marcaService.obtenerMarcas().sort((a, b) => b.id - a.id);  //forma descendente 
 
     //* codigo para tarer datos del servicio categoria
     /* this.categorias = this.categoriaService.obtenerCategorias().sort((a, b) => b.id - a.id); */ //forma descendente
@@ -110,15 +126,15 @@ export class Cotizacion03Component  {
   //esto es para ordenar de manera descendente y con validacion del primer campo 
   
   agregarDato(): void {
-    if (this.nuevoDato.nombre) {
+    /* if (this.nuevoDato.nombre) { */
       this.dataService.agregarDato(this.nuevoDato);
       /* this.datos.unshift(this.nuevoDato); */
       this.cerrarModal();
       this.nuevoDato = {};
-    } else {
+    /* } else { */
       // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-      alert('Por favor ingrese el nombre del producto.');
-    }
+     /*  alert('Por favor ingrese el nombre del producto.');
+    } */
   }
 
   editarDato(): void {
@@ -130,7 +146,6 @@ export class Cotizacion03Component  {
       // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
       alert('El campo nombre del producto no puede ir vacio, por favor complete.');
     }
-
    
   }
 
@@ -146,29 +161,6 @@ export class Cotizacion03Component  {
     this.modalRef = this.modalService.open(modal, { centered: true });
   }
 
-  //* **************** codigo para agregar una nueva marca ***************
-  /* agregarMarca(): void {
-    if (this.nuevoMarca.agregarMarca) {
-      this.marcaService.agregarMarca(this.nuevoMarca);
-      
-      this.nuevoMarca = {};
-    } else {
-      
-      alert('Por favor ingrese la Marca.');
-    }
-  } */
-
-  //* **************** codigo para agregar una nueva categoria ***************
-  /* agregarCategoria(): void {
-    if (this.nuevoCategoria.agregarCategoria) {
-      this.categoriaService.agregarCategoria(this.nuevoCategoria);
-      
-      this.nuevoCategoria = {};
-    } else {
-      
-      alert('Por favor ingrese la Categoria.');
-    }
-  } */
 
   /* paginacion */
   cambiarPagina(evento: number): void {
@@ -313,13 +305,85 @@ export class Cotizacion03Component  {
 
 
  //Código para saber el total de la venta
- calcularTotalVenta(cotizacion: any): number {
-  let totalVenta = 0;
-  for (const producto of cotizacion.productos) {
-    totalVenta += producto.totalUnitario();
+  calcularTotalVenta(cotizacion: any): number {
+  return this.dataService.calcularTotalVenta(cotizacion);
   }
-  return totalVenta;
-}
+
+
+  //! =============== código para agregar los productos en el modal =============
+
+  
+  filtrarProductos() {
+    
+    this.productosFiltrados = this.productos.filter(producto =>
+      producto.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+    );
+  }
+
+  limpiarFiltro() {
+    setTimeout(() => {
+      this.productosFiltrados = [];
+    }, 200);
+  }
+
+  agregarProducto(producto: any) {
+    if (!this.productoYaSeleccionado(producto)) {
+      this.productosSeleccionados.push(producto);
+    }
+    this.terminoBusqueda = '';
+    this.mostrarListaProductos = false;
+    
+  }
+
+
+   
+  eliminarProducto(producto: any) {
+    const index = this.productosSeleccionados.indexOf(producto);
+    if (index > -1) {
+      this.productosSeleccionados.splice(index, 1);
+    }
+  }
+
+  productoYaSeleccionado(producto: any): boolean {
+    return this.productosSeleccionados.some(item => item.id === producto.id);
+  }
+
+
+
+
+  guardarProductosSeleccionados() {
+    const nuevoObjeto = {
+      id: this.productosSeleccionados.length + 1,
+      serie: 'C001',
+      numero: this.productosSeleccionados.length + 1,
+      fecha: '02/08/2023',
+      codigoBarra: 'Objeto ' + (this.productosSeleccionados.length + 1),
+      productos: [...this.productosSeleccionados], // Clonar la lista de productos seleccionados
+      total: this.calcularTotalVenta(this.productosSeleccionados),
+      clienteID: 12345678,
+      clienteNombre: 'juan',
+      metodoPago: 'contado',
+    };
+  
+    this.dataService.agregarDato(nuevoObjeto); // Llamar al método en el servicio para agregar el objeto
+    this.productosSeleccionados = []; // Limpiar los productos seleccionados después de guardar
+    this.cerrarModal();
+    
+  }
+  
+
+
+  
+
+
+
+  
+
+
+
+
+
+
 
 
 

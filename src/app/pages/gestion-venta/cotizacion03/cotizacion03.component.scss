@@ -1,7 +1,4 @@
-#modalAgregar {
-    max-width: 80vw !important; /* Ajusta el valor según tus necesidades */
-  margin: 0 auto; 
-}
+
 .modal-header {
     text-align: center;
     border-bottom: none;
@@ -252,38 +249,52 @@ select option {
     }
 }
 
-//** ******************** estilos para el modal de agregar nueva marca *********************
-.contenedor-registro-marca {
-    .contenedor-registro-marca {
-        margin-left: 8px;
-        border-radius: 6px;
-        
-        span {
-            
-            border-radius: 6px;
-            background: #fff;
-            
-        }
-        span:hover {
-            background: #343a40;
+//** estilos para el campo de buscar producto a la hora de abrir el modal
+
+/* estilos de la tabla modal */
+
+col.col11 {
+    width: 15%;
+}
+
+col.col12 {
+    width: 45%;
+}
+
+col.col13 {
+    width: 15%;
+}
+
+col.col14 {
+    width: 10%;
+}
+
+col.col15 {
+    width: 15%;
+}
+
+.contenedor-input-seleccionar-producto {
+    ul {
+        list-style: none;
+        z-index: 100;
+        position: absolute;
+        background: rgba($color: #000, $alpha: .8);
+        width: 90%;
+        padding: 15px;
+        border-radius: 15px;
+        height: 200px;
+        overflow: auto;
+        li {
             color: #fff;
-            i{
-                color: #fff !important;
-            }
         }
     }
 
-    .contendor-buscar-marca {
-        .buscar-marca {
-            /* border-radius: 6px !important;
-            box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important; */
-        }
-    }
+}
 
-    .contenedor-tabla-registro-marca {
-        max-height: 200px; /* Altura máxima deseada para el contenedor */
-        overflow-y: scroll;
-        }
+/* estilos del contenedor de tabla */
+
+.contenedor-tabla {
+    position: relative;
 }
         
     

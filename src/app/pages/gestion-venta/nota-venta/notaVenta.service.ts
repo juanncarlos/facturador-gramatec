@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'})
-export class Contizacion03Service {
+export class NotaVentaService {
 
     private datos: any[] = [];
     
@@ -55,8 +55,4 @@ export class Contizacion03Service {
       }
       return totalVenta;
     }
-
-    
-
-
-    }
+}

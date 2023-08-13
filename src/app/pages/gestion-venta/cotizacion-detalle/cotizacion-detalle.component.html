@@ -185,7 +185,7 @@
                 <div class="row">
                     <div class="form-group col-md-2 ">
                         <label class="text-gray ">Cantidad</label>
-                        <input name="codigoTributo " class="form-control validation-field " type="number" >
+                        <input name="codigoTributo " class="form-control validation-field " type="number " [(ngModel)]="cantidadProductoModal">
                     </div>
                     <div class="form-group col-md-3 ">
                         <label class="text-gray mr-1">Código de barras</label> <input type="checkbox" aria-label="Checkbox for following text input">
@@ -198,9 +198,9 @@
                         <input type="text" class="form-control" #nombreProductoInput [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" (focus)="mostrarListaProductos = true" (blur)="clearFilter()" placeholder=" Buscar producto ">
                         <div class="lista" *ngIf="productosFiltrados.length> 0">
                             <ul>
-                                <li *ngFor="let producto of productosFiltrados">
-                                    {{ producto.nombre }} - Precio: ${{ producto.precio }}
-                                    <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button>
+                                <li *ngFor="let producto of productosFiltrados" (click)="agregarProducto(producto)" style="cursor: pointer;" >
+                                    {{ producto.nombre }} - Precio: ${{ producto.precioVenta }}
+                                    <!-- <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button> -->
                                 </li>
                             </ul>
                         </div>
@@ -243,7 +243,7 @@
 
                                         <td width="50px">
                                             <div class="input-group">
-                                                <input type="number" class="form-control" [value]="producto.precio">
+                                                <input type="number" class="form-control" [value]="producto.precioVenta">
                                             </div>
                                         </td>
 
@@ -268,22 +268,45 @@
                         <div class="row ">
                             <div class="form-group col-md-8 ">
                                 <label class="text-gray ">Nombre / Razón Social</label>
-                                <input name="nombreRazonSocial " class="form-control validation-field " type="text ">
+                                <input type="text" class="form-control"  [(ngModel)]="clientesterminoBusqueda" (input)="filtrarClientes()" (focus)="mostrarListaClientes = true" (blur)="limpiarFiltroCliente()" placeholder=" Buscar cliente ">
+                                <div class="lista" *ngIf="clientesFiltrados.length> 0">
+                                    <ul>
+                                     <li *ngFor="let cliente of clientesFiltrados" (click)="agregarCliente(cliente)" style="cursor: pointer;" >
+                                            {{ cliente.nombre }}
+                                    
+                                     </li>
+                                 </ul>
+                                </div>
                             </div>
-                            <div class="form-group col-md-4 ">
-                                <label class="text-gray ">DNI/RUC</label>
-                                <input name="dniRuc " class="form-control validation-field " type="number ">
+                            <div class="form-group col-md-4">
+                                <label class="text-gray">DNI/RUC</label>
+                                <input name="dniRuc" class="form-control validation-field" type="number" (keydown.enter)="buscarClientePorDniRuc()" [(ngModel)]="dniRucInput">
                             </div>
-                        </div>
-                        <div class="row ">
-                            <div class="form-group col-md-12 ">
-                                <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="form-group col-md-12 ">
+                            <!-- <div class="form-group col-md-4">
+                                <label class="text-gray">DNI/RUC</label>
+                                <input name="dniRuc" class="form-control validation-field" type="number" (keydown.enter)="buscarClientePorDniRuc()" [(ngModel)]="dniRucInput" #dniRucInputField="ngModel" required>
+                                <div *ngIf="dniRucInputField.invalid && (dniRucInputField.dirty || dniRucInputField.touched)" class="text-danger">
+                                    <div *ngIf="dniRucInputField.errors.required">Campo requerido.</div>
+                                    <div *ngIf="dniRucInputField.errors.minlength || dniRucInputField.errors.maxlength">El DNI debe tener 8 dígitos y el RUC debe tener 11 dígitos.</div>
+                                </div>
+                            </div> -->
+                            
+                            
+                            
+                        </div>   
+                                             
+                                                
 
-                                <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <input name="nombreCliente" class="form-control validation-field" type="text" [value]="clienteSeleccionado.nombre" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12" >
+                                <input name="direccionCliente" class="form-control validation-field" type="text" [value]="clienteSeleccionado.direccion" readonly>
                             </div>
                         </div>
                     </div>
@@ -335,10 +358,3 @@
 </div>
 
 
-
-<!-- dsffffffffffff -->
-<div>
-    <button class="btn btn-primary" (click)="abrirModalProductos()">Agregar Producto</button>
-  </div>
-  
-  <!-- Modal -->

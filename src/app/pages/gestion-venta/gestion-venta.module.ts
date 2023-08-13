@@ -20,6 +20,7 @@ import { CotizacionComponent } from './cotizacion/cotizacion.component';
 import { ConsultaFarvetComponent } from './consulta-farvet/consulta-farvet.component';
 import { Cotizacion02Component } from './cotizacion02/cotizacion02.component';
 import { Cotizacion03Component } from './cotizacion03/cotizacion03.component';
+import { CotizacionDetalleComponent } from './cotizacion-detalle/cotizacion-detalle.component';
 /* import { NuevaCotizacion02Component } from './cotizacion02/nueva-cotizacion02/nueva-cotizacion02.component'; */
 
 
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'cotizacion02', component: Cotizacion02Component, data: { breadcrumb: 'Cotizacion02' } },
   { path: 'cotizacion03', component: Cotizacion03Component, data: { breadcrumb: 'Cotizacion03' } },
   { path: 'consulta-farvet', component: ConsultaFarvetComponent, data: { breadcrumb: 'Consulta-farvet' } },
+  { path: 'cotizacion-detalle', component: CotizacionDetalleComponent, data: { breadcrumb: 'Cotizacion-detalle' } },
   { path: 'cotizacion02', loadChildren: () => import('./cotizacion02/cotizacion02.module').then(m => m.Cotizacion02Module), data: { breadcrumb: 'Cotizacion02' } }
   /* { path: 'editor', component: EditorComponent, data: { breadcrumb: 'Editor' } } */
 ];
@@ -64,7 +66,8 @@ export const routes: Routes = [
     ConsultaFarvetComponent,
     Cotizacion02Component,
     Cotizacion03Component,
-    Cotizacion03Pipe
+    Cotizacion03Pipe,
+    CotizacionDetalleComponent
     /* NuevaCotizacion02Component */
   ]
 })

@@ -198,9 +198,9 @@
                         <input type="text" class="form-control" #nombreProductoInput [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" (focus)="mostrarListaProductos = true" (blur)="clearFilter()" placeholder=" Buscar producto ">
                         <div class="lista" *ngIf="productosFiltrados.length> 0">
                             <ul>
-                                <li *ngFor="let producto of productosFiltrados">
+                                <li *ngFor="let producto of productosFiltrados" (click)="agregarProducto(producto)" style="cursor: pointer;" >
                                     {{ producto.nombre }} - Precio: ${{ producto.precio }}
-                                    <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button>
+                                    <!-- <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button> -->
                                 </li>
                             </ul>
                         </div>
@@ -235,7 +235,7 @@
                                     <tr class="fila-producto" *ngFor="let producto of productosSeleccionados; let i = index">
                                         <td width="50px">
                                             <div class="input-group">
-                                                <input type="number" class="form-control" [(ngModel)]="cantidadProductoModal" (ngModelChange)="modelChanged($event, i)">
+                                                <input type="number" class="form-control" [(ngModel)]="cantidadProductoModal">
                                             </div>
                                         </td>
 

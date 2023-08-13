@@ -15,6 +15,7 @@ import * as printJS from 'print-js';
 import { Producto02Service } from './producto02.service';
 import { MarcaService } from './marca.service';
 import { CategoriaService } from './categoria.service';
+import { ClienteService } from '../cliente/cliente.service';
 
 @Component({
   selector: 'app-producto02',
@@ -75,6 +76,7 @@ export class Producto02Component implements OnInit {
     private dataService: Producto02Service, 
     private marcaService: MarcaService,
     private categoriaService: CategoriaService
+    
     ) {}
 
   ngOnInit(): void {

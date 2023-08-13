@@ -246,11 +246,11 @@
             <h4 class="modal-title text-center">AGREGAR</h4>
         </div> -->
 
-        <div class="modal-body">
+        <div class="modal-body">   
+
             <form>
                 <div class="tab-content col-12 border-0 contenedor-menu-modal">
                     
-
                     <!-- vista de los datos de la cotización -->
                     <div class="tab-pane active" id="detalleProducto">
 
@@ -271,10 +271,18 @@
                                 <input name="codigoBarra" id="codigoBarra" [(ngModel)]="nuevoDato.codigoBarra" class="form-control validation-field" type="text" autocomplete="off">
                             
                             </div>
-                            <div class="form-group col-md-7">
-                                <label class="text-gray mr-2">Producto</label>
-                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" >
-                            
+                            <div class="form-group col-md-7 contenedor-input-seleccionar-producto">
+                                
+                                <label for=""></label>
+                                <input type="text" id="filtrarProducto" class="form-control" #nombreProductoInput [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" (focus)="mostrarListaProductos = true" (blur)="limpiarFiltro()" autocomplete="off" placeholder="Buscar producto">
+                                <div class="lista" *ngIf="productosFiltrados.length> 0">
+                                    <ul>
+                                        <li *ngFor="let producto of productosFiltrados">
+                                            {{ producto.nombre }} - Precio: ${{ producto.precioVenta }}
+                                            <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             
                         </div>
@@ -302,33 +310,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let coti of datos" class="fila-producto">
+                                            <tr class="fila-producto" *ngFor="let producto of productosSeleccionados; let i = index">
                                                 <td width="50px">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" name="cantidad">
+                                                        <input type="number" class="form-control" [(ngModel)]="cantidadProductoModal">
                                                     </div>
                                                 </td>
         
-                                                <td></td>
+                                                <td>{{ producto.nombre }}</td>
         
                                                 <td width="50px">
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" [value]="producto.precioVenta">
                                                     </div>
                                                 </td>
         
-                                                <td> {{coti.productos[0].cantidad}}</td>
-                                                <td class="align-middle text-center"><button class="btn btn-danger btn-sm "><i class="fa fa-trash "></i></button></td>
+                                                <td> </td>
+                                                <td><button class="btn btn-danger btn-sm " (click)="eliminarProducto(producto)"><i class="fa fa-trash "></i></button></td>
                                             </tr>
-
-                                            
         
-                                            
+                                            <tr>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td class="align-middle text-center"> </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+
+                        
+
+
+    ================================================================
+
+
                         <div class="row">
                             <div class="form-group col-md-9">
                                 <div class="row">
@@ -394,7 +412,10 @@
                     </div>
 
                 </div>
-            </form>
+            </form>    
+
+
+            
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
@@ -423,21 +444,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-
-                        <div class="form-group col-md-6">
-                            <label class="text-gray"> Codigo </label>
-                            <input name="codigoBarra" id="codigoBarra" [(ngModel)]="datoEditado.codigoBarra" class="form-control validation-field" type="text" autocomplete="off" required>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="text-gray">Marca</label>
-                            <select [(ngModel)]="datoEditado.marca" name="marca" id="marca" class="form-control">
-                                <option *ngFor="let marca of marcas" [value]="marca.agregarMarca"> {{ marca.agregarMarca }} </option>
-                                
-                              </select>
-                        </div>
-                        
-                    </div>
+                    
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label class="text-gray ">Nombre</label>
@@ -481,20 +488,7 @@
                             <input name="precioVenta" id="precioVenta" [(ngModel)]="datoEditado.precioVenta" class="form-control validation-field" type="number" autocomplete="off">
                         </div>
                     </div>
-                    <div class="row">
-                        
-                        <div class="form-group col-md-6">
-                            <label class="text-gray">Categoria</label>
-                            <select [(ngModel)]="datoEditado.categoria" name="categoria" id="categoria" class="form-control">
-                                <option *ngFor="let categoria of categorias" [value]="categoria.agregarCategoria">{{categoria.agregarCategoria}}</option>
-                               
-                              </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="text-gray">Peso</label>
-                            <input name="peso" id="peso" [(ngModel)]="datoEditado.peso" class="form-control validation-field" type="number" autocomplete="off">
-                        </div>
-                    </div>                                   
+                                                     
                 </div>
                 
             </div>
@@ -505,3 +499,203 @@
         <button type="button" class="btn btn-warning btn-guardar-modal" (click)="editarDato()">Editar</button>
     </div>
 </ng-template>
+
+
+<div class="input-group-append">
+    <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span>
+    <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer"><i class="fa fa-arrow-down"></i></span>
+    <span class="input-group-text border-top-0 border-right-0 border-bottom-0 " style="cursor:pointer"><i class="fa fa-arrow-up"></i></span>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+    <div class="form-group">
+        <label for="buscar">Buscar Producto:</label>
+        <input type="text" id="buscar" class="form-control" [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" (blur)="limpiarFiltro()">
+      </div>
+      
+      <div *ngIf="productosFiltrados.length > 0">
+        <ul>
+          <li *ngFor="let producto of productosFiltrados">
+            {{ producto.nombre }} - Precio: {{ producto.precio | currency }}
+            <button (click)="agregarProducto(producto)">Agregar</button>
+          </li>
+        </ul>
+      </div>
+      
+      <div *ngIf="productosSeleccionados.length > 0">
+        <h2>Productos Seleccionados:</h2>
+        <ul>
+          <li *ngFor="let objeto of productosSeleccionados; let i = index">
+            Objeto {{ i + 1 }} - Total: {{ objeto.total | currency }}
+            <ul>
+              <li *ngFor="let producto of objeto.productos">
+                {{ producto.nombre }} - Cantidad: {{ producto.cantidad }} - Precio Unitario: {{ producto.precioUnitario | currency }} - Total Unitario: {{ producto.totalUnitario() | currency }}
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      
+      <button (click)="guardarProductosSeleccionados()">Guardar Productos</button>
+      
+
+
+    <!-- <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="form-group col-md-2 ">
+                        <label class="text-gray ">Cantidad</label>
+                        <input name="codigoTributo " class="form-control validation-field " type="number " [(ngModel)]="cantidadProductoModal">
+                    </div>
+                    <div class="form-group col-md-3 ">
+                        <label class="text-gray mr-1">Código de barras</label> <input type="checkbox" aria-label="Checkbox for following text input">
+                        <input name="codigoTributo " class="form-control validation-field " type="text ">
+
+                    </div>
+
+                    <div class="form-group col-md-7 ">
+                        <label for=""></label>
+                        <input type="text" class="form-control" #nombreProductoInput [(ngModel)]="terminoBusqueda" (input)="filtrarProductos()" (focus)="mostrarListaProductos = true" (blur)="limpiarFiltro()" placeholder=" Buscar producto ">
+                        <div class="lista" *ngIf="productosFiltrados.length> 0">
+                            <ul>
+                                <li *ngFor="let producto of productosFiltrados">
+                                    {{ producto.nombre }} - Precio: ${{ producto.precio }}
+                                    <button (click)="agregarProducto(producto)" class="btn btn-primary btn-sm "><i class="fa fa-check-square"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                        
+
+                    </div>
+                </div>
+
+                <div class="row contenedor-tabla">
+                    <div class="col-12 ">
+                        <div class="table-responsive bg-white ">
+                            <table class="table table-hover ">
+                                <colgroup>
+                                    <col class="col11">
+                                    <col class="col12">
+                                    <col class="col13">
+                                    <col class="col14">
+                                    <col class="col15">
+
+                                </colgroup>
+                                <thead class="thead-dark ">
+                                    <tr>
+                                        <th class="align-middle text-center">CANTIDAD</th>
+                                        <th class="align-middle text-center">DESCRIPCION</th>
+                                        <th class="align-middle text-center">PREC. UNIT</th>
+
+                                        <th class="align-middle text-center">TOTAL</th>
+                                        <th class="align-middle text-center">ACCIONES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="fila-producto" *ngFor="let producto of productosSeleccionados; let i = index">
+                                        <td width="50px">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" [(ngModel)]="cantidadProductoModal">
+                                            </div>
+                                        </td>
+
+                                        <td>{{ producto.nombre }}</td>
+
+                                        <td width="150px">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" [value]="producto.precioVenta">
+                                            </div>
+                                        </td>
+
+                                        <td> </td>
+                                        <td><button class="btn btn-danger btn-sm " (click)="eliminarProducto(producto)"><i class="fa fa-trash "></i></button></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td class="align-middle text-center"> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col col-md-9 ">
+                        <div class="row ">
+                            <div class="form-group col-md-8 ">
+                                <label class="text-gray ">Nombre / Razón Social</label>
+                                <input name="nombreRazonSocial " class="form-control validation-field " type="text ">
+                            </div>
+                            <div class="form-group col-md-4 ">
+                                <label class="text-gray ">DNI/RUC</label>
+                                <input name="dniRuc " class="form-control validation-field " type="number ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+
+                                <input formControlName="codigoProducto " name="codigoProducto " class="form-control validation-field " type="text ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-md-3 ">
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <label class="form-control-label text-gray ">Forma de pago</label>
+                                <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                <option>Contado</option>
+                                <option>Crédito</option>
+                                <option>Yape</option>
+                                <option>Plin</option>
+                                <option>Tarjeta</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <label class="form-control-label text-gray ">Tipo moneda</label>
+                                <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                <option>soles</option>
+                                <option>dolares</option>
+                                
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="form-group col-md-12 ">
+                                <label class="form-control-label text-gray ">Tiempo de entrega</label>
+                                <select formControlName="unidadMedida " name="unidadMedida " class="form-control ">
+                                <option>1 Día</option>
+                                <option>7 Días</option>
+                                <option>15 Días</option>
+                                
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 bg-white text-center py-1 ">
+                        <button class="btn btn-success mr-1 " type="submit"><span>Agregar</span><span>Actualizar</span></button>
+                        <button type="button " class="btn btn-danger " data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
