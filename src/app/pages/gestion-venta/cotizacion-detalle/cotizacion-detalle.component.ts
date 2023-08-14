@@ -26,14 +26,16 @@ export class CotizacionDetalleComponent implements OnInit {
   precioTotal: number = 0;
   precioTotalUnitario: any;
 
-  //* variables para traer los datos del servicio cliente
+  //* variables para traer los datos del servicio cliente y agregar por nombre
   clientes: any[] = [];
   clientesFiltrados: any[] = [];
   clientesterminoBusqueda: string = '';
   clientesSeleccionados: any[] = [{id: 1, nombre: '', direccion: ''}];
   mostrarListaClientes: boolean = false;
-
+  
+  //* variables para traer los datos del servicio cliente y agregar por dni
   clienteSeleccionado: any = {nombre: '', direccion: ''};
+  dniRucInput: string;
 
 
 
@@ -44,6 +46,8 @@ export class CotizacionDetalleComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+    //* traer datos del servicio cliente
     /* this.datos = this.dataService.obtenerDatos(); */ // forma normal 
     this.productos = this.producto02Service.obtenerDatos().sort((a, b) => b.id - a.id); //forma descendente
 
@@ -88,7 +92,7 @@ export class CotizacionDetalleComponent implements OnInit {
   }
 
 
-  //*********** código para buscar el clientes en el modal y agregar **********************
+  //*********** código para buscar el clientes en el modal y agregar por nombre **********************
   filtrarClientes() {
     this.clientesFiltrados = this.clientes.filter(cliente =>
       cliente.nombre.toLowerCase().includes(this.clientesterminoBusqueda.toLowerCase())
@@ -111,9 +115,43 @@ export class CotizacionDetalleComponent implements OnInit {
   }
 
 
-  dniRucInput: number;
+  //******* código para buscar el clientes en el modal y agregar por DNI o RUC**********************
 
+  validarInput(event: KeyboardEvent) {
+    const inputChar = event.key;
+
+    // Verificar si el carácter ingresado es numérico o una tecla especial permitida
+    if (!/^\d$|Backspace|Delete|ArrowLeft|ArrowRight|Tab$/.test(inputChar)) {
+        event.preventDefault();
+    }
+}
+
+isDniRucInvalid(): boolean {
+    if (this.dniRucInput) {
+        const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        return dniRuc.length !== 8 && dniRuc.length !== 11;
+    }
+    return false;
+}
+  
   buscarClientePorDniRuc() {
+      if (!this.isDniRucInvalid()) {
+          const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+          const clienteEncontrado = this.clientes.find(cliente => cliente.numeroDocumento === +dniRuc);
+          if (clienteEncontrado) {
+              this.clienteSeleccionado = clienteEncontrado;
+          } else {
+              this.clienteSeleccionado = {nombre: '', direccion: ''};
+              alert('El cliente no existe. Será mejor que lo agregue');
+          }
+      } else {
+          this.clienteSeleccionado = {nombre: '', direccion: ''};
+          alert('por favor ingrese la cantidad de los digitos correctos !!!');
+      }
+  }
+  
+
+  /* buscarClientePorDniRuc() {
       const dniRuc = this.dniRucInput;
       if (dniRuc) {
           const clienteEncontrado = this.clientes.find(cliente => cliente.numeroDocumento === dniRuc);
@@ -126,7 +164,7 @@ export class CotizacionDetalleComponent implements OnInit {
       } else {
           this.clienteSeleccionado = {nombre: '', direccion: ''};
       }
-  }
+  } */
   
 
      

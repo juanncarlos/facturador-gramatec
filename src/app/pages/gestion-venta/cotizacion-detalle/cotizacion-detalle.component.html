@@ -266,7 +266,7 @@
                 <div class="row ">
                     <div class="col col-md-9 ">
                         <div class="row ">
-                            <div class="form-group col-md-8 ">
+                            <div class="form-group col-md-6 ">
                                 <label class="text-gray ">Nombre / Razón Social</label>
                                 <input type="text" class="form-control"  [(ngModel)]="clientesterminoBusqueda" (input)="filtrarClientes()" (focus)="mostrarListaClientes = true" (blur)="limpiarFiltroCliente()" placeholder=" Buscar cliente ">
                                 <div class="lista" *ngIf="clientesFiltrados.length> 0">
@@ -278,26 +278,22 @@
                                  </ul>
                                 </div>
                             </div>
-                            <div class="form-group col-md-4">
-                                <label class="text-gray">DNI/RUC</label>
-                                <input name="dniRuc" class="form-control validation-field" type="number" (keydown.enter)="buscarClientePorDniRuc()" [(ngModel)]="dniRucInput">
-                            </div>
                             <!-- <div class="form-group col-md-4">
                                 <label class="text-gray">DNI/RUC</label>
-                                <input name="dniRuc" class="form-control validation-field" type="number" (keydown.enter)="buscarClientePorDniRuc()" [(ngModel)]="dniRucInput" #dniRucInputField="ngModel" required>
-                                <div *ngIf="dniRucInputField.invalid && (dniRucInputField.dirty || dniRucInputField.touched)" class="text-danger">
-                                    <div *ngIf="dniRucInputField.errors.required">Campo requerido.</div>
-                                    <div *ngIf="dniRucInputField.errors.minlength || dniRucInputField.errors.maxlength">El DNI debe tener 8 dígitos y el RUC debe tener 11 dígitos.</div>
-                                </div>
+                                <input name="dniRuc" class="form-control validation-field" type="number" (keydown.enter)="buscarClientePorDniRuc()" [(ngModel)]="dniRucInput">
                             </div> -->
-                            
-                            
-                            
-                        </div>   
-                                             
-                                                
-
-
+                            <div class="form-group col-md-3">
+                                <label class="text-gray">DNI/RUC</label>
+                                <input name="dniRuc" class="form-control" type="text" (keydown)="validarInput($event)" (keydown.enter)="buscarClientePorDniRuc()" [(ngModel)]="dniRucInput" autocomplete="off">
+                                <div *ngIf="isDniRucInvalid()" class="text-danger">
+                                    El DNI debe tener 8 dígitos y el RUC debe tener 11 dígitos.
+                                </div>
+                            </div>  
+                            <div class="form-group col-md-3">
+                                <label class="text-gray">.</label>
+                                <button class="btn btn-primary">Agregar Cliente</button> 
+                            </div>                  
+                        </div> 
 
                         <div class="row">
                             <div class="form-group col-md-12">
