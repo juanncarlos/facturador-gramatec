@@ -96,6 +96,11 @@ export class Cotizacion03Component  {
   clienteSeleccionado: any = {nombre: '', direccion: ''};
   dniRucInput: string;
 
+
+  //* variables para filtrar por fecha */
+  fechaInicio: string = '';
+  fechaFin: string = ''; 
+
   
   
   constructor(
@@ -104,7 +109,13 @@ export class Cotizacion03Component  {
     private producto02Service: Producto02Service,
     private clienteService: ClienteService,
     private marcaService: MarcaService
-    ) {}
+    ) 
+      {
+        // Inicializar las fechas con la fecha actual
+        const today = new Date();
+        this.fechaInicio = this.formatDate(today);
+        this.fechaFin = this.formatDate(today);
+      }
 
   ngOnInit(): void {
     /* this.datos = this.dataService.obtenerDatos(); */ // forma normal 
@@ -286,22 +297,29 @@ export class Cotizacion03Component  {
 
 
 
-  //****código para descargar en pdf segun la busqueda que se haga globalmente */
+//******** código para descargar en pdf segun la busqueda que se haga globalmente ********************/
   
   exportarPDF() {
     let exportData: any[];
-  
-    if (this.textoBusqueda.trim() !== '') {
-      // Realizar la búsqueda y exportar los datos filtrados
-      exportData = this.datos.filter(item => {
-        // Aplica la lógica de filtrado según tus criterios de búsqueda
-        // Por ejemplo, si deseas exportar solo los elementos cuyo campo "nombre" contiene el texto buscado:
-        return item.nombre.includes(this.textoBusqueda);
-      });
-    } else {
-      // Exportar todos los datos
-      exportData = this.datos;
+
+  // Filtrar los datos en base a los filtros activos
+  exportData = this.datos.filter(dato => {
+    const cumpleNombre = dato.clienteNombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+    const fechaDato = new Date(dato.fecha);
+
+    const fechaInicioObj = this.fechaInicio ? new Date(this.fechaInicio) : null;
+    const fechaFinObj = this.fechaFin ? new Date(this.fechaFin) : null;
+
+    if (fechaInicioObj && fechaFinObj) {
+      // Ajustar la fecha de fin para incluir todos los datos de ese día
+      fechaFinObj.setDate(fechaFinObj.getDate() + 1);
+
+      // Comprobar si la fecha del dato está dentro del rango
+      return cumpleNombre && fechaDato >= fechaInicioObj && fechaDato < fechaFinObj;
     }
+
+    return cumpleNombre;
+  });
     let contenido = `
       <h1 style="text-align: center">Datos del Producto</h1>
       <table>
@@ -341,123 +359,110 @@ export class Cotizacion03Component  {
   }
 
 
-  //! =============== código para agregar los productos en el modal =============
-
-  
-  filtrarProductos() {
+//! =============== código para agregar los productos en el modal ===================================================
+ 
+      filtrarProductos() {
+        
+        this.productosFiltrados = this.productos.filter(producto =>
+          producto.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+        );
+      }
     
-    this.productosFiltrados = this.productos.filter(producto =>
-      producto.nombre.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-    );
-  }
-
-  clearFilter() {
-    setTimeout(() => {
-      this.productosFiltrados = [];
-    }, 200);
-  }
-
-  agregarProducto(producto: any) {
-    if (!this.productoYaSeleccionado(producto)) {
-      this.productosSeleccionados.push(producto);
-    }
-    this.terminoBusqueda = '';
-    this.mostrarListaProductos = false;
+      clearFilter() {
+        setTimeout(() => {
+          this.productosFiltrados = [];
+        }, 200);
+      }
     
-  }
+      agregarProducto(producto: any) {
+        if (!this.productoYaSeleccionado(producto)) {
+          this.productosSeleccionados.push(producto);
+        }
+        this.terminoBusqueda = '';
+        this.mostrarListaProductos = false;
+        
+      }
 
-
-   
-  eliminarProducto(producto: any) {
-    const index = this.productosSeleccionados.indexOf(producto);
-    if (index > -1) {
-      this.productosSeleccionados.splice(index, 1);
-    }
-  }
-
-  productoYaSeleccionado(producto: any): boolean {
-    return this.productosSeleccionados.some(item => item.id === producto.id);
-  }
-
-
-
-  //*********** código para buscar el clientes en el modal y agregar por nombre **********************
-  filtrarClientes() {
-    this.clientesFiltrados = this.clientes.filter(cliente =>
-      cliente.nombre.toLowerCase().includes(this.clientesterminoBusqueda.toLowerCase())
-    );
-  }
-
-  limpiarFiltroCliente() {
-    setTimeout(() => {
-      this.clientesFiltrados = [];
-    }, 200);
-  }
-
-  agregarCliente(cliente: any) {
+      eliminarProducto(producto: any) {
+        const index = this.productosSeleccionados.indexOf(producto);
+        if (index > -1) {
+          this.productosSeleccionados.splice(index, 1);
+        }
+      }
     
-      this.clientesSeleccionados.push(cliente);
-      this.clienteSeleccionado = cliente;
-      this.clientesterminoBusqueda = '';
-      this.mostrarListaClientes = false; 
+      productoYaSeleccionado(producto: any): boolean {
+        return this.productosSeleccionados.some(item => item.id === producto.id);
+      }
+
+
+
+//*********** código para buscar el clientes en el modal y agregar por nombre **********************
+      filtrarClientes() {
+        this.clientesFiltrados = this.clientes.filter(cliente =>
+          cliente.nombre.toLowerCase().includes(this.clientesterminoBusqueda.toLowerCase())
+        );
+      }
     
-  }
+      limpiarFiltroCliente() {
+        setTimeout(() => {
+          this.clientesFiltrados = [];
+        }, 200);
+      }
+    
+      agregarCliente(cliente: any) {
+        
+          this.clientesSeleccionados.push(cliente);
+          this.clienteSeleccionado = cliente;
+          this.clientesterminoBusqueda = '';
+          this.mostrarListaClientes = false;   
+      }
+    
 
+//******* código para buscar el clientes en el modal y agregar por DNI o RUC**********************
 
-  //******* código para buscar el clientes en el modal y agregar por DNI o RUC**********************
-
-  validarInput(event: KeyboardEvent) {
-    const inputChar = event.key;
-
-    // Verificar si el carácter ingresado es numérico o una tecla especial permitida
-    if (!/^\d$|Backspace|Delete|ArrowLeft|ArrowRight|Tab$/.test(inputChar)) {
-        event.preventDefault();
+      validarInput(event: KeyboardEvent) {
+        const inputChar = event.key;
+    
+        // Verificar si el carácter ingresado es numérico o una tecla especial permitida
+        if (!/^\d$|Backspace|Delete|ArrowLeft|ArrowRight|Tab$/.test(inputChar)) {
+            event.preventDefault();
+        }
     }
-}
-
-isDniRucInvalid(): boolean {
-    if (this.dniRucInput) {
-        const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
-        return dniRuc.length !== 8 && dniRuc.length !== 11;
+    
+    isDniRucInvalid(): boolean {
+        if (this.dniRucInput) {
+            const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+            return dniRuc.length !== 8 && dniRuc.length !== 11;
+        }
+        return false;
     }
-    return false;
-}
-  
-  buscarClientePorDniRuc() {
-      if (!this.isDniRucInvalid()) {
-          const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
-          const clienteEncontrado = this.clientes.find(cliente => cliente.numeroDocumento === +dniRuc);
-          if (clienteEncontrado) {
-              this.clienteSeleccionado = clienteEncontrado;
+      
+      buscarClientePorDniRuc() {
+          if (!this.isDniRucInvalid()) {
+              const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+              const clienteEncontrado = this.clientes.find(cliente => cliente.numeroDocumento === +dniRuc);
+              if (clienteEncontrado) {
+                  this.clienteSeleccionado = clienteEncontrado;
+              } else {
+                  this.clienteSeleccionado = {nombre: '', direccion: ''};
+                  alert('El cliente no existe. Será mejor que lo agregue');
+              }
           } else {
               this.clienteSeleccionado = {nombre: '', direccion: ''};
-              alert('El cliente no existe. Será mejor que lo agregue');
+              alert('por favor ingrese la cantidad de los digitos correctos !!!');
           }
-      } else {
-          this.clienteSeleccionado = {nombre: '', direccion: ''};
-          alert('por favor ingrese la cantidad de los digitos correctos !!!');
       }
-  }
 
 
-  //* codigo para filtrar por fecha */
+//** código para establecer la fecha actual a las fechas de inicio y fecha de fin */
+    private formatDate(date: Date): string {
+      const day = date.getDate();
+      const month = date.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
+      const year = date.getFullYear();
   
-  
-  fechaInicio: string = '';
-  fechaFin: string = ''; 
+      return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    }
 
   
-  
-  
-
-
-  //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
- 
-
-    
-
-
-
-  //******************* código para el boton de opciones de imprimir */
 
 }

@@ -1,4 +1,28 @@
 
+//************* estilos para los inputs de tipo date *********************************
+.contenedor-filtar-por-fecha {
+
+    label {
+        color: #565656;
+        font-weight: 500;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        padding: 2px;
+        cursor: pointer; 
+      }
+    
+    input[type="date"] {
+        box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+        border-radius: 6px !important;
+        color: #333;
+        font-weight: 500;
+      }
+}
+
+  
+//************************************************
+
 .modal-header {
     text-align: center;
     border-bottom: none;
