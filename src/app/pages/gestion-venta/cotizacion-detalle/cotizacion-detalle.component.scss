@@ -1,3 +1,72 @@
+
+//** estilos para el menu de opciones del modal ************
+.contenedor-menu-modal {
+    ul {
+        li {
+            border-radius: 6px !important;
+            box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+            button {
+                /* background: #fff !important; */
+            }
+        }
+    }
+}
+
+//** estilos para el campo de buscar producto a la hora de abrir el modal
+
+/* estilos de la tabla modal */
+
+col.col11 {
+    width: 15%;
+}
+
+col.col12 {
+    width: 45%;
+}
+
+col.col13 {
+    width: 15%;
+}
+
+col.col14 {
+    width: 10%;
+}
+
+col.col15 {
+    width: 15%;
+}
+
+.contenedor-input-seleccionar-producto {
+    ul {
+        list-style: none;
+        z-index: 100;
+        position: absolute;
+        background: rgba($color: #000, $alpha: .8);
+        width: 90%;
+        padding: 15px;
+        border-radius: 15px;
+        height: 200px;
+        overflow: auto;
+        li {
+            color: #fff;
+        }
+    }
+
+}
+
+/* estilos del contenedor de tabla */
+
+.contenedor-tabla {
+    position: relative;
+}
+        
+    
+
+  
+
+
+
+//* CODIGO DEL MODAL NORMAL 
 table {
     width: 100%;
     table-layout: fixed;
@@ -79,3 +148,12 @@ ul {
 .contenedor-tabla {
     position: relative;
 }
+
+
+
+.custom-modal {
+    z-index: 1000000;
+    background: #000; /* Ajusta el valor según sea necesario */
+  }
+
+

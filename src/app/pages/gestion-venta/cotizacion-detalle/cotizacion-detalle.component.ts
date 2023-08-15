@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto02Service } from '../../gestion-inventario/producto02/producto02.service';
 import { ClienteService } from '../../gestion-inventario/cliente/cliente.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -13,7 +14,14 @@ declare var $: any; // Declaración para que TypeScript reconozca '$'
   styleUrls: ['./cotizacion-detalle.component.scss']
 })
 export class CotizacionDetalleComponent implements OnInit {
-
+  
+  //* variable de modal cliente
+  public modalRef: NgbModalRef;
+  public datos: any[];
+  public nuevoDato: any = {};
+  public datoEditado: any = {};
+  public indiceEditar: number = -1;
+  MensajeBuscarCliente: boolean = false;
   
 
   //* variables para traer los datos del servicio producto
@@ -41,6 +49,7 @@ export class CotizacionDetalleComponent implements OnInit {
 
   
   constructor(
+    private modalService: NgbModal,
     private producto02Service: Producto02Service,
     private clienteService: ClienteService
     ) { }
@@ -171,11 +180,40 @@ isDniRucInvalid(): boolean {
 
 
 
-  //********************** */ código para abrir modal ****************************************************************
+  //********************** */ código para abrir modal venta ****************************************************************
   abrirModalProductos() {
     // Abre el modal de Bootstrap
     $('#modalProductos').modal('show');
   }
+
+
+
+
+  //* codigo para abrir modal cliente *************************** */ */
+
+  abrirModalCliente(modal: any): void {
+    this.modalRef = this.modalService.open(modal, { centered: true, windowClass: 'custom-modal' });
+  }
+
+  cerrarModalCliente(): void {
+    this.modalRef.close();
+    this.indiceEditar = -1;
+    this.datoEditado = {};
+  }
+
+  agregarDato(): void {
+      
+    if (this.nuevoDato.nombre) {
+      this.clienteService.agregarDato(this.nuevoDato);
+      this.datos.unshift(this.nuevoDato);
+      this.cerrarModalCliente();
+      this.nuevoDato = {};
+    } else {
+      // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
+      alert('Por favor ingrese el nombre del cliente.');
+    }
+  
+}
 
 
 

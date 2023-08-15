@@ -15,9 +15,11 @@ import * as printJS from 'print-js';
 import { Contizacion03Service } from './contizacion03.service';
 import { Producto02Service } from '../../gestion-inventario/producto02/producto02.service';
 import { MarcaService } from '../../gestion-inventario/producto02/marca.service';
+import { ClienteService } from '../../gestion-inventario/cliente/cliente.service';
 
 
 
+declare var $: any; // Declaración para que TypeScript reconozca '$'
 
 @Component({
   selector: 'app-cotizacion03',
@@ -72,21 +74,35 @@ export class Cotizacion03Component  {
 /*   public categorias: any[];
   public nuevoCategoria: any = {}; */
 
-  // variable para los servicios de producto
-  public productos: any[];
-
+  
+  //* variables para traer los datos del servicio producto
+  productos: any[] = [];
   productosFiltrados: any[] = [];
   terminoBusqueda: string = '';
   productosSeleccionados: any[] = [];
   mostrarListaProductos: boolean = false;
-
   cantidadProductoModal: any[] = []
+  precioTotal: number = 0;
+  precioTotalUnitario: any;
 
+  //* variables para traer los datos del servicio cliente y agregar por nombre
+  clientes: any[] = [];
+  clientesFiltrados: any[] = [];
+  clientesterminoBusqueda: string = '';
+  clientesSeleccionados: any[] = [{id: 1, nombre: '', direccion: ''}];
+  mostrarListaClientes: boolean = false;
+  
+  //* variables para traer los datos del servicio cliente y agregar por dni
+  clienteSeleccionado: any = {nombre: '', direccion: ''};
+  dniRucInput: string;
+
+  
   
   constructor(
     private modalService: NgbModal, 
     private dataService: Contizacion03Service,
     private producto02Service: Producto02Service,
+    private clienteService: ClienteService,
     private marcaService: MarcaService
     ) {}
 
@@ -101,9 +117,11 @@ export class Cotizacion03Component  {
     /* this.marcas = this.marcaService.obtenerMarcas(); */ //forma normal 
      this.marcas = this.marcaService.obtenerMarcas().sort((a, b) => b.id - a.id);  //forma descendente 
 
-    //* codigo para tarer datos del servicio categoria
-    /* this.categorias = this.categoriaService.obtenerCategorias().sort((a, b) => b.id - a.id); */ //forma descendente
-  }
+     //* traer datos del servicio cliente
+    this.clientes = this.clienteService.obtenerDatos().sort((a, b)=> b.id - a.id);
+
+   
+    }
 
   abrirModal(modal: any, ancho: 'sm' | 'lg' | string): void {
     this.modalRef = this.modalService.open(modal, { centered: true, size: ancho });
@@ -113,6 +131,12 @@ export class Cotizacion03Component  {
     this.modalRef.close();
     this.indiceEditar = -1;
     this.datoEditado = {};
+  }
+
+  //********************** */ código para abrir modal venta ****************************************************************
+  abrirModalProductos() {
+    // Abre el modal de Bootstrap
+    $('#modalProductos').modal('show');
   }
 
   // este es para ordenar de manera ascendente
@@ -155,10 +179,10 @@ export class Cotizacion03Component  {
     this.datos = this.dataService.obtenerDatos();
   }
 
-  abrirEditarModal(modal: any, indice: number): void {
+  abrirEditarModal(modal: any, indice: number, ancho: 'sm' | 'lg' | string): void {
     this.indiceEditar = indice;
     this.datoEditado = { ...this.datos[indice] };
-    this.modalRef = this.modalService.open(modal, { centered: true });
+    this.modalRef = this.modalService.open(modal, { centered: true, size: ancho });
   }
 
 
@@ -173,38 +197,45 @@ export class Cotizacion03Component  {
   }
 
 
-  // ************** codigo para exportar según los filtros que se hagan **********************
+  // ************** codigo para exportar según los filtros que se hagan con fecha y nombre **********************
   exportToExcels(): void {
     let exportData: any[];
-  
-    if (this.textoBusqueda.trim() !== '') {
-      // Realizar la búsqueda y exportar los datos filtrados
-      exportData = this.datos.filter(item => {
-        // Aplica la lógica de filtrado según tus criterios de búsqueda
-        // Por ejemplo, si deseas exportar solo los elementos cuyo campo "nombre" contiene el texto buscado:
-        return item.nombre.includes(this.textoBusqueda);
-      });
-    } else {
-      // Exportar todos los datos
-      exportData = this.datos;
+
+  // Filtrar los datos en base a los filtros activos
+  exportData = this.datos.filter(dato => {
+    const cumpleNombre = dato.clienteNombre.toLowerCase().includes(this.textoBusqueda.toLowerCase());
+    const fechaDato = new Date(dato.fecha);
+
+    const fechaInicioObj = this.fechaInicio ? new Date(this.fechaInicio) : null;
+    const fechaFinObj = this.fechaFin ? new Date(this.fechaFin) : null;
+
+    if (fechaInicioObj && fechaFinObj) {
+      // Ajustar la fecha de fin para incluir todos los datos de ese día
+      fechaFinObj.setDate(fechaFinObj.getDate() + 1);
+
+      // Comprobar si la fecha del dato está dentro del rango
+      return cumpleNombre && fechaDato >= fechaInicioObj && fechaDato < fechaFinObj;
     }
-  
-    // Crea una nueva instancia de workbook
-    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-  
-    // Convierte los datos a una hoja de cálculo
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
-  
-    // Agrega la hoja de cálculo al workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
-  
-    // Genera un archivo Excel binario
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  
-    // Guarda el archivo Excel en el sistema de archivos del usuario
-    const excelFile: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(excelFile, 'datos.xlsx');
-  }
+
+    return cumpleNombre;
+  });
+
+  // Crea una nueva instancia de workbook
+  const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+
+  // Convierte los datos a una hoja de cálculo
+  const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+
+  // Agrega la hoja de cálculo al workbook
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+
+  // Genera un archivo Excel binario
+  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+  // Guarda el archivo Excel en el sistema de archivos del usuario
+  const excelFile: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  saveAs(excelFile, 'datos.xlsx');
+}
 
 
   // ****************** código para tener opciones de imprimir en A4 y ticket ******************
@@ -320,7 +351,7 @@ export class Cotizacion03Component  {
     );
   }
 
-  limpiarFiltro() {
+  clearFilter() {
     setTimeout(() => {
       this.productosFiltrados = [];
     }, 200);
@@ -350,44 +381,77 @@ export class Cotizacion03Component  {
 
 
 
+  //*********** código para buscar el clientes en el modal y agregar por nombre **********************
+  filtrarClientes() {
+    this.clientesFiltrados = this.clientes.filter(cliente =>
+      cliente.nombre.toLowerCase().includes(this.clientesterminoBusqueda.toLowerCase())
+    );
+  }
 
-  guardarProductosSeleccionados() {
-    const nuevoObjeto = {
-      id: this.productosSeleccionados.length + 1,
-      serie: 'C001',
-      numero: this.productosSeleccionados.length + 1,
-      fecha: '02/08/2023',
-      codigoBarra: 'Objeto ' + (this.productosSeleccionados.length + 1),
-      productos: [...this.productosSeleccionados], // Clonar la lista de productos seleccionados
-      total: this.calcularTotalVenta(this.productosSeleccionados),
-      clienteID: 12345678,
-      clienteNombre: 'juan',
-      metodoPago: 'contado',
-    };
-  
-    this.dataService.agregarDato(nuevoObjeto); // Llamar al método en el servicio para agregar el objeto
-    this.productosSeleccionados = []; // Limpiar los productos seleccionados después de guardar
-    this.cerrarModal();
+  limpiarFiltroCliente() {
+    setTimeout(() => {
+      this.clientesFiltrados = [];
+    }, 200);
+  }
+
+  agregarCliente(cliente: any) {
+    
+      this.clientesSeleccionados.push(cliente);
+      this.clienteSeleccionado = cliente;
+      this.clientesterminoBusqueda = '';
+      this.mostrarListaClientes = false; 
     
   }
+
+
+  //******* código para buscar el clientes en el modal y agregar por DNI o RUC**********************
+
+  validarInput(event: KeyboardEvent) {
+    const inputChar = event.key;
+
+    // Verificar si el carácter ingresado es numérico o una tecla especial permitida
+    if (!/^\d$|Backspace|Delete|ArrowLeft|ArrowRight|Tab$/.test(inputChar)) {
+        event.preventDefault();
+    }
+}
+
+isDniRucInvalid(): boolean {
+    if (this.dniRucInput) {
+        const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+        return dniRuc.length !== 8 && dniRuc.length !== 11;
+    }
+    return false;
+}
+  
+  buscarClientePorDniRuc() {
+      if (!this.isDniRucInvalid()) {
+          const dniRuc = this.dniRucInput.replace(/\D/g, ''); // Eliminar caracteres no numéricos
+          const clienteEncontrado = this.clientes.find(cliente => cliente.numeroDocumento === +dniRuc);
+          if (clienteEncontrado) {
+              this.clienteSeleccionado = clienteEncontrado;
+          } else {
+              this.clienteSeleccionado = {nombre: '', direccion: ''};
+              alert('El cliente no existe. Será mejor que lo agregue');
+          }
+      } else {
+          this.clienteSeleccionado = {nombre: '', direccion: ''};
+          alert('por favor ingrese la cantidad de los digitos correctos !!!');
+      }
+  }
+
+
+  //* codigo para filtrar por fecha */
+  
+  
+  fechaInicio: string = '';
+  fechaFin: string = ''; 
+
+  
+  
   
 
 
-  
-
-
-
-  
-
-
-
-
-
-
-
-
-
-    //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
+  //* ********* código para mostrar texto al pasar el mouse sobre un boton *****************
  
 
     
