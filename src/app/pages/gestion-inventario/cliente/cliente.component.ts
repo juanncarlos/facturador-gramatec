@@ -89,9 +89,9 @@ export class ClienteComponent implements OnInit {
       
       if (this.nuevoDato.nombre) {
         this.dataService.agregarDato(this.nuevoDato);
-        this.datos.unshift(this.nuevoDato);
         this.cerrarModal();
         this.nuevoDato = {};
+        
       } else {
         // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
         alert('Por favor ingrese la placa.');
@@ -271,13 +271,5 @@ export class ClienteComponent implements OnInit {
   
     printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
   }
-
-
-
-
-    
-
-
-  
 
 }

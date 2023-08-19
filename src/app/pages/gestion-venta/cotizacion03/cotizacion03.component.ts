@@ -65,14 +65,16 @@ export class Cotizacion03Component  {
   MensajeExportarPdf: boolean = false;
   MensajeVistaCuadros: boolean = false;
   MensajeVistaListas: boolean = false;
+  MensajeBuscarCliente: boolean = false;
   
   // variable para los servicios de marca
   public marcas: any[];
   public nuevoMarca: any = {};
 
-  // variable para los servicios de categoria
-/*   public categorias: any[];
-  public nuevoCategoria: any = {}; */
+  //* variable para los servicios de cliente
+  
+  
+
 
   
   //* variables para traer los datos del servicio producto
@@ -87,6 +89,7 @@ export class Cotizacion03Component  {
 
   //* variables para traer los datos del servicio cliente y agregar por nombre
   clientes: any[] = [];
+  nuevoCliente: any = {};
   clientesFiltrados: any[] = [];
   clientesterminoBusqueda: string = '';
   clientesSeleccionados: any[] = [{id: 1, nombre: '', direccion: ''}];
@@ -130,7 +133,7 @@ export class Cotizacion03Component  {
 
      //* traer datos del servicio cliente
     this.clientes = this.clienteService.obtenerDatos().sort((a, b)=> b.id - a.id);
-
+    console.log(this.clientes);
    
     }
 
@@ -149,6 +152,17 @@ export class Cotizacion03Component  {
     // Abre el modal de Bootstrap
     $('#modalProductos').modal('show');
   }
+
+//* código para abrir y cerrar el modal para agregar los clientes nuevos */
+  abrirModalAgregarCliente() {
+    // Abre el modal de Bootstrap
+    $('#modalClientes').modal('show');
+  }
+  cerrarModalClientes() {
+    // Cierra el modal de Bootstrap
+    $('#modalClientes').modal('hide');
+}
+
 
   // este es para ordenar de manera ascendente
   /* agregarDato(): void {
@@ -418,7 +432,7 @@ export class Cotizacion03Component  {
       }
     
 
-//******* código para buscar el clientes en el modal y agregar por DNI o RUC**********************
+//******* código para buscar el cliente en el modal y agregar por DNI o RUC**********************
 
       validarInput(event: KeyboardEvent) {
         const inputChar = event.key;
@@ -443,6 +457,7 @@ export class Cotizacion03Component  {
               const clienteEncontrado = this.clientes.find(cliente => cliente.numeroDocumento === +dniRuc);
               if (clienteEncontrado) {
                   this.clienteSeleccionado = clienteEncontrado;
+                  this.dniRucInput = '';
               } else {
                   this.clienteSeleccionado = {nombre: '', direccion: ''};
                   alert('El cliente no existe. Será mejor que lo agregue');
@@ -462,6 +477,23 @@ export class Cotizacion03Component  {
   
       return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     }
+
+
+//** codigo para agregar cliente en el modal */
+
+botonAgregarClienteModal(): void {
+      
+  if (this.nuevoCliente.nombre) {
+    this.clienteService.agregarDato(this.nuevoCliente);
+    this.cerrarModalClientes()
+    this.nuevoCliente = {};
+  } else {
+    // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
+    alert('Por favor ingrese el numero de documento.');
+  }
+
+}
+
 
   
 
