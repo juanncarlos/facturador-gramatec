@@ -246,7 +246,7 @@
                 <div class="row">
                     <div class="form-group col-md-2 ">
                         <label class="">Cantidad</label>
-                        <input name="codigoTributo " class="form-control validation-field " type="number " [(ngModel)]="cantidadProductoModal">
+                        <input name="codigoTributo " class="form-control" type="number" [(ngModel)]="cantidadProductoModal">
                     </div>
                     <div class="form-group col-md-3 ">
                         <label class="mr-1">Código de barras</label> <input type="checkbox" aria-label="Checkbox for following text input">
@@ -770,19 +770,18 @@
   <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        
+        <div class="modal-header text-center">
+            <h4 class="modal-title text-center">AGREGAR CLIENTE</h4>
         </div>
+        
         <div class="modal-body">
             <form>
                 <div class="tab-content col-12 border-0">
                     <div class="tab-pane active" id="basic">
                         <div class="row">
                             <div class="form-group col-md-5">
-                                <label class="text-gray"> Tipo Documento </label>
+                                <label class=""> Tipo Documento<span class="obligatorio">*</span> </label>
                                 <select [(ngModel)]="nuevoCliente.tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control">
                                     <option value="DNI">DNI</option>
                                     <option value="RUC">RUC</option>
@@ -791,11 +790,13 @@
                                 <!-- <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" required> -->
                             </div>
                             <div class="form-group col-md-5">
-                                <label class="text-gray">Número</label>
+                                <label class="">Número<span class="obligatorio">*</span></label>
                                 <input name="numeroDocumento" id="numeroDocumento" [(ngModel)]="nuevoCliente.numeroDocumento" class="form-control" type="number" autocomplete="off">
                             </div>
+                            
+                            
                             <div class="form-group col-md-2 contenedor-ico-buscar">
-                                <label class="text-gray">Buscar</label>
+                                <label class="">Buscar</label>
                                 <span (mouseenter)="MensajeBuscarCliente = true" (mouseleave)="MensajeBuscarCliente = false"  class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-search text-primary"></i></span>
                                 <div class="mensaje" *ngIf="MensajeBuscarCliente">
                                     Buscar Cliente
@@ -804,19 +805,19 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="text-gray">Nombre</label>
+                                <label class="">Nombre<span class="obligatorio">*</span></label>
                                 <input name="nombre" id="nombre" [(ngModel)]="nuevoCliente.nombre" class="form-control" type="text " autocomplete="off">
                             </div>                          
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="text-gray">Dirección</label>
+                                <label class="">Dirección<span class="obligatorio">*</span></label>
                                 <input name="direccion" id="direccion" [(ngModel)]="nuevoCliente.direccion" class="form-control" type="text" autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="text-gray">Departamento</label>
+                                <label class="">Departamento<span class="obligatorio">*</span></label>
                                 <select [(ngModel)]="nuevoCliente.departamento" name="departamento" id="departamento" class="form-control">
                                     <option value="DNI">DNI</option>
                                     <option value="RUC">RUC</option>
@@ -824,7 +825,7 @@
                                   </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="text-gray">Provincia</label>
+                                <label class="">Provincia<span class="obligatorio">*</span></label>
                                 <select [(ngModel)]="nuevoCliente.provincia" name="provincia" id="provincia" class="form-control">
                                     <option value="DNI">DNI</option>
                                     <option value="RUC">RUC</option>
@@ -832,7 +833,7 @@
                                   </select>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="text-gray">Distrito</label>
+                                <label class="">Distrito<span class="obligatorio">*</span></label>
                                 <select [(ngModel)]="nuevoCliente.distrito" name="distrito" id="distrito" class="form-control">
                                     <option value="DNI">DNI</option>
                                     <option value="RUC">RUC</option>
@@ -842,27 +843,27 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="text-gray">Activo</label>
+                                <label class="">Activo</label>
                                 <input name="activo" id="activo" [(ngModel)]="nuevoCliente.activo" class="form-control" type="text" autocomplete="off" readonly>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="text-gray">Habido</label>
+                                <label class="">Habido</label>
                                 <input name="habido" id="habido" [(ngModel)]="nuevoCliente.habido" class="form-control" type="text" autocomplete="off" readonly>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="text-gray">Correo</label>
+                                <label class="">Correo</label>
                                 <input name="correo" id="correo" [(ngModel)]="nuevoCliente.correo" class="form-control" type="email" autocomplete="off">
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="text-gray">Celular</label>
+                                <label class="">Celular</label>
                                 <input name="celular" id="celular" [(ngModel)]="nuevoCliente.celular" class="form-control" type="number" autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="text-gray">Nota</label>
+                                <label class="">Nota</label>
                                 <textarea name="nota" id="nota" [(ngModel)]="nuevoCliente.nota" class="form-control" type="text" autocomplete="off"></textarea>
                             </div>
                             

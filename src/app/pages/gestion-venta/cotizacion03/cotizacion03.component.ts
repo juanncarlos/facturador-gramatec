@@ -478,21 +478,21 @@ export class Cotizacion03Component  {
       return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
     }
 
-
+//??????????????????? CÓDIGO PARA EL MODAL DE AGREGAR CLIENTE ????????????????????????????????
 //** codigo para agregar cliente en el modal */
-
 botonAgregarClienteModal(): void {
       
-  if (this.nuevoCliente.nombre) {
+  if (this.nuevoCliente.nombre && this.nuevoCliente.tipoDocumento && this.nuevoCliente.numeroDocumento && this.nuevoCliente.direccion && this.nuevoCliente.departamento && this.nuevoCliente.provincia && this.nuevoCliente.distrito) {
     this.clienteService.agregarDato(this.nuevoCliente);
     this.cerrarModalClientes()
     this.nuevoCliente = {};
   } else {
     // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-    alert('Por favor ingrese el numero de documento.');
+    alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
   }
 
 }
+
 
 
   

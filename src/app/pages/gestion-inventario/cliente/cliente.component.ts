@@ -84,17 +84,20 @@ export class ClienteComponent implements OnInit {
   } */
 
   //esto es para ordenar de manera descendente y con validacion del primer campo 
+
+  
+  
   
   agregarDato(): void {
       
-      if (this.nuevoDato.nombre) {
+      if (this.nuevoDato.nombre && this.nuevoDato.tipoDocumento && this.nuevoDato.numeroDocumento && this.nuevoDato.direccion && this.nuevoDato.departamento && this.nuevoDato.provincia && this.nuevoDato.distrito) {
         this.dataService.agregarDato(this.nuevoDato);
         this.cerrarModal();
         this.nuevoDato = {};
         
       } else {
         // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-        alert('Por favor ingrese la placa.');
+        alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
       }
     
   }
@@ -168,16 +171,6 @@ export class ClienteComponent implements OnInit {
     saveAs(excelFile, 'datos.xlsx');
   }
 
-
-  //* ********* código para importar archivos en excel ******************
-
-
-
-
-
-
-  //* *********** código para descargar en pdf ***************************
- 
 
 
   // ****************** código para tener opciones de imprimir en A4 y ticket ******************

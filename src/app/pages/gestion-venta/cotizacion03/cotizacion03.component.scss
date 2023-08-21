@@ -21,21 +21,27 @@
 }
 
   
-//************************************************
+//************* estilos generales de los modales ***********************************
 
 .modal-header {
     text-align: center;
     border-bottom: none;
+    
 }
 
 .modal-header h4 {
     width: 100%;
     text-align: center;
     font-weight: 700;
+    color: #000;
 }
 
 .modal-body label {
     font-weight: 600;
+    color: #000;
+    .obligatorio {
+        color: #dd1b16;
+    }
     
 }
 
@@ -53,7 +59,7 @@ input {
 
 input:focus {
     /* background: rgb(163, 161, 161); */
-    border: 2px solid #0E8525;
+    border: 2px solid #0E8525 !important;
 }
 select {
     border-radius: 20px;

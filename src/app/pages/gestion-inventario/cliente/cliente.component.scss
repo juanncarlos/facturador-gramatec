@@ -11,6 +11,9 @@
 
 .modal-body label {
     font-weight: 600;
+    .obligatorio {
+        color: #dd1b16;
+    }
 }
 
 .modal-footer {
@@ -50,7 +53,7 @@ input:focus {
 select:focus {
     /* background: rgb(163, 161, 161); */
     border: 2px solid #0E8525;
-}
+} 
 
 //botones
 .btn-cancelar-modal {
