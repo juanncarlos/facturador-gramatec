@@ -25,6 +25,7 @@ import { VehiculoComponent } from './vehiculo/vehiculo.component';
 import { ProductoComponent } from './producto/producto.component';
 import { ConductorComponent } from './conductor/conductor.component';
 import { Producto02Component } from './producto02/producto02.component';
+import { ApiReniecComponent } from './api-reniec/api-reniec.component';
 
 
 
@@ -72,7 +73,8 @@ export const routes: Routes = [
     MarcaBuscarPipe,
     CategoriaBuscarPipe,
     ConductorComponent,
-    Producto02Component
+    Producto02Component,
+    ApiReniecComponent
   ]
 })
 export class GestionInventarioModule { }
