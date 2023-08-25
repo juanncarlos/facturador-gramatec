@@ -10,17 +10,23 @@
       <div class="row">
         <div class="col-md-3">
           <label class="form-label">Tipo  doc<span class="text-danger">*</span></label>
-          <select [(ngModel)]="form.type" name="type" required class="form-control">
+          <select [(ngModel)]="form.type" name="type" required class="form-control" (change)="changeDocumentType()">
             <option value="" selected disabled>Seleccionaras</option>
             <option value="dni">DNI</option>
             <option value="ruc">RUC</option>
+            <option value="other">Otro Documento</option>
           </select>
         </div>
         <div class="col-md-3">
           <label class="form-label">Numero de Documento <span class="text-danger">*</span></label>
           <input [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI o RUC">
         </div>
-        <div class="col-md-6 d-grid mt-4 mt-md-0">
+        <!-- <div class="col-md-6 d-grid mt-4 mt-md-0">
+          <label class="form-label d-none d-md-block">&nbsp;</label>
+          <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block">Buscando...</button>
+          <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block">Buscar. Sunat</button>
+        </div> -->
+        <div class="col-md-6 d-grid mt-4 mt-md-0" *ngIf="form.type !== 'other'">
           <label class="form-label d-none d-md-block">&nbsp;</label>
           <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block">Buscando...</button>
           <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block">Buscar. Sunat</button>
@@ -54,7 +60,7 @@
     <div class="row">
       <div class="col-md-12">
         <label class="form-label">Nombres</label>
-        <input [(ngModel)]="dato.nombres" name="nombres" readonly type="text" class="form-control">
+        <input [(ngModel)]="form.nombre_mostrar" name="nombre_mostrar" [disabled]="form.type !== 'other'" type="text" class="form-control">
       </div>
     </div>
     <div class="row">
@@ -75,6 +81,13 @@
 <div *ngIf="errorMessage" class="alert alert-danger mt-3">
   {{ errorMessage }}
 </div>
+<!-- ... Otros campos ... -->
+
+<div *ngIf="showNoResultsMessage" class="alert alert-info mt-3">
+  No se encontraron resultados para la búsqueda.
+</div>
+
+<!-- ... Otros campos ... -->
 
 <!-- ... Otros campos ... -->
 
@@ -135,5 +148,5 @@
         <pre>{{ dato | json }}</pre>
       </div>
     </div>
-  </div>
+</div>
   

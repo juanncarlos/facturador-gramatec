@@ -1,6 +1,6 @@
-export class ClienteData {
+
     
-    public ubigeo: any  =  [ 
+    export const ubigeo:any  =  [ 
             {
                 ubigeo:  '010100 ',
                 departamento:  'AMAZONAS ',
@@ -3390,21 +3390,21 @@ export class ClienteData {
                  codpais:  'PE '
             },
             {
-                ubigeo:  '040811 ',
+                ubigeo:  '040811',
                 departamento:  'AREQUIPA ',
                 provincia:  'LA UNIÒN ',
                  distrito:  'TORO ',
                  codpais:  'PE '
             },
             {
-                ubigeo:  '050000 ',
+                ubigeo:  '05',
                 departamento:  'AYACUCHO ',
                 provincia:  ' ',
                  distrito:  ' ',
                  codpais:  'PE '
             },
             {
-                ubigeo:  '050100 ',
+                ubigeo:  '0501',
                 departamento:  'AYACUCHO ',
                 provincia:  'HUAMANGA ',
                  distrito:  ' ',
@@ -14534,4 +14534,3 @@ export class ClienteData {
                  codpais:  'PE '
             }
         ]
-}

@@ -14,6 +14,13 @@ import * as printJS from 'print-js';
 
 import { ClienteService } from './cliente.service';
 
+// importar para el uso del api reniec
+import { NgForm } from '@angular/forms';
+import { ApiReniecService } from '../api-reniec/apiReniec.service';
+
+// importar el ubigeo
+import { ubigeo } from './cliente.data';
+
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
@@ -27,6 +34,9 @@ export class ClienteComponent implements OnInit {
   public nuevoDato: any = {};
   public datoEditado: any = {};
   public indiceEditar: number = -1;
+
+  // data de ubigeo
+  public ubigeoData = ubigeo; // Asigna el array ubigeo importado
   
   // Propiedades de paginación
   public paginaActual = 1;
@@ -56,7 +66,11 @@ export class ClienteComponent implements OnInit {
  
 
   
-  constructor(private modalService: NgbModal, private dataService: ClienteService) {}
+  constructor(
+    private modalService: NgbModal, 
+    private dataService: ClienteService,
+    private consultaService: ApiReniecService
+    ) {}
 
   ngOnInit(): void {
     /* this.datos = this.dataService.obtenerDatos(); */ // forma normal 
@@ -88,19 +102,37 @@ export class ClienteComponent implements OnInit {
   
   
   
-  agregarDato(): void {
+  /* agregarDato(): void {
       
-      if (this.nuevoDato.nombre && this.nuevoDato.tipoDocumento && this.nuevoDato.numeroDocumento && this.nuevoDato.direccion && this.nuevoDato.departamento && this.nuevoDato.provincia && this.nuevoDato.distrito) {
+      if (this.nuevoDato.nombre && this.nuevoDato.tipoDocumento && this.nuevoDato.numeroDocumento && this.nuevoDato.direccion) {
         this.dataService.agregarDato(this.nuevoDato);
         this.cerrarModal();
         this.nuevoDato = {};
         
       } else {
-        // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
+        
         alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
       }
     
-  }
+  } */
+  agregarDato(): void {
+      
+    if ( this.dato && this.dato.nombre_completo && this.dato.direccion) {
+      this.nuevoDato.nombre = this.dato.nombre_completo;
+      this.nuevoDato.tipoDocumento = this.form.type;
+      this.nuevoDato.numeroDocumento = this.form.number;
+      this.nuevoDato.direccion = this.dato.direccion;
+      this.dataService.agregarDato(this.nuevoDato);
+      
+      this.cerrarModal();
+      this.nuevoDato = {};
+      
+    } else {
+      
+      alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
+    }
+  
+}
 
   editarDato(): void {
     if (this.datoEditado.nombre) {
@@ -264,5 +296,145 @@ export class ClienteComponent implements OnInit {
   
     printJS({ printable: contenido, type: 'raw-html', showModal: true, style: '@page { size: A4; margin: 0; }' });
   }
+
+
+
+
+  //***** */ código para usar la api reniec  **********************************************
+
+  @ViewChild('myForm') myForm!: NgForm;
+
+  public btn_load: boolean = false;
+  public form: any = { type: '', number: '' };
+  public dato: any = {};
+  public errorMessage: string = ''; // Agregar esta línea
+  public showNoResultsMessage: boolean = false; // Agregar esta línea
+  
+
+  changeDocumentType() {
+    this.clearFormFields(); // Limpia los campos cuando cambia el tipo de documento
+    this.clearMessages(); // Limpia los mensajes de advertencia
+  }
+
+  get_users() {
+    this.btn_load = true;
+
+    const minLengthDNI = 8;
+    const minLengthRUC = 11;
+    let errorMessage = '';
+
+    if (this.form.type === 'dni' && this.form.number.length !== minLengthDNI) {
+      errorMessage = `Ingrese ${minLengthDNI} dígitos para el DNI`;
+      this.showNoResultsMessage = false;
+      
+    } else if (this.form.type === 'ruc' && this.form.number.length !== minLengthRUC) {
+      errorMessage = `Ingrese ${minLengthRUC} dígitos para el RUC`;
+      this.showNoResultsMessage = false;
+      
+    }
+
+    if (errorMessage) {
+      this.errorMessage = errorMessage;
+      this.btn_load = false;
+      return; // No continuar con la búsqueda
+    }
+
+    this.errorMessage = ''; // Limpiar el mensaje de error si no hubo errores
+
+    this.consultaService
+      .list_users(this.form.type, this.form.number)
+      .subscribe({
+        next: (res) => {
+          this.btn_load = false;
+          this.dato = res.data;
+          if (this.dato) {
+
+            if (this.form.type === 'dni') {
+              this.form.nombre_completo = this.dato.nombre_completo;
+              this.form.direccion = this.dato.direccion_completa;
+              this.showNoResultsMessage = false;
+              
+
+            } else if (this.form.type === 'ruc') {
+              this.form.nombre_completo = this.dato.nombre_o_razon_social;
+              this.form.direccion = this.dato.direccion_completa;
+              this.form.activo = this.dato.estado;
+              this.form.habido = this.dato.condicion;
+              this.showNoResultsMessage = false;
+              
+            }
+          }else {
+            this.dato = {}; // Limpiar datos si no se encontraron
+            this.form.nombre_completo = '';
+            this.form.direccion = '';
+            this.form.activo = '';
+            this.form.habido = '';
+            this.showNoResultsMessage = true; // Mostrar mensaje de no encontrados
+          }
+        },
+        error: () => {
+          this.btn_load = false;
+          this.showNoResultsMessage = false; // Ocultar mensaje de no encontrados en caso de error
+      
+        },
+      });
+  }
+
+  clearFormFields() {
+    this.form.nombre_completo = '';
+    this.form.direccion = '';
+    this.form.number = ''; // Limpia el número de documento
+  }
+
+  clearMessages() {
+    this.errorMessage = '';
+    this.showNoResultsMessage = false // Agrega esta función para limpiar el mensaje de error
+  }
+
+  clearAPI() {
+    this.dato = {};
+    
+  }
+
+  clearFORM() {
+    this.form = { type: '', number: '' };
+  }
+
+  register() {
+    //console.log(this.form);
+    const name = `${this.form.nombre_completo} ${this.form.apellido_paterno} ${this.form.apellido_materno}`;
+    /* Swal.fire('HOLAss', name, 'success'); */
+  }
+
+
+  //* codigo para filtrar los datos de departamento, provincia y distrito según la data que se tiene 
+
+  /* selectedDepartamento: string = '';
+  selectedProvincia: string = '';
+  selectedDistrito: string = '';
+
+
+  getUniqueDepartamentos() {
+    return Array.from(new Set(this.ubigeoData.map(item => item.departamento)));
+  }
+  
+  getUniqueProvincias() {
+    const provincias = this.ubigeoData
+      .filter(item => item.departamento === this.selectedDepartamento)
+      .map(item => item.provincia);
+  
+    return Array.from(new Set(provincias));
+  }
+  
+  getUniqueDistritos() {
+    const distritos = this.ubigeoData
+      .filter(item => item.departamento === this.selectedDepartamento && item.provincia === this.selectedProvincia)
+      .map(item => item.distrito);
+  
+    return Array.from(new Set(distritos));
+  } */
+
+  
+  
 
 }
