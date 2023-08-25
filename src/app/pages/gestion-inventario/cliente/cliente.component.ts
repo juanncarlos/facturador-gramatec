@@ -63,6 +63,10 @@ export class ClienteComponent implements OnInit {
   MensajeVistaCuadros: boolean = false;
   MensajeVistaListas: boolean = false;
   MensajeBuscarCliente: boolean = false;
+
+
+  // deshabilitar boton guardar
+  deshabilitado: boolean = false;
  
 
   
@@ -115,17 +119,43 @@ export class ClienteComponent implements OnInit {
       }
     
   } */
+
+  
   agregarDato(): void {
+
+
+
+    if (this.form.type === 'otroDocumento' && this.form.number.length !== 8 || this.form.type === 'dni' && this.form.number.length !== 8 || this.form.type === 'ruc' && this.form.number.length !== 11 ) {
+      if(this.form.type === 'otroDocumento') {
+        this.errorMessage = `El campo Número debe tener 8 dígitos`;
+      } else if(this.form.type === 'dni'){
+        this.errorMessage = `Ingrese 8 dígitos para el DNI`;
+      }
+      else if(this.form.type === 'ruc'){
+        this.errorMessage = `Ingrese 11 dígitos para el RUC`;
+      }
+      return;
+    }
+
       
-    if ( this.dato && this.dato.nombre_completo && this.dato.direccion) {
-      this.nuevoDato.nombre = this.dato.nombre_completo;
+    if (this.form.type && this.form.number && this.form.nombre_completo && this.form.direccion) {
+      this.nuevoDato.nombre = this.form.nombre_completo;
       this.nuevoDato.tipoDocumento = this.form.type;
       this.nuevoDato.numeroDocumento = this.form.number;
-      this.nuevoDato.direccion = this.dato.direccion;
+      this.nuevoDato.direccion = this.form.direccion;
+      this.nuevoDato.activo = this.form.activo;
+      this.nuevoDato.habido = this.form.habido;
       this.dataService.agregarDato(this.nuevoDato);
       
       this.cerrarModal();
       this.nuevoDato = {};
+      this.form.nombre_completo = '';
+      this.form.type = '';
+      this.form.number = '';
+      this.form.direccion = '';
+      this.form.activo = '';
+      this.form.habido = '';
+      this.errorMessage = '';
       
     } else {
       
@@ -384,6 +414,8 @@ export class ClienteComponent implements OnInit {
     this.form.nombre_completo = '';
     this.form.direccion = '';
     this.form.number = ''; // Limpia el número de documento
+    this.form.habido = '';
+    this.form.activo = ''; 
   }
 
   clearMessages() {
@@ -405,6 +437,16 @@ export class ClienteComponent implements OnInit {
     const name = `${this.form.nombre_completo} ${this.form.apellido_paterno} ${this.form.apellido_materno}`;
     /* Swal.fire('HOLAss', name, 'success'); */
   }
+
+  // código para validar el ingreso solo de numero y no texto a un input de tipo text
+  validarInput(event: KeyboardEvent) {
+    const inputChar = event.key;
+
+    // Verificar si el carácter ingresado es numérico o una tecla especial permitida
+    if (!/^\d$|Backspace|Delete|ArrowLeft|ArrowRight|Tab$/.test(inputChar)) {
+        event.preventDefault();
+    }
+}
 
 
   //* codigo para filtrar los datos de departamento, provincia y distrito según la data que se tiene 

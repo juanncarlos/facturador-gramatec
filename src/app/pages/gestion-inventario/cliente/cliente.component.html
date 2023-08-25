@@ -48,7 +48,7 @@
 <!-- vista en cuadrillas -->
 <div *ngIf="type=='grid'" class="row">
     <!-- <div *ngFor="let user of users | UserSearchPipe : searchText | paginate: { itemsPerPage: 6, currentPage: p }; let i = index;" class="col-xl-4 col-lg-6 mb-4"> -->
-    <div *ngFor="let vehiculo of datos | clienteBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i = index" class="col-xl-4 col-lg-6 mb-4 general">
+    <div *ngFor="let cliente of datos | clienteBuscar: textoBusqueda | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i = index" class="col-xl-4 col-lg-6 mb-4 general">
         <div class="flip">
             <div class="content">
                 <div class="front">
@@ -56,7 +56,7 @@
                         <div class="card-header border-0 rounded-0 text-muted card-cabecera">
                             <h5 class="mb-0">
                                 <!-- <i class="fa fa-user mr-2" placement="bottom"></i> -->
-                                <i class="fa fa-user mr-2 text-success" placement="bottom"></i> {{vehiculo.nombre}}
+                                <i class="fa fa-user mr-2 text-success" placement="bottom"></i> {{cliente.nombre}}
                             </h5>
                         </div>
                         <div class="card-body pt-2 pb-2 card-cuerpo">
@@ -65,40 +65,40 @@
                                 <div class="media-body ml-3">
                                     <div class="row">
                                         <div class="col col-12">
-                                            <h6><strong>Tipo Documento :</strong>  {{vehiculo.tipoDocumento}}  </h6>
+                                            <h6><strong>Tipo Documento :</strong>  {{cliente.tipoDocumento}}  </h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Número Documento :</strong> {{vehiculo.numeroDocumento}}</h6>
+                                            <h6><strong>Número Documento :</strong> {{cliente.numeroDocumento}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Nombre :</strong> {{vehiculo.nombre}}</h6>
+                                            <h6><strong>Nombre :</strong> {{cliente.nombre}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Dirección :</strong> {{vehiculo.direccion}}</h6>
+                                            <h6><strong>Dirección :</strong> {{cliente.direccion}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Departamento :</strong> {{vehiculo.departamento}}</h6>
+                                            <h6><strong>Departamento :</strong> {{cliente.departamento}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Provincia :</strong> {{vehiculo.provincia}}</h6>
+                                            <h6><strong>Provincia :</strong> {{cliente.provincia}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Distrito :</strong> {{vehiculo.distrito}}</h6>
+                                            <h6><strong>Distrito :</strong> {{cliente.distrito}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Estado :</strong> {{vehiculo.activo}}</h6>
+                                            <h6><strong>Estado :</strong> {{cliente.activo}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Habido :</strong> {{vehiculo.habido}}</h6>
+                                            <h6><strong>Habido :</strong> {{cliente.habido}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Correo :</strong> {{vehiculo.correo}}</h6>
+                                            <h6><strong>Correo :</strong> {{cliente.correo}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Celular :</strong> {{vehiculo.celular}}</h6>
+                                            <h6><strong>Celular :</strong> {{cliente.celular}}</h6>
                                         </div>
                                         <div class="col col-12">
-                                            <h6><strong>Nota :</strong> {{vehiculo.nota}}</h6>
+                                            <h6><strong>Nota :</strong> {{cliente.nota}}</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -321,30 +321,26 @@
                         <div class="row">
                             <div class="form-group col-md-5">
                                 <label class="form-label">Tipo  doc<span class="text-danger">*</span></label>
-                                <select [(ngModel)]="form.type" name="type" required class="form-control" (change)="changeDocumentType()">
+                                <select [(ngModel)]="form.type" name="tipoDocumento" required class="form-control" (change)="changeDocumentType()">
                                     <option value="" selected disabled>Seleccionaras</option>
                                     <option value="dni">DNI</option>
                                     <option value="ruc">RUC</option>
-                                    <option value="other">Otro Documento</option>
+                                    <option value="otroDocumento">Otro Documento</option>
                                 </select>
                                 
                             </div>
                             <div class="form-group col-md-5">
                                 <label class="text-gray">Número<span class="obligatorio">*</span></label>
-                                <input [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI o RUC">
+                                <input (keydown)="validarInput($event)" [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI o RUC">
                                 
                                 
                             </div>
-                            <div class="form-group col-md-2 contenedor-ico-buscar" *ngIf="form.type !== 'other'">
-                                <!-- <label class="text-gray">Buscar</label>
-                                <span (mouseenter)="MensajeBuscarCliente = true" (mouseleave)="MensajeBuscarCliente = false"  class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-search text-primary"></i></span>
-                                <div class="mensaje" *ngIf="MensajeBuscarCliente">
-                                    Buscar Cliente
-                                </div> -->
-
+                            <div class="form-group col-md-2 contenedor-ico-buscar" *ngIf="form.type !== 'otroDocumento'">
+                                
                                 <label class="form-label d-none d-md-block">&nbsp;</label>
-                                <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block">...</button>
-                                <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block"><i class="fa fa-search text-primary"></i></button>
+                                <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block btn-buscar-api-cargar ">.....</button>
+                                <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block btn-buscar-api"><i class="fa fa-search text-primary"></i></button>
+                                
                             </div>
                         </div>
 
@@ -369,14 +365,41 @@
                             <div class="form-group col-md-12">
                                 <label class="text-gray">Nombre<span class="obligatorio">*</span></label>
                                 <!-- <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text " autocomplete="off"> -->
-                                <input [(ngModel)]="form.nombre_completo" name="nombre_completo" [disabled]="form.type !== 'other'" type="text" class="form-control">
+                                <input [(ngModel)]="form.nombre_completo" name="nombre_completo" [disabled]="form.type !== 'otroDocumento'" type="text" class="form-control" autocomplete="off">
                             </div>                          
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
                                 <label class="text-gray">Dirección<span class="obligatorio">*</span></label>
                                <!--  <input name="direccion" id="direccion" [(ngModel)]="nuevoDato.direccion" class="form-control validation-field" type="text" autocomplete="off"> -->
-                               <input [(ngModel)]="form.direccion" name="direccion" readonly type="text" class="form-control">
+                               <input [(ngModel)]="form.direccion" name="direccion" [disabled]="form.type !== 'otroDocumento'" type="text" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label class="text-gray">Departamento<span class="obligatorio">*</span></label>
+                                <select [(ngModel)]="nuevoDato.departamento" name="departamento" id="departamento" class="form-control">
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                  </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="text-gray">Provincia<span class="obligatorio">*</span></label>
+                                <select [(ngModel)]="nuevoDato.provincia" name="provincia" id="provincia" class="form-control">
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                  </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label class="text-gray">Distrito<span class="obligatorio">*</span></label>
+                                <select [(ngModel)]="nuevoDato.distrito" name="distrito" id="distrito" class="form-control">
+                                    <option value="DNI">DNI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="Otro">Otro documento</option>
+                                  </select>
                             </div>
                         </div>
                         
@@ -414,7 +437,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
-            <button type="button" class="btn btn-success btn-guardar-modal" (click)="agregarDato()">Guardar</button>
+            <button type="button" class="btn btn-success btn-guardar-modal"  (click)="agregarDato()">Guardar</button>
         </div>
     </div>
 </ng-template>
@@ -432,24 +455,23 @@
                     <div class="row">
                         <div class="form-group col-md-5">
                             <label class="text-gray"> Tipo Documento </label>
-                            <select [(ngModel)]="datoEditado.tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control">
+                            <select [(ngModel)]="datoEditado.tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control" disabled>
                                 <option value="DNI">DNI</option>
                                 <option value="RUC">RUC</option>
                                 <option value="Otro">Otro documento</option>
                               </select>
-                            <!-- <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" required> -->
+                           
                         </div>
                         <div class="form-group col-md-5">
                             <label class="text-gray">Número</label>
-                            <input name="numeroDocumento" id="numeroDocumento" [(ngModel)]="datoEditado.numeroDocumento" class="form-control validation-field" type="number" autocomplete="off">
+                            <input name="numeroDocumento" id="numeroDocumento" [(ngModel)]="datoEditado.numeroDocumento" class="form-control validation-field" type="number" autocomplete="off" disabled>
                         </div>
-                        <div class="form-group col-md-2 contenedor-ico-buscar">
-                            <label class="text-gray">Buscar</label>
-                            <span (mouseenter)="MensajeBuscarCliente = true" (mouseleave)="MensajeBuscarCliente = false"  class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-search text-primary"></i></span>
-                            <div class="mensaje" *ngIf="MensajeBuscarCliente">
-                                Buscar Cliente
-                            </div>
-                        </div>
+                        <!-- <div class="form-group col-md-2 contenedor-ico-buscar">
+                            <label class="form-label d-none d-md-block">&nbsp;</label>
+                                <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block btn-buscar-api-cargar ">.....</button>
+                                <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block btn-buscar-api"><i class="fa fa-search text-primary"></i></button>
+                                
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
@@ -520,6 +542,7 @@
                 </div>
             </div>
         </form>
+        
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
@@ -527,108 +550,3 @@
     </div>
 </ng-template>
 
-
-<!-- gfdsssssssssssssssssssssssssss -->
-
-<div class="container mt-5">
-  
-    <div class="row mb-4 d-flex justify-content-between">
-      <div class="col-md-6">
-        <h2>Cliente</h2>
-      </div>
-    </div>
-  
-    <form  #myForm="ngForm" autocomplete="false">
-      <div class="row">
-        <div class="col-md-3">
-          <label class="form-label">Tipo  doc<span class="text-danger">*</span></label>
-          <select [(ngModel)]="form.type" name="type" required class="form-control" (change)="changeDocumentType()">
-            <option value="" selected disabled>Seleccionaras</option>
-            <option value="dni">DNI</option>
-            <option value="ruc">RUC</option>
-            <option value="other">Otro Documento</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Numero de Documento <span class="text-danger">*</span></label>
-          <input [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI o RUC">
-        </div>
-        
-        <div class="col-md-6 d-grid mt-4 mt-md-0" *ngIf="form.type !== 'other'">
-          <label class="form-label d-none d-md-block">&nbsp;</label>
-          <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block">Buscando...</button>
-          <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block">Buscar. Sunat</button>
-        </div>
-      </div>
-      
-      <div class="row">
-        
-        <!-- ... Otros campos ... -->
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label class="form-label">Nombres</label>
-                        <input [(ngModel)]="form.nombre_mostrar" name="nombre_mostrar" [disabled]="form.type !== 'other'" type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                
-                    <div class="col-md-12">
-                        <label class="form-label">Dirección</label>
-                        <input [(ngModel)]="form.direccion" name="direccion" readonly type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label class="text-gray">Activo</label>
-                        <input name="activo" [(ngModel)]="form.activo"  class="form-control" type="text" autocomplete="off" readonly>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="text-gray">Habido</label>
-                        <input name="habido" [(ngModel)]="form.habido"  class="form-control" type="text" autocomplete="off" readonly>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ... Otros campos ... -->
-        <!-- ... Otros campos ... -->
-
-        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
-        {{ errorMessage }}
-        </div>
-        <!-- ... Otros campos ... -->
-
-        <div *ngIf="showNoResultsMessage" class="alert alert-info mt-3">
-        No se encontraron resultados para la búsqueda.
-        </div>
-
-<!-- ... Otros campos ... -->
-
-<!-- ... Otros campos ... -->
-
-        
-      </div>
-      
-      <div class="my-4">
-        <button (click)="clearAPI()" type="button" class="btn btn-secondary">Limpiar Búsqueda</button>
-        <button (click)="clearFORM()" type="button" class="btn btn-secondary mx-1">Limpiar Todo</button>
-        <button [disabled]="myForm.invalid" type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </form>
-  
-    <div class="row">
-      <div class="col-md-4">
-        <span>Value</span>
-        <pre>{{ form | json }}</pre>
-      </div>
-      <div class="col-md-4">
-        <span>Data API</span>
-        <pre>{{ dato | json }}</pre>
-      </div>
-      <div class="col-md-4">
-        <span>Data API</span>
-        <pre>{{ dato | json }}</pre>
-      </div>
-    </div>
-</div>
