@@ -331,9 +331,7 @@
                             </div>
                             <div class="form-group col-md-5">
                                 <label class="text-gray">Número<span class="obligatorio">*</span></label>
-                                <input (keydown)="validarInput($event)" [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI o RUC">
-                                
-                                
+                                <input (keydown)="validarInput($event)" [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI o RUC">                               
                             </div>
                             <div class="form-group col-md-2 contenedor-ico-buscar" *ngIf="form.type !== 'otroDocumento'">
                                 
@@ -454,7 +452,7 @@
                 <div class="tab-pane active" id="basic">
                     <div class="row">
                         <div class="form-group col-md-5">
-                            <label class="text-gray"> Tipo Documento </label>
+                            <label class="text-gray"> Tipo Documento<span class="obligatorio">*</span> </label>
                             <select [(ngModel)]="datoEditado.tipoDocumento" name="tipoDocumento" id="tipoDocumento" class="form-control" disabled>
                                 <option value="DNI">DNI</option>
                                 <option value="RUC">RUC</option>
@@ -463,7 +461,7 @@
                            
                         </div>
                         <div class="form-group col-md-5">
-                            <label class="text-gray">Número</label>
+                            <label class="text-gray">Número<span class="obligatorio">*</span></label>
                             <input name="numeroDocumento" id="numeroDocumento" [(ngModel)]="datoEditado.numeroDocumento" class="form-control validation-field" type="number" autocomplete="off" disabled>
                         </div>
                         <!-- <div class="form-group col-md-2 contenedor-ico-buscar">
@@ -475,13 +473,13 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label class="text-gray">Nombre</label>
+                            <label class="text-gray">Nombre<span class="obligatorio">*</span></label>
                             <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text " autocomplete="off">
                         </div>                          
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label class="text-gray">Dirección</label>
+                            <label class="text-gray">Dirección<span class="obligatorio">*</span></label>
                             <input name="direccion" id="direccion" [(ngModel)]="datoEditado.direccion" class="form-control validation-field" type="text" autocomplete="off">
                         </div>
                     </div>

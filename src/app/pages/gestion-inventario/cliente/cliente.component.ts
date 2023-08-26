@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
+// importar libreria para las alertas
+import Swal from 'sweetalert2';
+
 // importar librerias para usar modales de bootstrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -65,10 +68,6 @@ export class ClienteComponent implements OnInit {
   MensajeBuscarCliente: boolean = false;
 
 
-  // deshabilitar boton guardar
-  deshabilitado: boolean = false;
- 
-
   
   constructor(
     private modalService: NgbModal, 
@@ -91,6 +90,13 @@ export class ClienteComponent implements OnInit {
     this.modalRef.close();
     this.indiceEditar = -1;
     this.datoEditado = {};
+    this.form.nombre_completo = '';
+      this.form.type = '';
+      this.form.number = '';
+      this.form.direccion = '';
+      this.form.activo = '';
+      this.form.habido = '';
+      this.errorMessage = '';
   }
 
   // este es para ordenar de manera ascendente
@@ -102,9 +108,6 @@ export class ClienteComponent implements OnInit {
   } */
 
   //esto es para ordenar de manera descendente y con validacion del primer campo 
-
-  
-  
   
   /* agregarDato(): void {
       
@@ -123,8 +126,6 @@ export class ClienteComponent implements OnInit {
   
   agregarDato(): void {
 
-
-
     if (this.form.type === 'otroDocumento' && this.form.number.length !== 8 || this.form.type === 'dni' && this.form.number.length !== 8 || this.form.type === 'ruc' && this.form.number.length !== 11 ) {
       if(this.form.type === 'otroDocumento') {
         this.errorMessage = `El campo Número debe tener 8 dígitos`;
@@ -137,8 +138,20 @@ export class ClienteComponent implements OnInit {
       return;
     }
 
+    
       
     if (this.form.type && this.form.number && this.form.nombre_completo && this.form.direccion) {
+
+      // Verificar si el usuario ya existe
+    const userExists = this.datos.find(user => user.numeroDocumento === this.form.number);
+
+    if (userExists) {
+      /* alert('El usuario ya existe.'); */
+      // Alerta de advertencia
+      Swal.fire('Advertencia', 'El cliente ya existe.', 'warning');
+      return;
+    }
+
       this.nuevoDato.nombre = this.form.nombre_completo;
       this.nuevoDato.tipoDocumento = this.form.type;
       this.nuevoDato.numeroDocumento = this.form.number;
@@ -156,31 +169,56 @@ export class ClienteComponent implements OnInit {
       this.form.activo = '';
       this.form.habido = '';
       this.errorMessage = '';
+      // Mostrar alerta de éxito en una sola línea
+      Swal.fire('Éxito', 'Cliente agregado correctamente.', 'success');
       
     } else {
       
-      alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
+      /* alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.'); */
+      Swal.fire('Advertencia', 'Llene los campos obligatorios que aparecen con el símbolo *.', 'warning');
     }
   
 }
 
   editarDato(): void {
-    if (this.datoEditado.nombre) {
+    if (this.datoEditado.nombre && this.datoEditado.direccion) {
     this.dataService.editarDato(this.datos[this.indiceEditar].id, this.datoEditado);
     this.datos = this.dataService.obtenerDatos();
+    Swal.fire('Éxito', 'Cliente editado correctamente.', 'success');
     this.cerrarModal();
     }else {
       // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-      alert('El campo placa no puede ir vacio, por favor complete.');
+      /* alert('El campo placa no puede ir vacio, por favor complete.'); */
+      Swal.fire('Advertencia', 'Llene los campos obligatorios que aparecen con el símbolo *.', 'warning');
     }
 
    
   }
 
   eliminarDato(index: number): void {
-    const dato = this.datos[index];
-    this.dataService.eliminarDato(dato.id);
-    this.datos = this.dataService.obtenerDatos();
+
+    // Alerta de pregunta con confirmación
+    Swal.fire({
+      title: '¿Estás seguro de eliminar?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes ejecutar la acción que sigue después de confirmar
+        const dato = this.datos[index];
+        this.dataService.eliminarDato(dato.id);
+        this.datos = this.dataService.obtenerDatos();
+        Swal.fire('Eliminado', 'El cliente ha sido eliminado exitosamente.', 'success');
+      }
+    });
+
+
+    
   }
 
   abrirEditarModal(modal: any, indice: number): void {

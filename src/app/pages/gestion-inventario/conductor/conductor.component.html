@@ -183,28 +183,65 @@
                 <div class="tab-content col-12 border-0">
                     <div class="tab-pane active" id="basic">
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label class="text-gray"> DNI </label>
-                                <input name="dni" id="dni" [(ngModel)]="nuevoDato.dni" class="form-control validation-field" type="number" autocomplete="off" required>
+                            <div class="form-group col-md-5">
+                                <label class="form-label">Tipo Documento<span class="text-danger">*</span></label>
+                                <!-- <select [(ngModel)]="form.type" name="tipoDocumento" required class="form-control" (change)="changeDocumentType()">
+                                    <option value="" selected disabled>Seleccionaras</option>
+                                    <option value="dni">DNI</option>
+                                    <option value="ruc">RUC</option>
+                                    <option value="otroDocumento">Otro Documento</option>
+                                </select> -->
+                                <input [(ngModel)]="form.type" name="text" required type="text" class="form-control" disabled="">
+                                
                             </div>
-                            <div class="form-group col-md-6">
-                                <label class="text-gray"> Nombre </label>
-                                <input name="nombre" id="nombre" [(ngModel)]="nuevoDato.nombre" class="form-control validation-field" type="text" autocomplete="off" required>
+                            <div class="form-group col-md-5">
+                                <label class="text-gray">Número<span class="obligatorio">*</span> </label>
+                                <!-- <input name="dni" id="dni" [(ngModel)]="nuevoDato.dni" class="form-control validation-field" type="number" autocomplete="off" required> -->
+                                <input (keydown)="validarInput($event)" [(ngModel)]="form.number" name="number" required type="text" class="form-control" placeholder="Ingrese DNI" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="form-label d-none d-md-block">&nbsp;</label>
+                                <button *ngIf="btn_load" type="button" disabled class="btn btn-info d-block btn-buscar-api-cargar ">.....</button>
+                                <button *ngIf="!btn_load" (click)="get_users()" type="button" class="btn btn-info d-block btn-buscar-api"><i class="fa fa-search text-primary"></i></button>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                    <!-- ... Mensajes de error ... -->
+
+                            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                                {{ errorMessage }}
+                                </div>
+                                <!-- ... Otros campos ... -->
+                        
+                                <div *ngIf="showNoResultsMessage" class="alert alert-warning mt-3">
+                                No se encontraron resultados para la búsqueda.
+                                </div>
+                        
+                        <!-- ... Otros campos ... -->
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="text-gray">Nombre<span class="obligatorio">*</span> </label>
+                                <input name="nombre" id="nombre" [(ngModel)]="form.nombre_completo" class="form-control validation-field" type="text" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label class="text-gray"> Direccion </label>
-                                <input name="direccion" id="direccion" [(ngModel)]="nuevoDato.direccion" class="form-control validation-field" type="text" autocomplete="off" required>
+                                <label class="text-gray">Direccion<span class="obligatorio">*</span> </label>
+                                <input name="direccion" id="direccion" [(ngModel)]="form.direccion" class="form-control validation-field" type="text" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label class="text-gray ">Licencia</label>
+                                <label class="text-gray ">Licencia<span class="obligatorio">*</span></label>
                                 <input name="licencia" id="licencia" [(ngModel)]="nuevoDato.licencia" class="form-control validation-field" type="text" autocomplete="off">
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="text-gray">Categoria</label>
+                                <label class="text-gray">Categoria<span class="obligatorio">*</span></label>
                                 <input name="categoria" id="categoria" [(ngModel)]="nuevoDato.categoria" class="form-control validation-field" type="text" autocomplete="off">
                             </div>
                         </div>
@@ -237,6 +274,7 @@
                     </div>
                 </div>
             </form>
+        
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-danger btn-cancelar-modal" (click)="cerrarModal()">Cancelar</button>
@@ -256,27 +294,33 @@
                 <div class="tab-pane active" id="basic">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="text-gray"> DNI </label>
-                            <input name="dni" id="dni" [(ngModel)]="datoEditado.dni" class="form-control validation-field" type="number" autocomplete="off" required>
+                            <label class="text-gray"> DNI<span class="obligatorio">*</span> </label>
+                            <input name="dni" id="dni" [(ngModel)]="datoEditado.dni" class="form-control validation-field" type="number" autocomplete="off" required disabled>
                         </div>
-                        <div class="form-group col-md-6">
+                        <!-- <div class="form-group col-md-6">
                             <label class="text-gray"> Nombre </label>
-                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off" required>
+                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off" required >
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="text-gray"> Nombre<span class="obligatorio">*</span> </label>
+                            <input name="nombre" id="nombre" [(ngModel)]="datoEditado.nombre" class="form-control validation-field" type="text" autocomplete="off" required >
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label class="text-gray"> Direccion </label>
+                            <label class="text-gray"> Direccion<span class="obligatorio">*</span> </label>
                             <input name="direccion" id="direccion" [(ngModel)]="datoEditado.direccion" class="form-control validation-field" type="text" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="text-gray ">Licencia</label>
+                            <label class="text-gray ">Licencia<span class="obligatorio">*</span></label>
                             <input name="licencia" id="licencia" [(ngModel)]="datoEditado.licencia" class="form-control validation-field" type="text" autocomplete="off">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-gray">Categoria</label>
+                            <label class="text-gray">Categoria<span class="obligatorio">*</span></label>
                             <input name="categoria" id="categoria" [(ngModel)]="datoEditado.categoria" class="form-control validation-field" type="text" autocomplete="off">
                         </div>
                     </div>
