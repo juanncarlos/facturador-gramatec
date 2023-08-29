@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+// importar alertas personalizadas
+import Swal from 'sweetalert2';
 
 // importar librerias para usar modales de bootstrap
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -16,6 +19,8 @@ import { Contizacion03Service } from './contizacion03.service';
 import { Producto02Service } from '../../gestion-inventario/producto02/producto02.service';
 import { MarcaService } from '../../gestion-inventario/producto02/marca.service';
 import { ClienteService } from '../../gestion-inventario/cliente/cliente.service';
+import { NgForm } from '@angular/forms';
+import { ApiReniecService } from '../../gestion-inventario/api-reniec/apiReniec.service';
 
 
 
@@ -88,7 +93,7 @@ export class Cotizacion03Component  {
   precioTotalUnitario: any;
 
   //* variables para traer los datos del servicio cliente y agregar por nombre
-  clientes: any[] = [];
+  clientes: any[];
   nuevoCliente: any = {};
   clientesFiltrados: any[] = [];
   clientesterminoBusqueda: string = '';
@@ -111,7 +116,8 @@ export class Cotizacion03Component  {
     private dataService: Contizacion03Service,
     private producto02Service: Producto02Service,
     private clienteService: ClienteService,
-    private marcaService: MarcaService
+    private marcaService: MarcaService,
+    private consultaService: ApiReniecService
     ) 
       {
         // Inicializar las fechas con la fecha actual
@@ -160,6 +166,14 @@ export class Cotizacion03Component  {
   }
   cerrarModalClientes() {
     // Cierra el modal de Bootstrap
+    this.nuevoCliente = {};
+    this.form.nombre_completo = '';
+    this.form.type = '';
+    this.form.number = '';
+    this.form.direccion = '';
+    this.form.activo = '';
+    this.form.habido = '';
+    this.errorMessage = '';
     $('#modalClientes').modal('hide');
 }
 
@@ -199,9 +213,26 @@ export class Cotizacion03Component  {
   }
 
   eliminarDato(index: number): void {
-    const dato = this.datos[index];
-    this.dataService.eliminarDato(dato.id);
-    this.datos = this.dataService.obtenerDatos();
+    // Alerta de pregunta con confirmación
+    Swal.fire({
+      title: '¿Estás seguro de eliminar?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, continuar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Aquí puedes ejecutar la acción que sigue después de confirmar
+        const dato = this.datos[index];
+        this.dataService.eliminarDato(dato.id);
+        this.datos = this.dataService.obtenerDatos();
+        Swal.fire('Eliminado', 'El cliente ha sido eliminado exitosamente.', 'success');
+      }
+    });
+    
   }
 
   abrirEditarModal(modal: any, indice: number, ancho: 'sm' | 'lg' | string): void {
@@ -461,6 +492,7 @@ export class Cotizacion03Component  {
               } else {
                   this.clienteSeleccionado = {nombre: '', direccion: ''};
                   alert('El cliente no existe. Será mejor que lo agregue');
+                  /* Swal.fire('Advertencia', 'El cliente ya existe.', 'warning'); */
               }
           } else {
               this.clienteSeleccionado = {nombre: '', direccion: ''};
@@ -482,16 +514,175 @@ export class Cotizacion03Component  {
 //** codigo para agregar cliente en el modal */
 botonAgregarClienteModal(): void {
       
-  if (this.nuevoCliente.nombre && this.nuevoCliente.tipoDocumento && this.nuevoCliente.numeroDocumento && this.nuevoCliente.direccion && this.nuevoCliente.departamento && this.nuevoCliente.provincia && this.nuevoCliente.distrito) {
-    this.clienteService.agregarDato(this.nuevoCliente);
-    this.cerrarModalClientes()
-    this.nuevoCliente = {};
-  } else {
-    // Campo obligatorio vacío, muestra un mensaje de error o realiza alguna acción adicional
-    alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
+  if (this.form.type === 'otroDocumento' && this.form.number.length !== 8 || this.form.type === 'dni' && this.form.number.length !== 8 || this.form.type === 'ruc' && this.form.number.length !== 11 ) {
+    if(this.form.type === 'otroDocumento') {
+      this.errorMessage = `El campo Número debe tener 8 dígitos`;
+    } else if(this.form.type === 'dni'){
+      this.errorMessage = `Ingrese 8 dígitos para el DNI`;
+    }
+    else if(this.form.type === 'ruc'){
+      this.errorMessage = `Ingrese 11 dígitos para el RUC`;
+    }
+    return;
   }
 
+  
+    
+  if (this.form.type && this.form.number && this.form.nombre_completo && this.form.direccion) {
+
+    // Verificar si el usuario ya existe
+  const userExists = this.clientes.find(user => user.numeroDocumento === +this.form.number);
+
+  if (userExists) {
+    alert('El usuario ya existe.');
+    // Alerta de advertencia
+    /* Swal.fire('Advertencia', 'El cliente ya existe.', 'warning'); */
+    return;
+  }
+
+    this.nuevoCliente.nombre = this.form.nombre_completo;
+    this.nuevoCliente.tipoDocumento = this.form.type;
+    this.nuevoCliente.numeroDocumento = parseInt(this.form.number);
+    this.nuevoCliente.direccion = this.form.direccion;
+    this.nuevoCliente.activo = this.form.activo;
+    this.nuevoCliente.habido = this.form.habido;
+    this.clienteService.agregarDato(this.nuevoCliente);
+    
+    this.cerrarModalClientes();
+    this.nuevoCliente = {};
+    this.form.nombre_completo = '';
+    this.form.type = '';
+    this.form.number = '';
+    this.form.direccion = '';
+    this.form.activo = '';
+    this.form.habido = '';
+    this.errorMessage = '';
+    // Mostrar alerta de éxito en una sola línea
+    alert('Cliente agregado correctamente');
+    /* Swal.fire('Éxito', 'Cliente agregado correctamente.', 'success'); */
+    
+  } else {
+    
+    alert('Por favor complete los campos obligatorios que aparecen con un símbolo *.');
+    /* Swal.fire('Advertencia', 'Llene los campos obligatorios que aparecen con el símbolo *.', 'warning'); */
+  }
+
+
 }
+
+//***** */ código para usar la api reniec  **********************************************
+
+@ViewChild('myForm') myForm!: NgForm;
+
+public btn_load: boolean = false;
+public form: any = { type: '', number: '' };
+public dato: any = {};
+public errorMessage: string = ''; // Agregar esta línea
+public showNoResultsMessage: boolean = false; // Agregar esta línea
+
+
+changeDocumentType() {
+  this.clearFormFields(); // Limpia los campos cuando cambia el tipo de documento
+  this.clearMessages(); // Limpia los mensajes de advertencia
+}
+
+get_users() {
+  this.btn_load = true;
+
+  const minLengthDNI = 8;
+  const minLengthRUC = 11;
+  let errorMessage = '';
+
+  if (this.form.type === 'dni' && this.form.number.length !== minLengthDNI) {
+    errorMessage = `Ingrese ${minLengthDNI} dígitos para el DNI`;
+    this.showNoResultsMessage = false;
+    
+  } else if (this.form.type === 'ruc' && this.form.number.length !== minLengthRUC) {
+    errorMessage = `Ingrese ${minLengthRUC} dígitos para el RUC`;
+    this.showNoResultsMessage = false;
+    
+  }
+
+  if (errorMessage) {
+    this.errorMessage = errorMessage;
+    this.btn_load = false;
+    return; // No continuar con la búsqueda
+  }
+
+  this.errorMessage = ''; // Limpiar el mensaje de error si no hubo errores
+
+  this.consultaService
+    .list_users(this.form.type, this.form.number)
+    .subscribe({
+      next: (res) => {
+        this.btn_load = false;
+        this.dato = res.data;
+        if (this.dato) {
+
+          if (this.form.type === 'dni') {
+            this.form.nombre_completo = this.dato.nombre_completo;
+            this.form.direccion = this.dato.direccion_completa;
+            this.showNoResultsMessage = false;
+            
+
+          } else if (this.form.type === 'ruc') {
+            this.form.nombre_completo = this.dato.nombre_o_razon_social;
+            this.form.direccion = this.dato.direccion_completa;
+            this.form.activo = this.dato.estado;
+            this.form.habido = this.dato.condicion;
+            this.showNoResultsMessage = false;
+            
+          }
+        }else {
+          this.dato = {}; // Limpiar datos si no se encontraron
+          this.form.nombre_completo = '';
+          this.form.direccion = '';
+          this.form.activo = '';
+          this.form.habido = '';
+          this.showNoResultsMessage = true; // Mostrar mensaje de no encontrados
+        }
+      },
+      error: () => {
+        this.btn_load = false;
+        this.showNoResultsMessage = false; // Ocultar mensaje de no encontrados en caso de error
+    
+      },
+    });
+}
+
+clearFormFields() {
+  this.form.nombre_completo = '';
+  this.form.direccion = '';
+  this.form.number = ''; // Limpia el número de documento
+  this.form.habido = '';
+  this.form.activo = ''; 
+}
+
+clearMessages() {
+  this.errorMessage = '';
+  this.showNoResultsMessage = false // Agrega esta función para limpiar el mensaje de error
+}
+
+clearAPI() {
+  this.dato = {};
+  
+}
+
+clearFORM() {
+  this.form = { type: '', number: '' };
+}
+
+register() {
+  //console.log(this.form);
+  const name = `${this.form.nombre_completo} ${this.form.apellido_paterno} ${this.form.apellido_materno}`;
+  /* Swal.fire('HOLAss', name, 'success'); */
+}
+
+
+//* configuracion para las alertas personalizadas
+
+
+
 
 
 

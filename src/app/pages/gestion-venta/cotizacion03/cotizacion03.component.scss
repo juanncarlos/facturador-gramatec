@@ -157,6 +157,31 @@ select option {
     border: 2px solid #343a40 !important;
 }
 
+//* boton de busqueda api reniec
+.btn-buscar-api {
+    border-radius: 6px !important;
+    box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+    background: #fff;
+    border: none;
+}
+
+.btn-buscar-api:hover {
+    background: #343a40;
+    color: #fff;
+        i{
+            color: #fff !important;
+        }
+}
+
+.btn-buscar-api-cargar {
+    border-radius: 6px !important;
+    box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+    background: #dd1b16;
+    color: #fff;
+    border: none;
+}
+
+
 
 //******* estilos de los botones superiores que estan al lado del buscador *******
 .contenedor-botones-superior {
