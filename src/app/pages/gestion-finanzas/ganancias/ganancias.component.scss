@@ -1,0 +1,73 @@
+//************* estilos para los inputs de tipo date *********************************
+.contenedor-filtar-por-fecha {
+
+    label {
+        color: #565656;
+        font-weight: 500;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        padding: 2px;
+        cursor: pointer; 
+      }
+    
+    input[type="date"] {
+        box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+        border-radius: 6px !important;
+        color: #333;
+        font-weight: 500;
+      }
+}
+
+
+//******** estilos del buscador **************************
+
+
+.buscador {
+    border-radius: 6px !important;
+    box-shadow: 0px 1px 4px 0px rgba(38, 38, 38, 0.3) !important;
+}
+
+.buscador:focus {
+    border: 2px solid #343a40 !important;
+}
+
+
+//******* estilos de los botones superiores que estan al lado del buscador *******
+.contenedor-botones-superior {
+    .input-group-prepend {
+        
+        margin-left: 8px;
+        border-radius: 6px;
+        
+        span {
+            
+            border-radius: 6px;
+            background: #fff;
+            
+        }
+        span:hover {
+            background: #343a40;
+            color: #fff;
+            i{
+                color: #fff !important;
+            }
+        }
+    }
+}
+
+
+//* ********estilos para mostrar el texto al pasar el mouse sobre un boton **********
+.mensaje {
+    position: absolute;
+    top: 130%;
+    /* top: 100%;
+    left: 50%; */
+    transform: translateX(-20%);
+    background-color: #343a40;
+    color: #fff;
+    padding: 6px;
+    z-index: 999;
+    border-radius: 6px;
+    
+  }

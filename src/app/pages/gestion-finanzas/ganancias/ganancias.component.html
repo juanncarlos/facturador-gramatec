@@ -1,0 +1,72 @@
+<div class="row contenedor-filtar-por-fecha">
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text">Fecha Inicio:</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" type="date"> 
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-2">
+        <div class="form-group">
+            <label class="text">Fecha Fin:</label>
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" id="fechaFin" name="fechaFin" [(ngModel)]="fechaFin" type="date">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-1">
+    <div class="col">
+        <!-- <div class="input-group mb-3 box-shadow"> -->
+        <div class="input-group mb-3">
+            <!-- <div class="input-group-prepend contenedor-ico-buscar">
+                <span class="input-group-text border-top-0 border-left-0 border-bottom-0 box-shadow"><i class="fa fa-search"></i></span>
+            </div> -->
+            <input type="text" [(ngModel)]="textoBusqueda" name="textoBusqueda" placeholder="Buscar por nombre de cliente..." class="form-control border-0  buscador">
+            <div class="input-group-append contenedor-botones-superior">
+                <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
+                
+                <!-- <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false" (click)="abrirModal(modalAgregar, 'lg')" class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
+                    <div class="mensaje" *ngIf="MensajeAgregar">
+                        Agregar Producto
+                    </div>
+                </div> -->
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false"  class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
+                    <div class="mensaje" *ngIf="MensajeAgregar">
+                        Agregar Producto
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeExportarExcel = true" (mouseleave)="MensajeExportarExcel = false"  class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-excel-o text-success"></i></span>
+                    <div class="mensaje" *ngIf="MensajeExportarExcel">
+                        Exportar Excel
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeExportarPdf = true" (mouseleave)="MensajeExportarPdf = false"  class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-danger"></i></span>               
+                    <div class="mensaje" *ngIf="MensajeExportarPdf">
+                        Exportar PDF
+                    </div>
+                </div>
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeVistaCuadros = true" (mouseleave)="MensajeVistaCuadros = false" (click)="toggle('grid')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-th text-info"></i></span>                   
+                    <div class="mensaje" *ngIf="MensajeVistaCuadros">
+                        Vista en cuadros
+                    </div>
+                </div>
+                              
+                <div class="input-group-prepend">
+                    <span (mouseenter)="MensajeVistaListas = true" (mouseleave)="MensajeVistaListas = false" (click)="toggle('list')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-list"></i></span>
+                    <div class="mensaje" *ngIf="MensajeVistaListas">
+                      Vista en filas
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

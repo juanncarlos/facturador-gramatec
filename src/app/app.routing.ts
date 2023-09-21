@@ -21,6 +21,9 @@ export const routes: Routes = [
 
       /* agregando ruta de gestion venta */
       { path: 'gestion-venta', loadChildren: () => import('./pages/gestion-venta/gestion-venta.module').then(m => m.GestionVentaModule), data: { breadcrumb: 'Gestion venta' } },
+      
+      /* agregando ruta de gestion finanzas */
+      { path: 'gestion-finanzas', loadChildren: () => import('./pages/gestion-finanzas/gestion-finanzas.module').then(m => m.GestionFinanzasModule), data: { breadcrumb: 'Gestion finanzas' } },
 
       { path: 'tables', loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule), data: { breadcrumb: 'Tables' } },
       { path: 'tools', loadChildren: () => import('./pages/tools/tools.module').then(m => m.ToolsModule), data: { breadcrumb: 'Tools' } },

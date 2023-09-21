@@ -39,6 +39,12 @@ export const verticalMenuItems = [
     new Menu (204, 'Conductor', '/gestion-inventario/conductor', null, 'user-secret', null, false, 200),
     new Menu (205, 'Producto02', '/gestion-inventario/producto02', null, 'user-secret', null, false, 200),
 
+    /* menu para gestion finanzas */
+    new Menu (400, 'ADMIN_NAV.GESTION-FINANZAS', null, null, 'pencil-square-o', null, true, 0), 
+    new Menu (401, 'Ganancia', '/gestion-finanzas/ganancia', null, 'check-square-o', null, false, 400),
+    new Menu (402, 'Kardex', '/gestion-finanzas/kardex', null, 'th-large', null, false, 400),
+    
+
 
     new Menu (26, 'ADMIN_NAV.TABLES', null, null, 'table', null, true, 0),
     new Menu (27, 'Basic Tables', '/tables/basic-tables', null, 'th', null, false, 26), 
