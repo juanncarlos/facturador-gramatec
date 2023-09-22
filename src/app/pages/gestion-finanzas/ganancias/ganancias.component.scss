@@ -20,6 +20,7 @@
 }
 
 
+
 //******** estilos del buscador **************************
 
 
@@ -71,3 +72,39 @@
     border-radius: 6px;
     
   }
+
+
+  //***** estilos de las columnas de la vista de filas ********
+.contenedor-tabla-lista {
+    border-radius: 6px !important;
+    
+    table {
+        width: 100%;
+        table-layout: fixed;
+        
+        td {
+            word-wrap: break-word;
+        }
+        col.col1 {
+            width: 15%;
+        }
+        col.col2 {
+            width: 15%;
+        }
+        col.col3 {
+            width: 15%;
+        }
+        col.col4 {
+            width: 15%;
+        }
+        col.col5 {
+            width: 15%;
+        }
+        col.col6 {
+            width: 15%;
+        }
+        col.col7 {
+            width: 10%;
+        }
+    }
+}

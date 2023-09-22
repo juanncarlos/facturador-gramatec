@@ -1,11 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 
+import { GanaciaService } from './ganacia.service'
+
 @Component({
   selector: 'app-ganancias',
   templateUrl: './ganancias.component.html',
   styleUrls: ['./ganancias.component.scss']
 })
 export class GananciasComponent implements OnInit {
+
+
+  public ganancias: any[];
+
+  // Propiedades de paginación
+  public paginaActual = 1;
+  public elementosPorPagina = 6;
 
   
   // variable del buscador de la lista de productos
@@ -26,9 +35,16 @@ export class GananciasComponent implements OnInit {
   fechaInicio: string = '';
   fechaFin: string = ''; 
 
-  constructor() { }
+  constructor( private gananciaService: GanaciaService) { }
 
   ngOnInit(): void {
+    this.ganancias = this.gananciaService.obtenerGanancias().sort((a, b) => b.id - a.id); //forma descendente
+  }
+
+
+  /* paginacion */
+  cambiarPagina(evento: number): void {
+    this.paginaActual = evento;
   }
 
 

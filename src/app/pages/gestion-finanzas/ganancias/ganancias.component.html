@@ -70,3 +70,70 @@
         </div>
     </div>
 </div>
+
+
+<!-- listado de ganancias -->
+
+<div *ngIf="type=='list'" class="row">
+    <div class="col-12">
+        <div class="table-responsive bg-white box-shadow contenedor-tabla-lista">
+            <table class="table table-hover">
+                <colgroup>
+                    <col class="col1">
+                    <col class="col2">
+                    <col class="col3">
+                    <col class="col4">
+                    <col class="col5">
+                    <col class="col6">
+                    <col class="col7">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle">FECHA</th>
+                        <th class="text-center align-middle">CANTIDAD</th>
+                        <th class="text-center align-middle">DETALLE</th>
+                        <th class="text-center align-middle">P.C</th>
+                        <th class="text-center align-middle">P.V</th>
+                        <th class="text-center align-middle">GANANCIA</th>
+                        <th class="text-center align-middle">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr *ngFor="let ganancia of ganancias | cotizacion03Buscar: textoBusqueda:fechaInicio:fechaFin | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" (dblclick)="abrirEditarModal(modalEditar, i, 'lg')"> -->
+                    <tr *ngFor="let ganancia of ganancias | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" >
+
+                        <td class="align-middle text-truncate text-center"> {{ganancia.fecha}}</td>
+                        <td class="align-middle text-truncate text-center">{{ganancia.cantidad}}</td>
+                        <td class="align-middle text-truncate text-center">{{ganancia.producto }}</td>
+                        <td class="align-middle text-truncate text-center">{{ganancia.precioCompra}}</td>
+                        <td class="align-middle text-truncate text-center">{{ganancia.precioVenta}}</td>
+                        <td class=" align-middle text-truncate text-center">{{ganancia.ganancia}}</td>
+                        <div class="btn-group text-center contenedor-general-btn-opciones" role="group">
+                            
+                            <div class="input-group-prepend contenedor-btn-opciones">
+                                <button class="btn btn-outline-success btn-opciones dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"></button>
+                                <!-- <div class="dropdown-menu contenedor-opciones">
+                                    <a class="dropdown-item" (click)="imprimirA4(dato)">Imprimir A4</a>
+                                    <a class="dropdown-item" (click)="imprimirTicket(dato)">Ticket</a>
+                                    <a class="dropdown-item" (click)="abrirEditarModal(modalEditar, i, 'lg')">Editar</a>
+                                    <a class="dropdown-item" (click)="eliminarDato(i)">Eliminar</a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3 contenedor-general-paginacion">
+    <div class="col-12 contenedor-paginacion">
+        <div class="bg-white text-center paginacion">
+            <pagination-controls (pageChange)="cambiarPagina($event)" [maxSize]="5" [directionLinks]="true" [autoHide]="true">
+            </pagination-controls>
+        </div>
+    </div>
+</div>
+
