@@ -24,7 +24,7 @@
             <!-- <div class="input-group-prepend contenedor-ico-buscar">
                 <span class="input-group-text border-top-0 border-left-0 border-bottom-0 box-shadow"><i class="fa fa-search"></i></span>
             </div> -->
-            <input type="text" [(ngModel)]="textoBusqueda" name="textoBusqueda" placeholder="Buscar por nombre de cliente..." class="form-control border-0  buscador">
+            <input type="text" [(ngModel)]="textoBusqueda" name="textoBusqueda" placeholder="Buscar por nombre de producto..." class="form-control border-0  buscador">
             <div class="input-group-append contenedor-botones-superior">
                 <!-- <span class="agregar input-group-text border-top-0 border-right-0 border-bottom-0" style="cursor:pointer" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-user-plus"></i></span> -->
                 
@@ -34,25 +34,25 @@
                         Agregar Producto
                     </div>
                 </div> -->
-                <div class="input-group-prepend">
+                <!-- <div class="input-group-prepend">
                     <span (mouseenter)="MensajeAgregar = true" (mouseleave)="MensajeAgregar = false"  class="agregar input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-plus text-primary"></i></span>
                     <div class="mensaje" *ngIf="MensajeAgregar">
                         Agregar Producto
                     </div>
-                </div>
+                </div> -->
                 <div class="input-group-prepend">
-                    <span (mouseenter)="MensajeExportarExcel = true" (mouseleave)="MensajeExportarExcel = false"  class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-excel-o text-success"></i></span>
+                    <span (mouseenter)="MensajeExportarExcel = true" (mouseleave)="MensajeExportarExcel = false" (click)="exportToExcels()" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-excel-o text-success"></i></span>
                     <div class="mensaje" *ngIf="MensajeExportarExcel">
                         Exportar Excel
                     </div>
                 </div>
                 <div class="input-group-prepend">
-                    <span (mouseenter)="MensajeExportarPdf = true" (mouseleave)="MensajeExportarPdf = false"  class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-danger"></i></span>               
+                    <span (mouseenter)="MensajeExportarPdf = true" (mouseleave)="MensajeExportarPdf = false" (click)="exportarPDF()" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-file-pdf-o text-danger"></i></span>               
                     <div class="mensaje" *ngIf="MensajeExportarPdf">
                         Exportar PDF
                     </div>
                 </div>
-                <div class="input-group-prepend">
+                <!-- <div class="input-group-prepend">
                     <span (mouseenter)="MensajeVistaCuadros = true" (mouseleave)="MensajeVistaCuadros = false" (click)="toggle('grid')" class="input-group-text border-top-0 border-right-0 border-bottom-0 box-shadow" style="cursor:pointer"><i class="fa fa-th text-info"></i></span>                   
                     <div class="mensaje" *ngIf="MensajeVistaCuadros">
                         Vista en cuadros
@@ -64,12 +64,13 @@
                     <div class="mensaje" *ngIf="MensajeVistaListas">
                       Vista en filas
                     </div>
-                </div>
+                </div> -->
                 
             </div>
         </div>
     </div>
 </div>
+
 
 
 <!-- listado de ganancias -->
@@ -85,41 +86,40 @@
                     <col class="col4">
                     <col class="col5">
                     <col class="col6">
-                    <col class="col7">
+                    <!-- <col class="col7"> -->
                 </colgroup>
                 <thead>
                     <tr>
                         <th class="text-center align-middle">FECHA</th>
                         <th class="text-center align-middle">CANTIDAD</th>
-                        <th class="text-center align-middle">DETALLE</th>
+                        <th class="text-center align-middle">PRODUCTO</th>
                         <th class="text-center align-middle">P.C</th>
                         <th class="text-center align-middle">P.V</th>
                         <th class="text-center align-middle">GANANCIA</th>
-                        <th class="text-center align-middle">Acciones</th>
+                        <!-- <th class="text-center align-middle">Acciones</th> -->
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr *ngFor="let ganancia of ganancias | cotizacion03Buscar: textoBusqueda:fechaInicio:fechaFin | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" (dblclick)="abrirEditarModal(modalEditar, i, 'lg')"> -->
-                    <tr *ngFor="let ganancia of ganancias | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" >
-
+                    <tr *ngFor="let ganancia of ganancias | gananciaBuscar: textoBusqueda:fechaInicio:fechaFin | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" >
+                   
                         <td class="align-middle text-truncate text-center"> {{ganancia.fecha}}</td>
                         <td class="align-middle text-truncate text-center">{{ganancia.cantidad}}</td>
                         <td class="align-middle text-truncate text-center">{{ganancia.producto }}</td>
                         <td class="align-middle text-truncate text-center">{{ganancia.precioCompra}}</td>
                         <td class="align-middle text-truncate text-center">{{ganancia.precioVenta}}</td>
                         <td class=" align-middle text-truncate text-center">{{ganancia.ganancia}}</td>
-                        <div class="btn-group text-center contenedor-general-btn-opciones" role="group">
+                        <!-- <div class="btn-group text-center contenedor-general-btn-opciones" role="group">
                             
                             <div class="input-group-prepend contenedor-btn-opciones">
                                 <button class="btn btn-outline-success btn-opciones dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false"></button>
-                                <!-- <div class="dropdown-menu contenedor-opciones">
+                                <div class="dropdown-menu contenedor-opciones">
                                     <a class="dropdown-item" (click)="imprimirA4(dato)">Imprimir A4</a>
                                     <a class="dropdown-item" (click)="imprimirTicket(dato)">Ticket</a>
                                     <a class="dropdown-item" (click)="abrirEditarModal(modalEditar, i, 'lg')">Editar</a>
                                     <a class="dropdown-item" (click)="eliminarDato(i)">Eliminar</a>
-                                </div> -->
+                                </div>
                             </div>
-                        </div>
+                        </div> -->
                     </tr>
 
                 </tbody>

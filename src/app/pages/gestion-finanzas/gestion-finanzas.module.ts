@@ -17,6 +17,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 /* componentes creados */
 import { GananciasComponent } from './ganancias/ganancias.component';
 import { KardexComponent } from './kardex/kardex.component';
+import { KardexValoradoComponent } from './kardex-valorado/kardex-valorado.component';
+
+/* pipes de busqueda */
+import { GananciaBuscarPipe } from 'src/app/theme/pipes/search/ganancia-buscar.pipe';
+import { KardexBuscarPipe } from 'src/app/theme/pipes/search/kardex-buscar.pipe';
+import { KardexValoradoBuscarPipe } from 'src/app/theme/pipes/search/kardexValorado-buscar.pipe';
 
 
 
@@ -25,7 +31,8 @@ import { KardexComponent } from './kardex/kardex.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'ganancia', pathMatch: 'full'},
   { path: 'ganancia', component: GananciasComponent, data: { breadcrumb: 'Ganancia' } },
-  { path: 'kardex', component: KardexComponent, data: { breadcrumb: 'Kardex'}}
+  { path: 'kardex', component: KardexComponent, data: { breadcrumb: 'Kardex'}},
+  { path: 'kardex-valorado', component: KardexValoradoComponent, data: { breadcrumb: 'Kardex Valorado'}}
   
 ];
 
@@ -54,7 +61,11 @@ export const routes: Routes = [
   
   
     GananciasComponent,
-    KardexComponent
+    KardexComponent,
+    GananciaBuscarPipe,
+    KardexBuscarPipe,
+    KardexValoradoBuscarPipe,
+    KardexValoradoComponent
   ]
 })
 export class GestionFinanzasModule { }

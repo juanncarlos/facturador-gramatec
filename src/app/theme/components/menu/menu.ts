@@ -43,6 +43,7 @@ export const verticalMenuItems = [
     new Menu (400, 'ADMIN_NAV.GESTION-FINANZAS', null, null, 'pencil-square-o', null, true, 0), 
     new Menu (401, 'Ganancia', '/gestion-finanzas/ganancia', null, 'check-square-o', null, false, 400),
     new Menu (402, 'Kardex', '/gestion-finanzas/kardex', null, 'th-large', null, false, 400),
+    new Menu (403, 'Kardex Valorado', '/gestion-finanzas/kardex-valorado', null, 'th-large', null, false, 400),
     
 
 

@@ -1,4 +1,4 @@
-<div class="row contenedor-filtar-por-fecha">
+<!-- <div class="row contenedor-filtar-por-fecha">
     <div class="col col-md-2">
         <div class="form-group">
             <label class="text">Fecha Inicio:</label>
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="row mb-1">
     <div class="col">
@@ -89,26 +89,26 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th class="text-center align-middle">FECHA</th>
-                        <th class="text-center align-middle">HORA</th>
-                        <th class="text-center align-middle">DETALLE</th>
-                        <th class="text-center align-middle">INGRESO</th>
-                        <th class="text-center align-middle">SALIDA</th>
-                        <th class="text-center align-middle">SALDO</th>
-                        <th class="text-center align-middle">NOTA</th>
+                        <th class="text-center align-middle">STOCK</th>
+                        <th class="text-center align-middle">PRODUCTO</th>
+                        <th class="text-center align-middle">P.C</th>
+                        <th class="text-center align-middle">TOTAL P.C</th>
+                        <th class="text-center align-middle">P.V</th>
+                        <th class="text-center align-middle">TOTAL P.V</th>
+                        <th class="text-center align-middle">CATEGORIA</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let kar of kardex | kardexBuscar: textoBusqueda:fechaInicio:fechaFin  | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" > 
+                    <tr *ngFor="let kar of kardexValorado | kardexValoradoBuscar: textoBusqueda  | paginate: { itemsPerPage: elementosPorPagina, currentPage: paginaActual } ; let i= index" > 
                    
 
-                        <td class="align-middle text-truncate text-center"> {{kar.fecha}}</td>
-                        <td class="align-middle text-truncate text-center">{{kar.hora}}</td>
-                        <td class="align-middle text-truncate text-center">{{kar.producto }}</td>
-                        <td class="align-middle text-truncate text-center">{{kar.ingreso}}</td>
-                        <td class="align-middle text-truncate text-center">{{kar.salida}}</td>
-                        <td class=" align-middle text-truncate text-center">{{kar.saldo}}</td>
-                        <td class=" align-middle text-truncate text-center">{{kar.nota}}</td>
+                        <td class="align-middle text-truncate text-center"> {{kar.stock}}</td>
+                        <td class="align-middle text-truncate text-center">{{kar.producto}}</td>
+                        <td class="align-middle text-truncate text-center">{{kar.precioCompra }}</td>
+                        <td class="align-middle text-truncate text-center">{{kar.totalPC}}</td>
+                        <td class="align-middle text-truncate text-center">{{kar.precioVenta}}</td>
+                        <td class=" align-middle text-truncate text-center">{{kar.totalPV}}</td>
+                        <td class=" align-middle text-truncate text-center">{{kar.categoria}}</td>
                        <!--  <div class="btn-group text-center contenedor-general-btn-opciones" role="group">
                             
                             <div class="input-group-prepend contenedor-btn-opciones">

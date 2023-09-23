@@ -7,17 +7,18 @@ import { UserSearchPipe } from './search/user-search.pipe';
 import { TruncatePipe } from './truncate/truncate.pipe';
 import { MailSearchPipe } from './search/mail-search.pipe';
 
+
 @NgModule({
     imports: [ 
         CommonModule 
     ],
-    declarations: [
+    declarations: [	
         ProfilePicturePipe,
         ChatPersonSearchPipe,
         UserSearchPipe,
         TruncatePipe,
         MailSearchPipe
-    ],
+   ],
     exports: [
         ProfilePicturePipe,
         ChatPersonSearchPipe,
