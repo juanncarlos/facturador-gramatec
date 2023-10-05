@@ -24,6 +24,10 @@ export const routes: Routes = [
       
       /* agregando ruta de gestion finanzas */
       { path: 'gestion-finanzas', loadChildren: () => import('./pages/gestion-finanzas/gestion-finanzas.module').then(m => m.GestionFinanzasModule), data: { breadcrumb: 'Gestion finanzas' } },
+      
+      /* agregando ruta para panel estadistico */ 
+      { path: 'panel-estadistico', loadChildren: () => import('./pages/panel-estadistico/panel-estadistico.module').then(m => m.PanelEstadisticoModule), data: { breadcrumb: 'Panel Estadistico' } },
+
 
       { path: 'tables', loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule), data: { breadcrumb: 'Tables' } },
       { path: 'tools', loadChildren: () => import('./pages/tools/tools.module').then(m => m.ToolsModule), data: { breadcrumb: 'Tools' } },

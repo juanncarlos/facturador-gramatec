@@ -46,6 +46,9 @@ export const verticalMenuItems = [
     new Menu (403, 'Kardex Valorado', '/gestion-finanzas/kardex-valorado', null, 'th-large', null, false, 400),
     
 
+    /* menu para panel estadistico */
+    new Menu (500, 'ADMIN_NAV.PANEL-ESTADISTICO', '/panel-estadistico', null, 'bar-chart', null, false, 0),
+
 
     new Menu (26, 'ADMIN_NAV.TABLES', null, null, 'table', null, true, 0),
     new Menu (27, 'Basic Tables', '/tables/basic-tables', null, 'th', null, false, 26), 

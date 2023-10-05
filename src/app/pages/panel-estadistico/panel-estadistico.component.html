@@ -1,0 +1,23 @@
+<h1>Gráfico de Ventas Mensuales</h1>
+
+<!-- Selector de año -->
+<label for="yearSelect">Selecciona un año: </label>
+<select [(ngModel)]="selectedYear" id="yearSelect">
+  <option *ngFor="let data of salesData" [value]="data.name">{{ data.name }}</option>
+</select>
+
+<!-- Gráfico de barras -->
+<ngx-charts-bar-vertical
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="selectedData"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>

@@ -96,7 +96,7 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
     FavoritesComponent,
     BlankComponent,
     SearchComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   providers: [ 
     AppSettings,
